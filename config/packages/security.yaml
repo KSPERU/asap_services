@@ -22,7 +22,7 @@ security:
                 # where to redirect after logout
                 # target: app_any_route
 
-            user_checker: App\Security\UserChecker
+            # user_checker: App\Security\UserChecker
             remember_me:
                 secret: '%kernel.secret%'
                 lifetime: 604800
@@ -40,8 +40,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/cliente, roles: ROLE_CLI }
-        - { path: ^/proveedor, roles: ROLE_PROV }
+        # - { path: ^/cliente, roles: ROLE_CLI }
+        # - { path: ^/proveedor, roles: ROLE_PROV }
         # - { path: ^/profile, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_ADMIN }
 
