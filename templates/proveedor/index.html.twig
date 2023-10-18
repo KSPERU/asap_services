@@ -14,10 +14,10 @@
     
     body {
       /*min-height: 90vh;*/
-      background-image: url('./image/Imagen1.png'); 
-      background-size: cover; 
-      background-repeat: no-repeat; 
-      background-attachment: fixed; 
+      background-image: url('./image/Imagen1.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
       overflow: hidden;
     }
     .contboton-cerrar {
@@ -63,7 +63,14 @@
       display: flex;
       justify-content: center;
     }
+    
+    @media (min-width: 500px) {
+      body {
+        display: none;
+      }
+    }
   </style>
+  <p class="sin-vista" style="display: none;">Esta pagina no tiene estas vista</p>
   <div class="container p-3">
     <div class="container">
       <div class="row justify-content-center">
