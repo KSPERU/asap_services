@@ -1,0 +1,7 @@
+.contboton-cerrar-proveedor{
+    display: flex;
+    justify-content: end;
+}
+.boton-cerrar-proveedor{
+    font-size: 25px;
+}
