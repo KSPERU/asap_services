@@ -43,6 +43,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('idPersona',PersonaType::class)
         ;
     }
 
