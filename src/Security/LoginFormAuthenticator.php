@@ -3,6 +3,7 @@
 namespace App\Security;
 
 use App\Entity\Usuario;
+use App\Repository\PersonaRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,10 +50,12 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         $aux_user = $this->security->getUser();
         $aux_roles = $aux_user->getRoles();
         
+        
         if(in_array("ROLE_CLI", $aux_roles)){
             return new RedirectResponse($this->urlGenerator->generate('app_cliente'));
         }
         elseif(in_array("ROLE_PROV", $aux_roles)){
+            
             return new RedirectResponse($this->urlGenerator->generate('app_proveedor'));       
         }
         else{

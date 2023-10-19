@@ -13,8 +13,12 @@ class PersonaType extends AbstractType
     {
         $builder
             ->add('p_contacto')
-            // ->add('idUsuario')
-        ;
+            ->add('p_nombre')
+            ->add('p_apellido')
+            ->add('p_contacto')
+            ->add('p_direccion');
+            
+        
     }
 
     public function configureOptions(OptionsResolver $resolver): void

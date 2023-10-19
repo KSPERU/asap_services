@@ -28,12 +28,6 @@ class Persona
     #[ORM\Column(length: 255)]
     private ?string $p_direccion = null;
 
-    #[ORM\Column(length: 64)]
-    private ?string $p_correo = null;
-
-    #[ORM\Column(length: 64, nullable: true)]
-    private ?string $p_servicio = null;
-
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $p_foto = null;
 
@@ -51,6 +45,18 @@ class Persona
 
     #[ORM\OneToOne(inversedBy: 'idPersona', cascade: ['persist', 'remove'])]
     private ?Usuario $usuario = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $p_biografia = null;
+
+    #[ORM\Column(length: 30, nullable: true)]
+    private ?string $p_experiencia = null;
+
+    #[ORM\Column(length: 64, nullable: true)]
+    private ?string $p_distrito = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $p_habilidades = null;
 
     public function __construct()
     {
@@ -153,30 +159,6 @@ class Persona
         return $this;
     }
 
-    public function getPCorreo(): ?string
-    {
-        return $this->p_correo;
-    }
-
-    public function setPCorreo(string $p_correo): static
-    {
-        $this->p_correo = $p_correo;
-
-        return $this;
-    }
-
-    public function getPServicio(): ?string
-    {
-        return $this->p_servicio;
-    }
-
-    public function setPServicio(?string $p_servicio): static
-    {
-        $this->p_servicio = $p_servicio;
-
-        return $this;
-    }
-
     public function getPFoto(): ?string
     {
         return $this->p_foto;
@@ -221,6 +203,54 @@ class Persona
     public function setPCert(?string $p_cert): static
     {
         $this->p_cert = $p_cert;
+
+        return $this;
+    }
+
+    public function getPBiografia(): ?string
+    {
+        return $this->p_biografia;
+    }
+
+    public function setPBiografia(?string $p_biografia): static
+    {
+        $this->p_biografia = $p_biografia;
+
+        return $this;
+    }
+
+    public function getPExperiencia(): ?string
+    {
+        return $this->p_experiencia;
+    }
+
+    public function setPExperiencia(?string $p_experiencia): static
+    {
+        $this->p_experiencia = $p_experiencia;
+
+        return $this;
+    }
+
+    public function getPDistrito(): ?string
+    {
+        return $this->p_distrito;
+    }
+
+    public function setPDistrito(?string $p_distrito): static
+    {
+        $this->p_distrito = $p_distrito;
+
+        return $this;
+    }
+
+    public function getPHabilidades(): ?string
+    {
+        return $this->p_habilidades;
+    }
+
+    public function setPHabilidades(?string $p_habilidades): static
+    {
+        $this->p_habilidades = $p_habilidades;
 
         return $this;
     }
