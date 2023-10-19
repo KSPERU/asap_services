@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+
+body {
+  /*min-height: 90vh;*/
+  background-image: url('/image/Imagen1.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow: hidden;
+}
+
+.contboton-cerrar {
+  display: flex;
+  justify-content: end;
+}
+
+.boton-cerrar {
+  font-size: 25px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  color: rgba(0, 0, 0, 0.66);
+  font-family: Odor Mean Chey;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.contenido-biografia-proveedor {
+  min-height: 65vh;
+  max-height: 65vh;
+  background-color: antiquewhite;
+  background-color: #fff !important;
+}
+
+.titulo-biografia-proveedor {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  font-family: Nunito;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.texto-biografia-proveedor {
+  border-radius: 20px;
+  margin-bottom: 90px;
+}
+
+.boton-biografia-proveedor {
+  border-radius: 40px;
+  filter: drop-shadow(0px 4px 25px rgba(0, 0, 0, 0.25));
+  text-align: center;
+  font-family: Nunito;
+  font-size: 20px;
+  font-weight: 700;
+  background: #4302ae;
+  border: none;
+}
+
+.contenido-boton-proveedor {
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 500px) {
+  body {
+    display: none;
+  }
+}

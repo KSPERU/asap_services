@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+
+body {
+    /*min-height: 90vh;*/
+    background-image: url('/image/Imagen1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+.contenido-biografia-proveedor {
+    min-height: 65vh;
+    max-height: 65vh;
+    background-color: #fff !important;
+}
+
+.opcion-registrar-usuario {
+/*     margin-top: 30px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Nunito;
+    font-size: 18px;
+    font-weight: 700;
+    color: #FFF;
+}
+
+.titulo-registrar-usuario {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: center;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Nunito;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+/*******************/
+.input-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.input-field {
+    font-size: 1rem;
+    padding: 0rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #007BFF;
+}
+
+.input-label {
+    position: absolute;
+    pointer-events: none;
+    left: 1rem;
+    top: 0rem;
+    transition: 0.2s ease all;
+}
+
+.input-field:focus+.input-label,
+.input-field:not(:placeholder-shown)+.input-label {
+    top: -1rem;
+    left: 10px;
+    font-size: 0.8rem;
+    color: #007BFF;
+}
+
+/******************/
+.conten-inicio-registro {
+    border-radius: 40px;
+    background: #7A5AAC;
+    
+}
+.boton-opcionn-registrar-usuario{
+    border-radius: 40px;
+    background: #4302AE;
+    padding: 16px;
+}
+
+
+.boton-biografia-proveedor {
+    border-radius: 40px;
+    filter: drop-shadow(0px 4px 25px rgba(0, 0, 0, 0.25));
+    text-align: center;
+    font-family: Nunito;
+    font-size: 20px;
+    font-weight: 700;
+    background: #4302ae;
+    border: none;
+}
+
+.contenido-boton-proveedor {
+    display: flex;
+    justify-content: center;
+}
+
+@media (min-width: 500px) {
+    body {
+        display: none;
+    }
+}

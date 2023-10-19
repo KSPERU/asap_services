@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  Proveedor - Biografia
+{% endblock %}
+
+{% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  <link rel="stylesheet" href="{{ asset('css/proveedor/registro_biografia.css') }}" />
+{% endblock %}
+
+{% block body %}
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap');
+    
+    body {
+      /*min-height: 90vh;*/
+      background-image: url('./image/Imagen1.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      overflow: hidden;
+    }
+    .contboton-cerrar {
+      display: flex;
+      justify-content: end;
+    }
+    .boton-cerrar {
+      font-size: 25px;
+    }
+    .footer {
+      position: fixed;
+      bottom: 0;
+      color: rgba(0, 0, 0, 0.66);
+      font-family: Odor Mean Chey;
+      font-size: 15px;
+      font-weight: 400;
+      line-height: normal;
+    }
+    .contenido-biografia-proveedor {
+      min-height: 65vh;
+      max-height: 65vh;
+      background-color: antiquewhite;
+      background-color: #fff !important;
+    }
+    .titulo-biografia-proveedor {
+      margin-top: 50px;
+      margin-bottom: 50px;
+      display: flex;
+      justify-content: center;
+      font-family: Nunito;
+      font-size: 16px;
+      font-weight: 800;
+    }
+    .texto-biografia-proveedor {
+      border-radius: 20px;
+      margin-bottom: 90px;
+    }
+    .boton-biografia-proveedor {
+      border-radius: 40px;
+      filter: drop-shadow(0px 4px 25px rgba(0, 0, 0, 0.25));
+      text-align: center;
+      font-family: Nunito;
+      font-size: 20px;
+      font-weight: 700;
+      background: #4302ae;
+      border: none;
+    }
+    .contenido-boton-proveedor {
+      display: flex;
+      justify-content: center;
+    }
+    
+    @media (min-width: 500px) {
+      body {
+        display: none;
+      }
+    }
+  </style>
+  <div class="container p-3">
+    <div class="container">
+      {{ include('components/cabecera.html.twig') }}
+
+      <div class="container bg-light rounded-5 contenido-biografia-proveedor">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 titulo-biografia-proveedor">¡Bienvenida Cecilia!</div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <textarea class="texto-biografia-proveedor" name="biografia" id="" cols="30" rows="5" style="width: 100%; font-size:14px; font-family:Nunito; font-weight:700; padding-top: 8px; padding-left: 8px;" placeholder="Agregar biografía:"></textarea>
+            </div>
+          </div>
+          <div class="row contenido-boton-proveedor">
+            <div class="col-10">
+              <button type="button" class="btn btn-primary col-12 boton-biografia-proveedor">Detalles de Servicio</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{ include('components/footer.html.twig') }}
+{% endblock %}
