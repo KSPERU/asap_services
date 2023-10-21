@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Persona;
+use App\Form\ProveedorType;
 use App\Repository\PersonaRepository;
-use App\Repository\ServicioRepository;
 use App\Repository\UsuarioRepository;
+use App\Repository\ServicioRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProveedorController extends AbstractController
 {
@@ -27,6 +29,21 @@ class ProveedorController extends AbstractController
         } 
         return $this->render('proveedor/index.html.twig', [
             'controller_name' => 'ProveedorController',
+        ]);
+    }
+
+    #[Route('/proveedor/{id}/edit', name: 'app_proveedor_edit')]
+    public function edit(Request $request, Persona $persona, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(ProveedorType::class, $persona);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $entityManager->flush(); 
+        }
+        return $this->render('proveedor\edit.html.twig', [
+            'form' => $form,
+            'persona'=>$persona,
+            
         ]);
     }
 

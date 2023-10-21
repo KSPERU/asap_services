@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Proveedor - Edicion
+{% endblock %}
+
+{% block body %}
+    {{ component('proveedor_form',{
+	    form: form,
+	    persona:persona
+	}) }}
+{% endblock %}

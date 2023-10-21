@@ -6,18 +6,20 @@ use App\Entity\Persona;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class PersonaType extends AbstractType
+class ClienteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('p_contacto')
             ->add('p_nombre')
             ->add('p_apellido')
             ->add('p_contacto')
+            ->add('p_foto')
             ->add('p_direccion')
-            ;    
+            ->add('Agregar', SubmitType::class)
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
