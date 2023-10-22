@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+
+body {
+    /*min-height: 90vh;*/
+    background-image: url('/image/Imagen1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
+
+.cliente-servicios-container{
+    height: auto;
+    border-radius: 40px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 16px;
+}
+
+.cliente-servicios-title{
+    color: #2B0567;
+    text-align: center;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.10);
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.cliente-servicios-item{
+    display: flex;
+    align-items: center;
+    width: 90%;
+    padding: 0;
+    border-radius: 40px;
+    background: #FFF;
+    box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.10);
+}
+
+.cliente-servicios-item h4{
+    margin: 0 0 0 30px;
+}    
+
+
+.cliente-servicios-item-text{
+    color: #4302AE;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}

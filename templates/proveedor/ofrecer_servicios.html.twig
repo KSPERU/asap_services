@@ -1,4 +1,83 @@
 
+{% extends 'base.html.twig' %}
+{% block title %}
+  Proveedor - Servicios
+{% endblock %}
+
+{% block body %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+  .container p-3{
+    /*min-height: 90vh;*/
+    background-image: url('./image/Imagen1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+  }
+  .contboton-cerrar {
+    display: flex;
+    justify-content: end;
+  }
+  .boton-cerrar {
+    font-size: 25px;
+  }
+  .contenido-ofreceservicios-proveedor {
+    min-height: 65vh;
+    background-color: antiquewhite;
+    background-color: #fff !important;
+  }
+  .contenido-boton-ofreceservicios {
+    display: flex;
+    justify-content: center;
+  }
+  
+  /****/
+  .titulo-ofreceservicios-proveedor {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: 800;
+  }
+  .subtitulo-ofreceservicios-proveedor {
+    margin-top: 14px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: start;
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: 800;
+  }
+  .opciones-ofreceservicios-proveedor {
+    display: grid;
+    row-gap: 10px;
+    margin-bottom: 20px;
+  }
+  .checkbox-ofreceservicios-proveedor {
+    margin-right: 10px;
+  }
+  .boton-ofreceservicios-proveedor {
+    border-radius: 40px;
+    filter: drop-shadow(0px 4px 25px rgba(0, 0, 0, 0.25));
+    text-align: center;
+    font-family: Nunito;
+    font-size: 20px;
+    font-weight: 700;
+    background: #4302ae;
+    border: none;
+  }
+  .checkbox-label {
+    display: block;
+  }
+  
+  @media (min-width: 500px) {
+    .container p-3 {
+      display: none;
+    }
+  }
+</style>
 <p class="sin-vista" style="display: none;">Esta pagina no tiene estas vista</p>
 <div class="container p-3">
   <div class="container">
@@ -11,23 +90,26 @@
         <div class="row">
           <div class="col-12 subtitulo-ofreceservicios-proveedor">Que servicio ofreceras hoy?</div>
         </div>
+      <form method="post" action="{{ path('app_prov_serv', {'id': persona.id}) }}">
         <div class="row">
           <div class="col-12 opciones-ofreceservicios-proveedor">
-            <label class="checkbox-label"><input type="checkbox" id="cbox1" value="checkbox1" class="checkbox-ofreceservicios-proveedor" onclick="toggleCheckbox(1)" />Electricista</label>
-            <label class="checkbox-label"><input type="checkbox" id="cbox2" value="checkbox2" class="checkbox-ofreceservicios-proveedor" onclick="toggleCheckbox(2)" />Carpintería</label>
-            <label class="checkbox-label"><input type="checkbox" id="cbox3" value="checkbox3" class="checkbox-ofreceservicios-proveedor" onclick="toggleCheckbox(3)" />Limpieza</label>
-            <label class="checkbox-label"><input type="checkbox" id="cbox4" value="checkbox4" class="checkbox-ofreceservicios-proveedor" onclick="toggleCheckbox(4)" />Gasfiteria</label>
-            <label class="checkbox-label"><input type="checkbox" id="cbox5" value="checkbox5" class="checkbox-ofreceservicios-proveedor" onclick="toggleCheckbox(5)" />Reparacion</label>
-            <label class="checkbox-label"><input type="checkbox" id="cbox6" value="checkbox6" class="checkbox-ofreceservicios-proveedor" onclick="toggleCheckbox(6)" />Jardineria</label>
-            <label class="checkbox-label"><input type="checkbox" id="cbox7" value="checkbox7" class="checkbox-ofreceservicios-proveedor" onclick="toggleCheckbox(7)" />Cuidado personal</label>
-            <label class="checkbox-label"><input type="checkbox" id="cbox8" value="checkbox8" class="checkbox-ofreceservicios-proveedor" onclick="toggleCheckbox(8)" />Pintura</label>
+             
+               {% for servicio in servicios %}
+                  <label class="checkbox-label">
+                    <input type="checkbox" id="cbox{{ servicio.id }}" name="servicios[]" value="{{ servicio.id }}" class="checkbox-ofreceservicios-proveedor" onclick="toggleCheckbox({{ servicio.id }})" />
+                    {{ servicio.svnombre }}
+                  </label>
+              {% endfor %}
           </div>
         </div>
         <div class="row contenido-boton-ofreceservicios">
           <div class="col-10">
-            <button type="button" class="btn col-12 boton-ofreceservicios-proveedor">Comencemos</button>
+
+            <button type="submit" class="btn btn-primary col-12 boton-ofreceservicios-proveedor">Comencemos</button>
+
           </div>
         </div>
+      </form>
       </div>
     </div>
   </div>
@@ -44,3 +126,4 @@
     }
   }
 </script>
+{% endblock %}

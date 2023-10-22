@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  {{servicio.svnombre}} proveedores
+{% endblock %}
+
+{% block body %}
+<div class="contenedor general">
+    <h2>{{servicio.svnombre}}</h2>
+     <form method="post" action="{{ path('app_cliente_serv')}}"> 
+        <button type="submit">X</button>
+     </form>
+      {% for proveedor in proveedores %}
+          <div>
+            <img src="{{ asset('image/' ~ proveedor.idpersona.pfoto) }}" width="100px" height="100px">
+            <h2>{{proveedor.idpersona.pnombre}} {{proveedor.idpersona.papellido}}</h2>
+            <p>Valoracion</p> {# desarrollar funcionalidad#}
+            <p>Ubicacion: Cerca de ti</p> {# desarrollar funcionalidad#}
+            <p>Distrito: {{proveedor.idpersona.pdistrito}}</p>
+            <form method="post" action="{{ path('app_cliente_provdetalle', {'id': proveedor.idpersona.id})}}"> 
+                <button type="submit">Detalles</button>
+            </form>
+          </div>
+       {% endfor %}
+</div>
+      
+{% endblock %}

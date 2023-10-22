@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\PersonaServicio;
 use App\Entity\Persona;
 use App\Form\ProveedorType;
 use App\Repository\PersonaRepository;
@@ -25,7 +26,7 @@ class ProveedorController extends AbstractController
         $persona = $proveedor->getIdPersona();
         $id = $persona->getId();
         if($persona->getPBiografia()===null){
-            return $this->redirectToRoute('app_prov_bio', ['id' => $id]); // Reemplaza $id con el valor correcto
+            return $this->redirectToRoute('app_prov_bio', ['id' => $id]); 
         } 
         return $this->render('proveedor/index.html.twig', [
             'controller_name' => 'ProveedorController',
@@ -75,24 +76,33 @@ class ProveedorController extends AbstractController
     public function servicios($id, Request $request, PersonaRepository $personas, ServicioRepository $servicios, EntityManagerInterface $entityManager): Response
     {
         $persona = $personas->find($id);
+        
+        if ($request->isMethod('POST')) {
+            $serviciosselect = $request->get('servicios',[]);
 
-        // if ($request->isMethod('POST')) {
-        //     $biografia = $request->get('p_biografia');
+            if ($persona) {
+                foreach($serviciosselect as $servicioid){
+                    $servicio = $servicios->find($servicioid);
 
-        //     if ($persona) {
-        //         $persona->setPBiografia($biografia);
-        //         $entityManager->persist($persona);
-        //         $entityManager->flush();
-        //     }
+                    if($servicio){
+                        $personaservicio = new PersonaServicio;
+                        $personaservicio->setIdPersona($persona);
+                        $personaservicio->setIdServicio($servicio);
+                        $entityManager->persist($personaservicio);
+                    }
+                }
+                $entityManager->flush();
+                
+            }
 
-        //     // Puedes redirigir a donde lo desees después de guardar
-        //     return $this->redirectToRoute('app_prov_bio', ['id' => $id]);
-        // }
+            return $this->redirectToRoute('app_proveedor');
+        }
 
         return $this->render('proveedor/ofrecer_servicios.html.twig', [
             'controller_name' => 'ProveedorController',
             'persona' => $persona,
-            'servicios' => $servicios
+            'servicios' => $servicios->findAll(),
+            
         ]);
     }
 }
