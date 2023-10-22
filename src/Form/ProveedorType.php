@@ -51,7 +51,6 @@ class ProveedorType extends AbstractType
             ->add('p_habilidades', TextareaType::class, [
                 'label' => 'Habilidades',
             ])
-            ->add('Agregar', SubmitType::class)
         ;
     }
 

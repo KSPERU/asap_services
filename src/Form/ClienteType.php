@@ -18,7 +18,6 @@ class ClienteType extends AbstractType
             ->add('p_contacto')
             ->add('p_foto')
             ->add('p_direccion')
-            ->add('Agregar', SubmitType::class)
         ;
     }
 
