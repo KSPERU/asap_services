@@ -6,6 +6,7 @@ use App\Repository\PersonaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Persona;
 use App\Form\ClienteType;
+use App\Repository\ServicioRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,11 +23,29 @@ class ClienteController extends AbstractController
         ]);
     }
 
-    #[Route('/cliente/ver_prov/{id}', name: 'app_prov_detalle')]
-    public function verprovdet($id, Request $request, PersonaRepository $personas): Response
+    #[Route('/cliente/verservicios', name: 'app_cliente_serv')]
+    public function verservicios(ServicioRepository $servicios): Response
+    {
+        return $this->render('cliente/showservicios.html.twig', [
+            'servicios' => $servicios->findAll()
+        ]);
+    }
+
+    #[Route('/cliente/verservicios/{id}', name: 'app_cliente_servprov')]
+    public function verprov($id, ServicioRepository $servicios): Response
+    {
+        $servicio = $servicios->find($id);
+        $proveedores = $servicio->getPersonas();
+        return $this->render('cliente/showproveedores.html.twig', [
+            'proveedores' => $proveedores,
+            'servicio' => $servicio
+        ]);
+    }
+
+    #[Route('/cliente/verservicios/proveedor/{id}', name: 'app_cliente_provdetalle')]
+    public function verprovdet($id, PersonaRepository $personas): Response
     {
         $proveedor = $personas->find($id);
-
         return $this->render('cliente/detalleproveedor.html.twig', [
             'proveedor' => $proveedor,
         ]);
@@ -43,7 +62,6 @@ class ClienteController extends AbstractController
         return $this->render('cliente/edit.html.twig', [
             'form' => $form,
             'persona'=>$persona,
-
             
         ]);
     }

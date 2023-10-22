@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\PersonaServicio;
 use App\Entity\Persona;
 use App\Form\ProveedorType;
@@ -27,7 +26,7 @@ class ProveedorController extends AbstractController
         $persona = $proveedor->getIdPersona();
         $id = $persona->getId();
         if($persona->getPBiografia()===null){
-            return $this->redirectToRoute('app_prov_bio', ['id' => $id]); // Reemplaza $id con el valor correcto
+            return $this->redirectToRoute('app_prov_bio', ['id' => $id]); 
         } 
         return $this->render('proveedor/index.html.twig', [
             'controller_name' => 'ProveedorController',
@@ -96,7 +95,6 @@ class ProveedorController extends AbstractController
                 
             }
 
-            // Puedes redirigir a donde lo desees después de guardar
             return $this->redirectToRoute('app_proveedor');
         }
 

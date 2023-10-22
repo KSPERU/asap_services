@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ServicioRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ServicioRepository::class)]
@@ -20,6 +21,9 @@ class Servicio
 
     #[ORM\OneToMany(mappedBy: 'idServicio', targetEntity: PersonaServicio::class)]
     private Collection $personas;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $svimagen = null;
 
     public function __construct()
     {
@@ -69,6 +73,18 @@ class Servicio
                 $persona->setIdServicio(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSvimagen(): ?string
+    {
+        return $this->svimagen;
+    }
+
+    public function setSvimagen(?string $svimagen): static
+    {
+        $this->svimagen = $svimagen;
 
         return $this;
     }
