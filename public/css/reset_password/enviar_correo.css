@@ -97,12 +97,12 @@ body {
 
 
 
-.contenido-boton-registrar {
+.contenido-boton-recordar {
     display: flex;
     justify-content: center;
 }
 
-.boton-registrar-cliente {
+.boton-recordar-password {
     border-radius: 40px;
     background: #4302AE;
     border: none;
@@ -113,21 +113,21 @@ body {
     font-style: normal;
     font-weight: 700;
 }
-.boton-registrar-cliente:hover {
+.boton-recordar-password:hover {
     color: #fff;
     background-color: #7A5AAC;
     border-color: #7A5AAC;
 }
-.boton-registrar-cliente:focus,
-.boton-registrar-cliente.focus {
+.boton-recordar-password:focus,
+.boton-recordar-password.focus {
     color: #fff;
     background-color: #7A5AAC;
     border-color: #7A5AAC;
     box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);
 }
-.boton-registrar-cliente:not(:disabled):not(.disabled):active,
-.boton-registrar-cliente:not(:disabled):not(.disabled).active,
-.show>.boton-registrar-cliente.dropdown-toggle {
+.boton-recordar-password:not(:disabled):not(.disabled):active,
+.boton-recordar-password:not(:disabled):not(.disabled).active,
+.show>.boton-recordar-password.dropdown-toggle {
     color: #fff;
     background-color: #7A5AAC;
     border-color: #7A5AAC;
