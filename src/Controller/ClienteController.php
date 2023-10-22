@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Persona;
 use App\Form\ClienteType;
+use App\Repository\UsuarioRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,16 +14,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ClienteController extends AbstractController
 {
     #[Route('/cliente', name: 'app_cliente')]
-    public function index(Request $request): Response
+    public function index(UsuarioRepository $usuarios): Response
     {
+        $user = $this->getUser();
+        $cliente = $usuarios->findOneBy([
+            'email'=>$user->getUserIdentifier(),
+        ]);
+        $persona = $cliente->getIdPersona();
+        
         return $this->render('cliente/index.html.twig', [
             'controller_name' => 'ClienteController',
             'aux_session' => $this->getUser(), 
+            'persona' => $persona,
         ]);
     }
 
     #[Route('/cliente/{id}/edit', name: 'app_cliente_edit')]
-    public function edit(Request $request, Persona $persona, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Persona $persona, EntityManagerInterface $entityManager, UsuarioRepository $usuarios): Response
     {
         $form = $this->createForm(ClienteType::class, $persona);
         $form->handleRequest($request);
