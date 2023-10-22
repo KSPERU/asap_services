@@ -74,7 +74,10 @@ body {
 
 /******************/
 
-
+.form-control:focus {
+    outline: none;
+    box-shadow: none;
+  }
 
 .contenido-boton-cambiarpassword {
     display: flex;
