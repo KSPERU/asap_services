@@ -1,0 +1,13 @@
+<div{{ attributes }}>
+    {{ form_start(form) }}
+    {{ form_row(form.p_nombre) }}
+    {{ form_row(form.p_apellido) }}
+    {{ form_row(form.p_contacto) }}
+    {# falta_correo #}
+    {# contraseña_cambiar #}
+    {{ form_row(form.p_direccion) }}
+    {{ form_row(form.p_foto) }}
+    
+    <button type="submit">Guardar</button>
+    {{ form_end(form) }}
+</div>

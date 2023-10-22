@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
 
 body {
-    /*min-height: 90vh;*/
     background-image: url('/image/Imagen1.png');
     background-size: cover;
     background-repeat: no-repeat;
@@ -9,44 +8,28 @@ body {
     overflow: hidden;
 }
 
-.contenido-biografia-proveedor {
+.contenido-recordar-password {
     min-height: 65vh;
     max-height: 65vh;
     background-color: #fff !important;
 }
 
-.opcion-registrar-usuario a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-family: Nunito;
-    font-size: 18px;
-    font-weight: 700;
-    color: #FFF;
-    text-decoration: none;
-}
-
-.opcion-registrar-usuario {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-family: Nunito;
-    font-size: 18px;
-    font-weight: 700;
-    color: #FFF;
-
-}
-
-.titulo-registrar-usuario {
+.titulo-recordar-password {
     margin-top: 16px;
     margin-bottom: 16px;
     display: flex;
-    justify-content: center;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    justify-content: start;
     font-family: Nunito;
-    font-size: 24px;
+    font-size: 20px;
+    font-weight: 800;
+}
+.subtexto-recordar-password {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: start;
+    font-family: Nunito;
+    font-size: 12px;
     font-weight: 800;
 }
 
@@ -104,36 +87,15 @@ body {
     color: #4302AE;
 }
 
-.texto-registro-usuario {
+.texto-recordar-password {
     font-family: Nunito;
     color: #4302AE;
     font-weight: 700;
 }
 
 /******************/
-.checkbox-terminos-condiciones-cliente {
-    margin-right: 10px;
-}
 
 
-.texto-terminos-condificones-cliente {
-    text-align: center;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-family: Nunito;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-}
-
-.texto-terminos-condificones-cliente a {
-    text-align: center;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-family: Nunito;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    color: black;
-}
 
 .contenido-boton-registrar {
     display: flex;

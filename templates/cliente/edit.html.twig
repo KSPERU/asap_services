@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Cliente - Edicion
+{% endblock %}
+
+{% block body %}
+    {{ component('cliente_form',{
+	    form: form,
+	    persona:persona
+	}) }}
+{% endblock %}

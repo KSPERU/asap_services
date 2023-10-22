@@ -9,13 +9,21 @@ body {
     overflow: hidden;
 }
 
-.contenido-biografia-proveedor {
+.contenido {
     min-height: 65vh;
     max-height: 65vh;
     background-color: #fff !important;
 }
 
-.opcion-registrar-usuario a {
+.conten-login {
+    border-radius: 40px;
+    background: #7A5AAC;
+    text-align: center;
+
+}
+
+.opcion-login a{
+    /*     margin-top: 30px; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,8 +34,8 @@ body {
     color: #FFF;
     text-decoration: none;
 }
-
-.opcion-registrar-usuario {
+.opcion-login{
+    /*     margin-top: 30px; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,10 +44,10 @@ body {
     font-size: 18px;
     font-weight: 700;
     color: #FFF;
-
 }
 
-.titulo-registrar-usuario {
+
+.titulo-login {
     margin-top: 16px;
     margin-bottom: 16px;
     display: flex;
@@ -50,18 +58,11 @@ body {
     font-weight: 800;
 }
 
-
-.conten-inicio-registro {
-    border-radius: 40px;
-    background: #7A5AAC;
-    text-align: center;
-
-}
-
-.boton-opcionn-registrar-usuario {
+.boton-opcion-login {
     border-radius: 40px;
     background: #4302AE;
-    padding: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
 }
 
 
@@ -104,43 +105,20 @@ body {
     color: #4302AE;
 }
 
-.texto-registro-usuario {
+.texto-login {
     font-family: Nunito;
     color: #4302AE;
     font-weight: 700;
 }
 
 /******************/
-.checkbox-terminos-condiciones-cliente {
-    margin-right: 10px;
-}
 
-
-.texto-terminos-condificones-cliente {
-    text-align: center;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-family: Nunito;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-}
-
-.texto-terminos-condificones-cliente a {
-    text-align: center;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-family: Nunito;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    color: black;
-}
-
-.contenido-boton-registrar {
+.contenido-boton-login {
     display: flex;
     justify-content: center;
 }
 
-.boton-registrar-cliente {
+.boton-iniciar-login {
     border-radius: 40px;
     background: #4302AE;
     border: none;
@@ -151,28 +129,54 @@ body {
     font-style: normal;
     font-weight: 700;
 }
-.boton-registrar-cliente:hover {
+
+.boton-iniciar-login:hover {
     color: #fff;
     background-color: #7A5AAC;
     border-color: #7A5AAC;
 }
-.boton-registrar-cliente:focus,
-.boton-registrar-cliente.focus {
+
+.boton-iniciar-login:focus,
+.boton-iniciar-login.focus {
     color: #fff;
     background-color: #7A5AAC;
     border-color: #7A5AAC;
     box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);
 }
-.boton-registrar-cliente:not(:disabled):not(.disabled):active,
-.boton-registrar-cliente:not(:disabled):not(.disabled).active,
-.show>.boton-registrar-cliente.dropdown-toggle {
+
+.boton-iniciar-login:not(:disabled):not(.disabled):active,
+.boton-iniciar-login:not(:disabled):not(.disabled).active,
+.show>.boton-iniciar-login.dropdown-toggle {
     color: #fff;
     background-color: #7A5AAC;
     border-color: #7A5AAC;
 }
 
 
+.contenido-recupingre-login {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
 
+.texto-recupingre-login {
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Nunito;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.texto-recupingre-login a {
+    text-decoration: none;
+    color: #000;
+}
+
+.contenido-opciones-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align:center;
+}
 
 
 @media (min-width: 500px) {
