@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\PersonaServicio;
 use App\Repository\PersonaRepository;
 use App\Repository\ServicioRepository;
 use App\Repository\UsuarioRepository;
@@ -58,24 +59,34 @@ class ProveedorController extends AbstractController
     public function servicios($id, Request $request, PersonaRepository $personas, ServicioRepository $servicios, EntityManagerInterface $entityManager): Response
     {
         $persona = $personas->find($id);
+        
+        if ($request->isMethod('POST')) {
+            $serviciosselect = $request->get('servicios',[]);
 
-        // if ($request->isMethod('POST')) {
-        //     $biografia = $request->get('p_biografia');
+            if ($persona) {
+                foreach($serviciosselect as $servicioid){
+                    $servicio = $servicios->find($servicioid);
 
-        //     if ($persona) {
-        //         $persona->setPBiografia($biografia);
-        //         $entityManager->persist($persona);
-        //         $entityManager->flush();
-        //     }
+                    if($servicio){
+                        $personaservicio = new PersonaServicio;
+                        $personaservicio->setIdPersona($persona);
+                        $personaservicio->setIdServicio($servicio);
+                        $entityManager->persist($personaservicio);
+                    }
+                }
+                $entityManager->flush();
+                
+            }
 
-        //     // Puedes redirigir a donde lo desees después de guardar
-        //     return $this->redirectToRoute('app_prov_bio', ['id' => $id]);
-        // }
+            // Puedes redirigir a donde lo desees después de guardar
+            return $this->redirectToRoute('app_proveedor');
+        }
 
         return $this->render('proveedor/ofrecer_servicios.html.twig', [
             'controller_name' => 'ProveedorController',
             'persona' => $persona,
-            'servicios' => $servicios
+            'servicios' => $servicios->findAll(),
+            
         ]);
     }
 }
