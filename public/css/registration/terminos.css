@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+
+body {
+    /*min-height: 90vh;*/
+    background-image: url('/image/Imagen1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
+
+.terminos-container{
+    height: auto;
+    border-radius: 40px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 12px;
+}
+
+.footer-text-asap{
+    color: rgba(0, 0, 0, 0.66);
+    font-family: Odor Mean Chey;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.terminos-title{
+    color: #000;
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: center;
+    background-color: #DCCEF2;;
+    line-height: 69px;
+}
+
+.terminos-container-text{
+    height: auto;
+    border-radius: 0 0 40px 40px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
+}
+
+.terminos-text-section{
+    padding: 16px 22px;
+}
+
+.terminos-text-section h6{
+    color: #2B0567;
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.terminos-text-section p{
+    color: #000;
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.terminos-version{
+    text-align: center;
+    color: #000;
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.terminos-btn-declinar{
+    border-radius: 40px;
+    background: #4302AE;
+    color: #FFF;
+    text-decoration: none;
+    line-height: 45px;
+    width: 45%;
+    text-align: center;
+}
+
+.terminos-btn-aceptar{
+    border-radius: 40px;
+    background: #4302AE;
+    color: #FFF;
+    text-decoration: none;
+    line-height: 45px;
+    width: 45%;
+    text-align: center;
+}

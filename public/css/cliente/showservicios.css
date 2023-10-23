@@ -38,8 +38,11 @@ body {
     box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.10);
 }
 
-.cliente-servicios-item h4{
-    margin: 0 0 0 30px;
+.cliente-servicios-item a{
+    width: 100%;
+    /* margin: 0 0 0 30px; */
+    text-decoration: none;
+    line-height: 46px;
 }    
 
 
@@ -47,8 +50,17 @@ body {
     color: #4302AE;
     text-align: center;
     font-family: Nunito;
-    font-size: 20px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+}
+
+.footer-text-asap{
+    color: rgba(0, 0, 0, 0.66);
+font-family: Odor Mean Chey;
+font-size: 15px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
 }
