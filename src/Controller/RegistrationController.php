@@ -131,4 +131,12 @@ class RegistrationController extends AbstractController
 
         return $this->redirectToRoute('app_proveedor');
     }
+
+    // By Frontend - Solo para visualizar temporalmente los terminos y condiciones
+    #[Route('/terminos', name: 'app_terminos')]
+    public function terminos(): Response
+    {
+        return $this->render('registration/terminos_condiciones.html.twig', [
+        ]);
+    }
 }
