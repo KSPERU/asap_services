@@ -23,7 +23,7 @@ class ClienteController extends AbstractController
             'email'=>$user->getUserIdentifier(),
         ]);
         $persona = $cliente->getIdPersona();
-        
+        echo $persona->getId();
         return $this->render('cliente/index.html.twig', [
             'controller_name' => 'ClienteController',
             'aux_session' => $this->getUser(), 
