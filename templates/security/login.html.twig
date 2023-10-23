@@ -6,7 +6,7 @@
 
 {% block stylesheets %}
   {{ encore_entry_link_tags('app') }}
-  {# <link rel="stylesheet" href="{{ asset('css/login/login.css') }}" /> #}
+  <link rel="stylesheet" href="{{ asset('css/login/login.css') }}" />
 {% endblock %}
 
 {% block body %}
@@ -45,11 +45,11 @@
             <div class="row">
               <div class="col-12 row row-gap-3">
                 <div class="input-group mb-1">
-                  <input type="email" value="{{ last_username }}" name="email" class="input-field" id="floatingInput" placeholder=" " autocomplete="email" required autofocus />
+                  <input type="email" value="{{ last_username }}" name="email" class="input-field  form-control" id="floatingInput" placeholder=" " autocomplete="email" required autofocus />
                   <label class="input-label texto-login" for="floatingInput">Correo Electrónico</label>
                 </div>
                 <div class="input-group mb-1">
-                  <input type="password" name="password" class="input-field" id="floatingInput" placeholder=" " autocomplete="current-password" required />
+                  <input type="password" name="password" class="input-field  form-control" id="floatingInput" placeholder=" " autocomplete="current-password" required />
                   <label class="input-label texto-login" for="floatingInput">Contraseña</label>
                 </div>
               </div>

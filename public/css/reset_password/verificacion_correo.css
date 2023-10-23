@@ -15,6 +15,7 @@ body {
 }
 
 .titulo-codigo-verificacion {
+    text-align: center;
     margin-top: 16px;
     margin-bottom: 16px;
     display: flex;
@@ -36,6 +37,10 @@ body {
 
 
 /*******************/
+.form-control:focus {
+    outline: none;
+    box-shadow: none;
+  }
 .input-group {
     position: relative;
     margin-bottom: 1rem;
