@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
-use App\Repository\PersonaRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Persona;
 use App\Form\ClienteType;
+use App\Repository\PersonaRepository;
 use App\Repository\UsuarioRepository;
 use App\Repository\ServicioRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ClienteController extends AbstractController
 {
@@ -59,11 +60,24 @@ class ClienteController extends AbstractController
     }
 
     #[Route('/cliente/{id}/edit', name: 'app_cliente_edit')]
-    public function edit(Request $request, Persona $persona, EntityManagerInterface $entityManager, UsuarioRepository $usuarios): Response
+    public function edit(Request $request, Persona $persona, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $form = $this->createForm(ClienteType::class, $persona);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            $archivo = $form['p_foto']->getData();
+            if($archivo!==null){
+                $destino = $this->getParameter('kernel.project_dir').'/public/img';
+                $archivo->move($destino, $archivo->getClientOriginalName());
+                $persona->setPFoto($archivo->getClientOriginalName());
+            }
+            $user = $persona->getUsuario();
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('usuario')->get('password')->getData()
+                )
+            );
             $entityManager->flush(); 
         }
         return $this->render('cliente/edit.html.twig', [

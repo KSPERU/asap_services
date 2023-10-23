@@ -112,7 +112,6 @@ class ProveedorType extends AbstractType
                 'required' => false,
             ])
             ->add('usuario', UsuarioType::class, [
-                // Opciones para el formulario UsuarioType
             ]);
         ;
     }
