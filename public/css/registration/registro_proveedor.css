@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+
+body {
+    /*min-height: 90vh;*/
+    background-image: url('/image/Imagen1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+.contenido-biografia-proveedor {
+    min-height: 65vh;
+    max-height: 65vh;
+    background-color: #fff !important;
+}
+
+.titulo-ofrece-servicio {
+    margin-top: 16px;
+    color: #4302AE;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: center;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.titulo-editar-proveedor {
+    color: #000;
+    font-family: Nunito;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.titulo-registrar-proveedor {
+    color: #000;
+    text-align: left;
+    font-family: Nunito;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal
+    }
+
+
+.conten-inicio-proveedor {
+    border-radius: 40px;
+    background: #7A5AAC;
+    text-align: center;
+
+}
+
+.boton-opcionn-registrar-usuario {
+    border-radius: 40px;
+    background: #4302AE;
+    padding: 16px;
+}
+
+
+/*******************/
+.input-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.input-field {
+    font-size: 1rem;
+    padding: 0;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid #4302AE;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #4302AE;
+    padding-left: 10px;
+}
+
+.input-label {
+    position: absolute;
+    pointer-events: none;
+    left: 1rem;
+    top: 0rem;
+    transition: 0.2s ease all;
+}
+
+.input-field:focus+.input-label,
+.input-field:not(:placeholder-shown)+.input-label {
+    top: -1rem;
+    left: 10px;
+    font-size: 0.8rem;
+    color: #4302AE;
+}
+
+.texto-registro-usuario {
+    font-family: Nunito;
+    color: #4302AE;
+    font-weight: 700;
+}
+
+/******************/
+.checkbox-terminos-condiciones-cliente {
+    margin-right: 10px;
+}
+
+
+.texto-terminos-condificones-cliente {
+    text-align: center;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.texto-terminos-condificones-cliente a {
+    text-align: center;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    color: black;
+}
+
+.contenido-boton-registrar {
+    display: flex;
+    justify-content: center;
+}
+
+.boton-registrar-cliente {
+    border-radius: 40px;
+    background: #4302AE;
+    border: none;
+    color: #FFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Nunito;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+}
+.boton-registrar-cliente:hover {
+    color: #fff;
+    background-color: #7A5AAC;
+    border-color: #7A5AAC;
+}
+.boton-registrar-cliente:focus,
+.boton-registrar-cliente.focus {
+    color: #fff;
+    background-color: #7A5AAC;
+    border-color: #7A5AAC;
+    box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);
+}
+.boton-registrar-cliente:not(:disabled):not(.disabled):active,
+.boton-registrar-cliente:not(:disabled):not(.disabled).active,
+.show>.boton-registrar-cliente.dropdown-toggle {
+    color: #fff;
+    background-color: #7A5AAC;
+    border-color: #7A5AAC;
+}
+
+
+
+
+
+@media (min-width: 500px) {
+    body {
+        display: none;
+    }
+}
