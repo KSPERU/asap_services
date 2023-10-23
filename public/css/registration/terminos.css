@@ -35,7 +35,7 @@ body {
     line-height: normal;
     text-align: center;
     background-color: #DCCEF2;;
-    line-height: 69px;
+    line-height: 42px;
 }
 
 .terminos-container-text{
@@ -46,7 +46,7 @@ body {
 }
 
 .terminos-text-section{
-    padding: 16px 22px;
+    padding: 8px 16px;
 }
 
 .terminos-text-section h6{
@@ -65,6 +65,8 @@ body {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    margin: 0;
+    line-height: 16px;
 }
 
 .terminos-version{
