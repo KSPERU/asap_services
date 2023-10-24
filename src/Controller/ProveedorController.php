@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\PersonaServicio;
 use App\Entity\Persona;
 use App\Form\ProveedorType;
+use App\Entity\PersonaServicio;
 use App\Repository\PersonaRepository;
 use App\Repository\UsuarioRepository;
 use App\Repository\ServicioRepository;
@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ProveedorController extends AbstractController
 {
@@ -34,11 +35,42 @@ class ProveedorController extends AbstractController
     }
 
     #[Route('/proveedor/{id}/edit', name: 'app_proveedor_edit')]
-    public function edit(Request $request, Persona $persona, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Persona $persona, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $form = $this->createForm(ProveedorType::class, $persona);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            $archivo = $form['p_foto']->getData();
+            if($archivo!==null){
+                $destino = $this->getParameter('kernel.project_dir').'/public/img';
+                $archivo->move($destino, $archivo->getClientOriginalName());
+                $persona->setPFoto($archivo->getClientOriginalName());
+            }
+            $archivo = $form['p_cv']->getData();
+            if($archivo!==null){
+                $destino = $this->getParameter('kernel.project_dir').'/public/doc';
+                $archivo->move($destino, $archivo->getClientOriginalName());
+                $persona->setPFoto($archivo->getClientOriginalName());
+            }
+            $archivo = $form['p_antpen']->getData();
+            if($archivo!==null){
+                $destino = $this->getParameter('kernel.project_dir').'/public/doc';
+                $archivo->move($destino, $archivo->getClientOriginalName());
+                $persona->setPFoto($archivo->getClientOriginalName());
+            }
+            $archivo = $form['p_cert']->getData();
+            if($archivo!==null){
+                $destino = $this->getParameter('kernel.project_dir').'/public/doc';
+                $archivo->move($destino, $archivo->getClientOriginalName());
+                $persona->setPFoto($archivo->getClientOriginalName());
+            }
+            $user = $persona->getUsuario();
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('usuario')->get('password')->getData()
+                )
+            );
             $entityManager->flush(); 
         }
         return $this->render('proveedor\edit.html.twig', [

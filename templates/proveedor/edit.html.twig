@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block body %}
-    {{ component('proveedor_form',{
+    <img src="{{ asset('img/' ~ persona.PFoto) }}" alt="Foto de {{ persona.PNombre }}">
+	{{ component('proveedor_form',{
 	    form: form,
 	    persona:persona
 	}) }}
