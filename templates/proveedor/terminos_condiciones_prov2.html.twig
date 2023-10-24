@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  Terminos y condiciones
+{% endblock %}
+
+{% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  <link rel="stylesheet" href="{{ asset('css/proveedor/terminos_condiciones_prov.css') }}" />
+{% endblock %}
+
+{% block body %}
+<div class="container mt-3">
+    <div class="terminos-prov-container">
+        <div class="text-end me-2 mb-1">
+            <svg xmlns="http://www.w3.org/2000/svg" height="1.2em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+        </div>
+        <div class="terminos-prov-container-text">
+          <h2 class="terminos-prov-title">Informacion Relevante</h2>
+          <div class="terminos-prov-text-section">
+              <h6>Bienvenido a Asap Sevices</h6>
+              <p>Como proveedor de sercicios tendrás a disposición para elegir entre 8 tipos de servicios. Cabe resaltar que podrás cobrar el 15% de cada servicio en efectivo, mientras que el 80% lo podrás cobrar mediante tu tarjeta, después de haber realizado un servicio.</p>
+          </div>
+          <div class="terminos-prov-text-section">
+            <p>Para poder cobrar tus ganancias como proveedor de servicios tendrás que realizar los siguientes pasos dentro de Asap Services:</p>
+          </div>
+          <div class="terminos-prov-text-section">
+            <p class="num" data-num="1"> Crea tu cuenta y registrate</p>
+            <p class="num" data-num="2"> Selecciona metodo de pago de preferencia</p>
+            <p class="num" data-num="3"> Ingresa datos personales para tu pago</p>
+          </div>
+          <div class="terminos-prov-text-section-final">
+            <p>Asap Services ganara un 5% del monto pagado para cliente, debido a la disposición que se te brinda por trabajar con nosotros.</p>
+          </div>
+          <div class="d-flex gap-2 justify-content-center py-3">
+            <a href="#" class="terminos-prov-btn-aceptar">Aceptar</a>
+          </div>
+      </div>
+    </div>
+  </div>
+            
+  {{ include('components/footer.html.twig') }}
+{% endblock %}

@@ -8,31 +8,20 @@ body {
     overflow: hidden;
 }
 
-.contenido-registro-proveedor {    
+.contenido-mi-perfil {    
     min-height: 65vh;
     max-height: 80vh;
     background-color: #fff !important;
 }
 
-.titulo-ofrece-servicio {
-    margin-top: 10px;
-    color: #4302AE;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: center;
-    font-family: Nunito;
-    font-size: 16px;
-    font-weight: 800;
-}
-
 .img-perfil {
     display: flex;
     justify-content: center;
-    width: 30%;
-    height: 30%;
+    width: 50%;
+    height: 50%;
 }
 
-.titulo-editar-proveedor {
+.titulo-mi-perfil {
     color: #000;
     font-family: Nunito;
     font-size: 16px;
@@ -40,7 +29,7 @@ body {
     font-weight: 700;
 }
 
-.titulo-registrar-proveedor {
+.titulo-editar-perfil {
     color: #000;
     font-family: Nunito;
     font-size: 16px;
@@ -49,6 +38,19 @@ body {
     line-height: normal;
     text-align: left;
     margin-bottom: 10px;
+}
+
+.img-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .input-container {
@@ -90,34 +92,12 @@ body {
     top: 0rem;
 }
 
-
-.checkbox-terminos-condiciones-proveedor {
-    margin-right: 10px;
-}
-
-.texto-terminos-condificones-proveedor {
-    text-align: center;
-    font-family: Nunito;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-}
-
-.texto-terminos-condiciones-proveedor a {
-    text-align: center;
-    font-family: Nunito;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    color: black;
-}
-
-.contenido-boton-siguiente {
+.contenido-boton-eliminar {
     display: flex;
     justify-content: center;
 }
 
-.boton-siguiente {
+.boton-eliminar {
     border-radius: 40px;
     background: #4302AE;
     border: none;
@@ -127,6 +107,7 @@ body {
     font-style: normal;
     font-weight: 700;
     margin-bottom: 20px;
+    margin-top: 30px;
 }
 
 @media (min-width: 500px) {

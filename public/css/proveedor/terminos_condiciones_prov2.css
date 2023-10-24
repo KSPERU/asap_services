@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+
+body {
+    /*min-height: 90vh;*/
+    background-image: url('/image/Imagen1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
+
+.terminos-prov-container{
+    height: auto;
+    border-radius: 40px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 12px;
+}
+
+
+.terminos-prov-title{
+    color: #000;
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: center;
+    background-color: #DCCEF2;;
+    line-height: 42px;
+}
+
+.terminos-prov-container-text{
+    height: auto;
+    border-radius: 0 0 40px 40px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
+}
+
+.terminos-prov-text-section{
+    padding: 8px 16px;
+}
+
+.terminos-prov-text-section h6{
+    color: #000;
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.terminos-prov-text-section p{
+    color: #000;
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+    line-height: 16px;
+}
+
+.terminos-prov-text-section-final{
+    padding: 8px 16px;
+    margin-bottom: 300px;
+}
+
+.terminos-prov-text-section-final h6{
+    color: #2B0567;
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.terminos-prov-text-section-final p{
+    color: #000;
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+    line-height: 16px;
+}
+
+.num {
+    padding-left: 10px;
+    color: #4302AE;
+}
+
+.num::before {
+    content: attr(data-num) ": ";
+    color: #4302AE;
+    font-weight: bold;
+}
+
+.terminos-prov-btn-aceptar{
+    border-radius: 40px;
+    background: #4302AE;
+    color: #FFF;
+    text-decoration: none;
+    line-height: 45px;
+    width: 45%;
+    text-align: center;
+}

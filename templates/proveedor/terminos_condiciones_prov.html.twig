@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  Terminos y condiciones
+{% endblock %}
+
+{% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  <link rel="stylesheet" href="{{ asset('css/proveedor/terminos_condiciones_prov.css') }}" />
+{% endblock %}
+
+{% block body %}
+<div class="container mt-3">
+    <div class="terminos-prov-container">
+        <div class="text-end me-2 mb-1">
+            <svg xmlns="http://www.w3.org/2000/svg" height="1.2em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+        </div>
+        <div class="terminos-prov-container-text">
+            <h2 class="terminos-prov-title">Terminos y condiciones</h2>
+            <div class="terminos-prov-text-section">
+                <h6>Términos y Condiciones de uso</h6>
+                <p>Los usuarios de esta aplicación aceptan expresamente, por el solo hecho de hacer uso de dicho sistema, a someterse y ajustarse a los términos y condiciones declarados en esta sección.</p>
+            </div>
+            <div class="terminos-prov-text-section-final">
+                <h6>Propiedad intelectual</h6>
+                <p>El uso de esta aplicación no otorga derecho alguno sobre la misma distinto autorización para su uso permitido. En ningún caso el usuario podrá alterar de alguna forma la aplicación, hacer copia o cualquier uso distintivo de la aplicación, sujetándose a responsabilidades inclusos penales que pudieran aplicar.</p>
+            </div>
+            <h2 class="terminos-prov-version">Versión: V1.0</h2>
+            <div class="d-flex gap-2 justify-content-center py-3">
+                <a href="#" class="terminos-prov-btn-declinar">Declinar</a>
+                <a href="#" class="terminos-prov-btn-aceptar">Aceptar</a>
+            </div>
+        </div>
+    </div>
+  </div>
+            
+
+    {{ include('components/footer.html.twig') }}
+{% endblock %}
