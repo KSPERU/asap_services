@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Registro de cliente
+{% endblock %}
+
+{% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+   <link rel="stylesheet" href="{{ asset('css/registration/registro_cliente.css') }}" /> 
+{% endblock %}
+
+{% block body %}
+  {# Empieza vista #}
+  <div class="container p-3">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-1"></div>
+        <div class="col-10 d-flex justify-content-center">{{ include('components/logo_mediano.html.twig') }}</div>
+        <div class="col-1"></div>
+      </div>
+      <div class="container bg-light rounded-5 contenido-biografia-proveedor">
+        <div class="container">
+          <div class="container" style="padding-top: 10px;">
+            <div class="row d-flex justify-content-center conten-inicio-registro">
+              <div class="col-6 opcion-registrar-usuario">
+                <a href="{{ path('app_asap_services_general_cliente_login') }}">Iniciar sesion</a>
+              </div>
+              <div class="col-6 opcion-registrar-usuario boton-opcionn-registrar-usuario">
+                <a href="{{ path('app_asap_services_general_cliente_registro') }}">Registrate</a>
+              </div>
+            </div>
+          </div>
+          {{ form_start(registrationForm) }}
+            <div class="row d-flex justify-content-center">
+              <div class="col-12 titulo-registrar-usuario text-center">Bienvenido a Asap Services</div>
+            </div>
+            <div class="row">
+              <div class="col-12 d-flex justify-content-center">
+                {% for flash_error in app.flashes('verify_email_error') %}
+                    <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+                {% endfor %}
+                {{ form_errors(registrationForm) }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 row row-gap-3">
+                <div class="input-group mb-1">
+                  {{ form_widget(registrationForm.idPersona.p_nombre, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
+                  {{ form_label(registrationForm.idPersona.p_nombre, 'Nombres', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
+                </div>
+                <div class="input-group mb-1">
+                  {{ form_widget(registrationForm.idPersona.p_apellido, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
+                  {{ form_label(registrationForm.idPersona.p_apellido, 'Apellidos', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
+                </div>
+                <div class="input-group mb-1">
+                  {{ form_widget(registrationForm.idPersona.p_contacto, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
+                  {{ form_label(registrationForm.idPersona.p_contacto, 'Numero de Celular', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
+                </div>
+                <div class="input-group mb-1">
+                  {{ form_widget(registrationForm.idPersona.p_direccion, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
+                  {{ form_label(registrationForm.idPersona.p_direccion, 'Dirección', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
+                </div>
+                <div class="input-group mb-1">
+                  {{ form_widget(registrationForm.email, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
+                  {{ form_label(registrationForm.email, 'Correo Electrónico', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
+                </div>
+                <div class="input-group mb-1">
+                  {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
+                  {{ form_label(registrationForm.plainPassword, 'Contraseña', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 d-flex justify-content-center p-3">
+                {{ form_widget(registrationForm.agreeTerms, {'label': ' ', 'attr': {'id': 'cbox1', 'class': 'checkbox-terminos-condiciones-cliente'}}) }}
+                <label class="checkbox-label texto-terminos-condificones-cliente">
+                  <a href="">Aceptar términos y condiciones</a>
+                </label>
+              </div>
+            </div>
+            <div class="row contenido-boton-registrar">
+              <div class="col-10">
+                <button type="submit" class="btn col-12 boton-registrar-cliente">Registrate</button>
+              </div>
+            </div>
+            {{ form_widget(registrationForm._token) }}
+          {{ form_end(registrationForm, {render_rest: false}) }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

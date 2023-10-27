@@ -23,7 +23,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
-    public const LOGIN_ROUTE = 'app_login';
+    public const LOGIN_ROUTE = 'app_asap_services_general_cliente_login';
 
     public function __construct(private UrlGeneratorInterface $urlGenerator, private Security $security)
     {
@@ -49,17 +49,14 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     {
         $aux_user = $this->security->getUser();
         $aux_roles = $aux_user->getRoles();
-        
-        
-        if(in_array("ROLE_CLI", $aux_roles)){
+
+
+        if (in_array("ROLE_CLI", $aux_roles)) {
             return new RedirectResponse($this->urlGenerator->generate('app_cliente'));
-        }
-        elseif(in_array("ROLE_PROV", $aux_roles)){
-            
-            return new RedirectResponse($this->urlGenerator->generate('app_proveedor'));       
-        }
-        else{
-            throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        } elseif (in_array("ROLE_PROV", $aux_roles)) {
+            return new RedirectResponse($this->urlGenerator->generate('app_proveedor'));
+        } else {
+            throw new \Exception('TODO: provide a valid redirect inside ' . __FILE__);
         }
     }
 

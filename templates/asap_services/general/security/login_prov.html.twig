@@ -1,8 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-  Login
-{% endblock %}
+{% block title %}Inicio de sesión{% endblock %}
 
 {% block stylesheets %}
   {{ encore_entry_link_tags('app') }}
@@ -22,10 +20,10 @@
           <div class="container" style="padding-top: 10px;">
             <div class="row d-flex justify-content-center conten-login">
               <div class="col-6 opcion-login boton-opcion-login">
-                <a href="">Iniciar sesion</a>
+                <a href="{{ path('app_asap_services_general_proveedor_login') }}">Iniciar sesion</a>
               </div>
               <div class="col-6 opcion-login">
-                <a href="">Registrate</a>
+                <a href="{{ path('app_asap_services_general_proveedor_registro') }}">Registrate</a>
               </div>
             </div>
           </div>
@@ -39,7 +37,7 @@
 
             {% if app.user %}
               <div class="mb-3">
-                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                Estás conectado como {{ app.user.userIdentifier }}, <a href="{{ path('app_asap_services_general_logout') }}">Cerrar sesión</a>
               </div>
             {% endif %}
             <div class="row">
@@ -70,8 +68,8 @@
             </div>
           </div>
           <div class="row contenido-opciones-login mt-4">
-            <div class="col-5">ds</div>
-            <div class="col-5">ds</div>
+            <div class="col-5">Facebook</div>
+            <div class="col-5">Google</div>
           </div>
         </div>
       </div>

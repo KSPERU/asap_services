@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\ASAPServices\General;
 
 use App\Entity\Persona;
 use App\Entity\Usuario;
@@ -28,8 +28,8 @@ class RegistrationController extends AbstractController
         $this->emailVerifier = $emailVerifier;
     }
 
-    #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    #[Route('/cliente/registro', name: 'app_asap_services_general_cliente_registro')]
+    public function registerCli(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new Usuario();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -49,24 +49,26 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation(
+                'app_asap_services_general_cliente_control_correo',
+                $user,
                 (new TemplatedEmail())
-                    ->from(new Address('prueba@gmail.com', 'Pruebita'))
+                    ->from(new Address('confirmacion@ksperu.com', 'Confirmación KSPERU'))
                     ->to($user->getEmail())
-                    ->subject('Please Confirm your Email de Cliente')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
+                    ->subject('Por favor, confirme su correo electrónico de cliente.')
+                    ->htmlTemplate('asap_services/general/registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_asap_services_general_cliente_login');
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('asap_services/general/registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
 
-    #[Route('/register_prov', name: 'app_registro_prov')]
+    #[Route('/proveedor/registro', name: 'app_asap_services_general_proveedor_registro')]
     public function registerProv(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new Usuario();
@@ -87,7 +89,9 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation(
+                'app_asap_services_general_control_correo',
+                $user,
                 (new TemplatedEmail())
                     ->from(new Address('prueba@gmail.com', 'Pruebita'))
                     ->to($user->getEmail())
@@ -103,8 +107,38 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
-    #[Route('/verify/email', name: 'app_verify_email')]
-    public function verifyUserEmail(Request $request, TranslatorInterface $translator, UsuarioRepository $usuarioRepository): Response
+    #[Route('/cliente/control/correo', name: 'app_asap_services_general_cliente_control_correo')]
+    public function controlCorreoCli(Request $request, TranslatorInterface $translator, UsuarioRepository $usuarioRepository): Response
+    {
+        // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $id = $request->get('id');
+
+        if (null === $id) {
+            return $this->redirectToRoute('app_asap_services_general_cliente_registro');
+        }
+
+        $user = $usuarioRepository->find($id);
+
+        if (null === $user) {
+            return $this->redirectToRoute('app_asap_services_general_cliente_registro');
+        }
+
+        try {
+            $this->emailVerifier->handleEmailConfirmation($request, $user);
+        } catch (VerifyEmailExceptionInterface $exception) {
+            $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
+
+            return $this->redirectToRoute('app_asap_services_general_cliente_registro');
+        }
+
+        // @TODO Change the redirect on success and handle or remove the flash message in your templates
+        $this->addFlash('success', 'Tu dirección de correo electrónico ha sido verificada.');
+
+        return $this->redirectToRoute('app_asap_services_general_cliente_login');
+    }
+
+    #[Route('/proveedor/control/correo', name: 'app_asap_services_general_proveedor_control_correo')]
+    public function controlCorreo(Request $request, TranslatorInterface $translator, UsuarioRepository $usuarioRepository): Response
     {
         // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $id = $request->get('id');
@@ -129,14 +163,13 @@ class RegistrationController extends AbstractController
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', 'Your email address has been verified.');
 
-        return $this->redirectToRoute('app_proveedor');
+        return $this->redirectToRoute('app_asap_services_general_cliente_login');
     }
 
     // By Frontend - Solo para visualizar temporalmente los terminos y condiciones
-    #[Route('/terminos', name: 'app_terminos')]
+    #[Route('/terminos', name: 'app_asap_services_general_terminos')]
     public function terminos(): Response
     {
-        return $this->render('registration/terminos_condiciones.html.twig', [
-        ]);
+        return $this->render('registration/terminos_condiciones.html.twig', []);
     }
 }
