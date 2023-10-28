@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Canjea tu Codigo
+{% endblock %}
+
+{% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  <link rel="stylesheet" href="{{ asset('css/cliente/promociones_cupones.css') }}" />
+{% endblock %}
+
+{% block body %}
+  {# Empieza vista #}
+  <div class="container p-3">
+    <div class="container">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-3 d-flex justify-content-center"></div>
+        <div class="col-6 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
+        <div class="col-3 d-flex justify-content-center contboton-cerrar">
+          <a href="">x</a>
+        </div>
+      </div>
+
+      <div class="container rounded-5 contenido-prmociones-cupones-cliente">
+        <div class="row">
+          <div class="col-12 titulo-promociones-cupones-cliente pt-3 pb-2">Promociones y cupones</div>
+        </div>
+        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom" style="width: 100%; background-color:white;border:none">
+          <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-2">
+              <div class="row">
+                <span><img class="icono_promociones_cupones" src="{{ asset('/image/icono_promociones_cupones.png') }}" alt="" /></span>
+              </div>
+            </div>
+            <div class="col-10">
+              <div class="row">
+                <span style="font-size: 14px;"><p style="padding-bottom: 4px; font-weight: 700; color: black; border-bottom: 2px solid black; display: inline;">Ingresar el código promocional ></p></span>
+              </div>
+            </div>
+          </div>
+        </button>
+
+        <div class="offcanvas offcanvas-bottom" style="background-color: #DCCEF2; border-top-left-radius: 15px;
+            border-top-right-radius: 15px;height: 60vh;" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasBottomLabel">Código promocional</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <hr />
+          <div class="offcanvas-body small">
+
+            <form class="form-floating">
+              <input type="email" class="form-control" id="floatingInputValue" placeholder="name@example.com" />
+              <label for="floatingInputValue">Tu código promocional</label>
+            </form>
+
+            <div class="row contenido-promocion-cupones-cliente pt-3">
+              <div class="col-8">
+                <button type="submit" class="btn col-12 boton-activar-promocion-cliente">Activar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{ include('components/footer.html.twig') }}
+{% endblock %}

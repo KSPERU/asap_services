@@ -69,53 +69,30 @@ body {
 .form-control:focus {
     outline: none;
     box-shadow: none;
-  }
-  
-.input-group {
+}
+
+.form-floating {
     position: relative;
-    margin-bottom: 1rem;
 }
 
-.input-field {
-    font-size: 1rem;
-    padding: 0;
-    border-top: none;
-    border-right: none;
-    border-left: none;
-    border-bottom: 1px solid #4302AE;
-    border-radius: 5px;
-    width: 100%;
+.form-floating input[type="email"] {
+    border: none;
+    border-bottom: 2px solid black;
+    background: transparent;
+    padding-top: 20px;
 }
 
-.input-field:focus {
-    outline: none;
-    border-color: #4302AE;
-    padding-left: 10px;
-}
-
-.input-label {
+.form-floating label {
+    color: black;
     position: absolute;
-    pointer-events: none;
-    left: 1rem;
-    top: 0rem;
-    transition: 0.2s ease all;
-}
-
-.input-field:focus+.input-label,
-.input-field:not(:placeholder-shown)+.input-label {
-    top: -1rem;
-    left: 10px;
-    font-size: 0.8rem;
-    color: #4302AE;
-}
-
-.texto-registro-usuario {
-    font-family: Nunito;
-    color: #4302AE;
-    font-weight: 700;
+    top: 0;
+    left: 0;
+    transition: top 0.2s ease, font-size 0.2s ease;
 }
 
 /******************/
+
+
 .checkbox-terminos-condiciones-cliente {
     margin-right: 10px;
 }
