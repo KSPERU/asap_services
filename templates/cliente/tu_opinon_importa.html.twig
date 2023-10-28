@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+ Tu opinion importa
+{% endblock %}
+
+{% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  <link rel="stylesheet" href="{{ asset('css/cliente/tu_opinion_importa.css') }}" />
+{% endblock %}
+
+{% block body %}
+  {# Empieza vista #}
+
+  <div class="container p-3">
+    <div class="container">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-3 d-flex justify-content-center"></div>
+        <div class="col-6 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
+        <div class="col-3 d-flex justify-content-center contboton-cerrar">
+          <a href="">x</a>
+        </div>
+      </div>
+
+      <div class="container rounded-5 contenido-general-tu-opinion-importa">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 titulo-tu-opinion-importa-cliente pt-3 pb-2">Tu opinión nos importa</div>
+          </div>
+          <div class="row">
+            <div class="col-12 texto-tu-opinion-importa-cliente mb-3">Calificanos</div>
+          </div>
+          <div class="row ">
+            <div class="col-12 valoracion-opinion-cliente mb-3">
+              <div class="rating">
+                <input type="radio" name="rating" id="star1" value="1" />
+                <label for="star1">★</label>
+                <input type="radio" name="rating" id="star2" value="2" />
+                <label for="star2">★</label>
+                <input type="radio" name="rating" id="star3" value="3" />
+                <label for="star3">★</label>
+                <input type="radio" name="rating" id="star4" value="4" />
+                <label for="star4">★</label>
+                <input type="radio" name="rating" id="star5" value="5" />
+                <label for="star5">★</label>
+              </div>
+            </div>
+            <span id="selectedRating">Calificación:</span>
+          </div>
+          <div class="row d-flex justify-content-center">
+            <div class="col-12 contenido-valoracion-cliente mb-3">
+              <textarea class="rounded-4 p-2" style="width: 100%;" name="" id="" cols="30" rows="8" placeholder="Dejanos tu opinión"></textarea>
+            </div>
+          </div>
+          <div class="row contenido-boton-enviar-valoracion">
+            <div class="col-10">
+              <button type="submit" class="btn col-12 boton-enviar-valoracion">Enviar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const ratingInputs = document.querySelectorAll('input[name="rating"]')
+    const selectedRating = document.getElementById('selectedRating')
+    
+    ratingInputs.forEach((input) => {
+      input.addEventListener('change', () => {
+        const rating = input.value
+        selectedRating.textContent = `Calificación: ${rating}`
+        ratingInputs.forEach((star, index) => {
+          if (index < rating) {
+            star.nextElementSibling.style.color = '#ffcc00'
+          } else {
+            star.nextElementSibling.style.color = '#ccc'
+          }
+        })
+      })
+    })
+    
+  </script>
+  {{ include('components/footer.html.twig') }}
+{% endblock %}

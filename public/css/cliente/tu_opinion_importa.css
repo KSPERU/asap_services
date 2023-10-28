@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+
+body {
+    background-image: url('/image/Imagen1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+.contboton-cerrar {
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.contboton-cerrar a {
+    color: #000;
+    text-decoration: none;
+}
+
+.contenido-general-tu-opinion-importa {
+    min-height: 65vh;
+    max-height: 65vh;
+    background-color: #fff !important;
+}
+
+.titulo-tu-opinion-importa-cliente {
+    color: #4302AE;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.texto-tu-opinion-importa-cliente {
+    color: #000;
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.valoracion-opinion-cliente {
+    display: flex;
+    justify-content: center;
+    
+}
+
+.rating {
+    font-size: 30px;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 30px;
+    color: #ccc;
+    cursor: pointer;
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+}
+
+.rating input:checked~label {
+    color: #ffcc00;
+}
+
+
+.contenido-valoracion-cliente textarea {
+    color: #000;
+    font-size: 16px;
+    font-family: Nunito;
+    font-weight: 700;
+}
+
+.contenido-boton-enviar-valoracion {
+
+    display: flex;
+    justify-content: center;
+}
+
+.boton-enviar-valoracion {
+    border-radius: 40px;
+    background: #4302AE;
+    border: none;
+    color: #FFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Nunito;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.boton-enviar-valoracion:hover {
+    color: #fff;
+    background-color: #7A5AAC;
+    border-color: #7A5AAC;
+}
+
+.boton-enviar-valoracion:focus,
+.boton-enviar-valoracion.focus {
+    color: #fff;
+    background-color: #7A5AAC;
+    border-color: #7A5AAC;
+    box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);
+}
+
+.boton-enviar-valoracion:not(:disabled):not(.disabled):active,
+.boton-enviar-valoracion:not(:disabled):not(.disabled).active,
+.show>.enviar-valoracion.dropdown-toggle {
+    color: #fff;
+    background-color: #7A5AAC;
+    border-color: #7A5AAC;
+}
