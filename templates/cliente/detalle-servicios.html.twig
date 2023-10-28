@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Detalle de Servicio 
+{% endblock %}
+
+{% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  <link rel="stylesheet" href="{{ asset('css/cliente/detalle_servicios.css') }}" />
+{% endblock %}
+
+{% block body %}
+
+  <div class="container p-3">
+    <div class="container">
+      <div class="container rounded-5 contenido-general-historial-servicios-cliente">
+        <div class="col-12">
+          <div class="row p-2">
+            <div class="col-3 d-flex justify-content-center"></div>
+            <div class="col-6 d-flex justify-content-center titulo-servicio-detalle-servicio-cliente">Servicio de Pintura</div>
+            <div class="col-3 d-flex justify-content-center contboton-cerrar">
+              <a href="">x</a>
+            </div>
+          </div>
+        </div>
+        <div class="container contenido-especifico-historial-servicios-cliente">
+          <div class="row p-3">
+            <div class="seccion1-contenido-especifico-historial-servicios-cliente">
+              <div class="row">
+                <div class="col-12 pb-2">
+                  <spam>Detalles de servicio</spam>
+                </div>
+              </div>
+            </div>
+
+            <div class="seccion1-contenido-especifico-historial-servicios-cliente">
+              <div class="row">
+                <div class="col-4">
+                  <spam>Proveedor:</spam>
+                </div>
+                <div class="col-8">
+                  <p>Luis Vallejos</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="seccion1-contenido-especifico-historial-servicios-cliente">
+              <div class="row">
+                <div class="col-3">
+                  <spam>Distrito:</spam>
+                </div>
+                <div class="col-9">
+                  <p>La Molina</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="seccion1-contenido-especifico-historial-servicios-cliente">
+              <div class="row">
+                <div class="col-3">
+                  <spam>Dirección:</spam>
+                </div>
+                <div class="col-9">
+                  <p>Calle las Hormigas 561</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="seccion1-contenido-especifico-historial-servicios-cliente">
+              <div class="row">
+                <div class="col-3">
+                  <spam>Resumen:</spam>
+                </div>
+                <div class="col-9">
+                  <p>Servicio brindado por pintado de departamento.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="seccion1-contenido-especifico-historial-servicios-cliente">
+              <div class="row">
+                <div class="col-3">
+                  <spam>Trabajo:</spam>
+                </div>
+                <div class="col-9">
+                  <p>Pintado - Sala y dos cuartos.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="seccion1-contenido-especifico-historial-servicios-cliente">
+              <div class="row">
+                <div class="col-3">
+                  <spam>Costo:</spam>
+                </div>
+                <div class="col-9">
+                  <p>S/.1500</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="seccion1-contenido-especifico-historial-servicios-cliente">
+              <div class="row">
+                <div class="col-6">
+                  <spam>Medio de Pago:</spam>
+                </div>
+                <div class="col-6">
+                  <p>Transferencia Bancaria</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="seccion1-contenido-especifico-historial-servicios-cliente">
+              <div class="row">
+                <div class="col-4">
+                  <spam>Valoracion:</spam>
+                </div>
+                <div class="col-8">
+                  <p>4.5/5</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{ include('components/footer.html.twig') }}
+{% endblock %}
