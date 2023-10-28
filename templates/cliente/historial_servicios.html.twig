@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Historial de Servicios{% endblock %}
+
+{% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  <link rel="stylesheet" href="{{ asset('css/cliente/historial_servicios.css') }}" />
+{% endblock %}
+
+{% block body %}
+
+  <div class="container p-3">
+    <div class="container">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-3 d-flex justify-content-center"></div>
+        <div class="col-6 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
+        <div class="col-3 d-flex justify-content-center contboton-cerrar">
+          <a href="">x</a>
+        </div>
+      </div>
+
+      <div class="container rounded-5 contenido-historial-servicios-cliente">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 titulo-historial-servicios-cliente pt-3 pb-2">Historial de Servicios</div>
+          </div>
+          <div class="row">
+            <div class="col-12 texto-historial-servicios-cliente mb-3">Consulta tu registro de contrataciones</div>
+          </div>
+          <div class="container scroll-historial-servicios-cliente">
+            {# /*PRIMER SERVICIO EN EL HISTORIAL*/ #}
+            <div class="row rounded-4 mb-3 border border-2" style="gap: 3px; padding:4px">
+              <span class="fecha-historial-servicios-cliente pb-1">Martes, 11 de Julio, 09:56am</span>
+              <div class="proveedor-historial-servicios-cliente">
+                <spam>Pintura</spam>
+                <p>Proveedor: Luis Vallejos</p>
+              </div>
+              <span class="direccion-historial-servicios-cliente">Dirección: Calle Las Hormigas 561</span>
+              <div>
+                <span class="verdetalle-historial-servicios-cliente"><a href="">Ver detalle</a></span>
+              </div>
+            </div>
+            {# /*SEGUNDO SERVICIO EN EL HISTORIAL*/ #}
+            <div class="row rounded-4 mb-3 border border-2" style="gap: 3px; padding:4px">
+              <span class="fecha-historial-servicios-cliente pb-1">Martes, 11 de Julio, 09:56am</span>
+              <div class="proveedor-historial-servicios-cliente">
+                <spam>Pintura</spam>
+                <p>Proveedor: Luis Vallejos</p>
+              </div>
+              <span class="direccion-historial-servicios-cliente">Dirección: Calle Las Hormigas 561</span>
+              <div>
+                <span class="verdetalle-historial-servicios-cliente"><a href="">Ver detalle</a></span>
+              </div>
+            </div>
+            {# /*TERCER SERVICIO EN EL HISTORIAL*/ #}
+            <div class="row rounded-4 mb-3 border border-2" style="gap: 3px; padding:4px">
+              <span class="fecha-historial-servicios-cliente pb-1">Martes, 11 de Julio, 09:56am</span>
+              <div class="proveedor-historial-servicios-cliente">
+                <spam>Pintura</spam>
+                <p>Proveedor: Luis Vallejos</p>
+              </div>
+              <span class="direccion-historial-servicios-cliente">Dirección: Calle Las Hormigas 561</span>
+              <div>
+                <span class="verdetalle-historial-servicios-cliente"><a href="">Ver detalle</a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{ include('components/footer.html.twig') }}
+{% endblock %}

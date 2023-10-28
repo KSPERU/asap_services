@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+
+body {
+    /*min-height: 90vh;*/
+    background-image: url('/image/Imagen1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+.contboton-cerrar {
+    font-size: 50px;
+    font-weight: 700;
+}
+.contboton-cerrar a{
+    color: #000;
+    text-decoration: none;
+}
+
+.contenido-historial-servicios-cliente {
+    min-height: 65vh;
+    max-height: 65vh;
+    background-color: #fff !important;
+}
+
+.titulo-historial-servicios-cliente {
+    color: #4302AE;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.texto-historial-servicios-cliente {
+    color: #000;
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.scroll-historial-servicios-cliente {
+    max-height: 380px; 
+    overflow-y: auto; 
+}
+
+.fecha-historial-servicios-cliente {
+    color: #000;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.proveedor-historial-servicios-cliente {
+    color: #000;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.direccion-historial-servicios-cliente {
+    color: #000;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.verdetalle-historial-servicios-cliente {
+    display: flex;
+    justify-content: end;
+    text-align: end;
+    font-family: Nunito;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.verdetalle-historial-servicios-cliente a {
+    color: #2B0567;
+}
