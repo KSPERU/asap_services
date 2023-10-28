@@ -6,7 +6,9 @@
 
 {% block stylesheets %}
   {{ encore_entry_link_tags('app') }}
+
   <link rel="stylesheet" href="{{ asset('css/registration/registro_cliente.css') }}" />
+  <link rel="stylesheet" href="{{ asset('css/cliente/.css') }}" />
 {% endblock %}
 
 {% block body %}
@@ -91,6 +93,6 @@
   </div> 
 #}
 
- 
+  
   {{ include('components/footer.html.twig') }}
 {% endblock %}
