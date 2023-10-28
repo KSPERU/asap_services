@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+
+body {
+    /*min-height: 90vh;*/
+    background-image: url('/image/Imagen1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
+
+.ayuda-container{
+    height: 700px;
+    border-radius: 40px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 16px;
+}
+
+.ayuda-title{
+    color: #4302AE;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+.ayuda {
+    border-radius: 10px;
+    background: #DCCEF2;
+    display: flex;
+    align-items: center;
+    
+}
+
+.ayuda img {
+    width: 86px;
+    height: 105px;
+    flex-shrink: 0;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.necesitas-ayuda {
+    color: #4302AE;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    margin-right: 13px;
+    margin-left: 13px;
+}
+
+.container-ayuda {
+    color: #4302AE;
+    font-family: Nunito;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+.ayuda-text-section-junto{
+    margin-top: 20px;
+    padding: 8px 16px;
+}
+
+.ayuda-text-section-junto span{
+    color: #000;
+    font-family: Nunito;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 10px;
+}
+.ayuda-text-section-junto p{
+    color: #000;
+    font-family: Nunito;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 10px;
+}
+
+.ayuda-text-section{    
+    padding: 8px 16px;
+}
+
+.ayuda-text-section p{
+    color: #000;
+    font-family: Nunito;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
