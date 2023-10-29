@@ -27,43 +27,59 @@
     <h3 class="inicio-proveedor-title">Bienvenido a Asap Services</h3>
     <div class="d-flex justify-content-center align-items-center my-3 ">
       <div class="inicio-proveedor-btn">
+       <a href="{{ path('app_prov_perfil', {'id': proveedor.id}) }}"style="text-decoration: none">
           <h4 class="inicio-proveedor-text">Mi perfil</h4>
+        </a>
       </div>
     </div>
     <div class="d-flex justify-content-center align-items-center my-3 ">
       <div class="inicio-proveedor-btn">
+        <a href="{{ path('app_prov_histserv', {'id': proveedor.id}) }}"style="text-decoration: none">
           <h4 class="inicio-proveedor-text">Historial de servicios</h4>
+        </a>
       </div>
     </div>
     <div class="d-flex justify-content-center align-items-center my-3 ">
       <div class="inicio-proveedor-btn">
+        <a href="{{ path('app_prov_ganancias', {'id': proveedor.id}) }}"style="text-decoration: none">
           <h4 class="inicio-proveedor-text">Ganancias</h4>
+        </a>
       </div>
     </div>
     <div class="d-flex justify-content-center align-items-center my-3 ">
       <div class="inicio-proveedor-btn">
+        <a href="{{ path('app_prov_chat', {'id': proveedor.id}) }}"style="text-decoration: none">
           <h4 class="inicio-proveedor-text">Conversa con tus clientes</h4>
+        </a>
       </div>
     </div>
     <div class="d-flex justify-content-center align-items-center my-3 ">
       <div class="inicio-proveedor-btn">
+        <a href="{{ path('app_prov_preguntas')}}"style="text-decoration: none">
           <h4 class="inicio-proveedor-text">Preguntas frecuentes</h4>
+        </a>
       </div>
     </div>
     <div class="d-flex justify-content-center align-items-center my-3 ">
       <div class="inicio-proveedor-btn">
+        <a href="{{ path('app_prov_metcobro', {'id': proveedor.id}) }}"style="text-decoration: none">
           <h4 class="inicio-proveedor-text">Añadir método de cobro</h4>
+        </a>
       </div>
     </div>
     <div class="d-flex justify-content-center align-items-center my-3 ">
       <div class="inicio-proveedor-btn">
+        <a href="{{ path('app_prov_ayuda')}}"style="text-decoration: none">
           <h4 class="inicio-proveedor-text">Ayuda</h4>
+        </a>
       </div>
     </div>
 
-    <div class="d-flex justify-content-center align-items-center my-3 ">
+    <div class="d-flex justify-content-center align-items-center my-3 "> {#app_asap_services_general_logout#}
       <div class="cerrar-sesion-btn">
+        <a href="{{ path('app_asap_services_general_logout')}}"style="text-decoration: none">
           <h4 class="cerrar-sesion-text">Cerrar Sesión</h4>
+        </a>
       </div>
     </div>
 

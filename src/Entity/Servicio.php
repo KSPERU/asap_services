@@ -25,9 +25,13 @@ class Servicio
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $svimagen = null;
 
+    #[ORM\OneToMany(mappedBy: 'idservicio', targetEntity: Historialservicios::class)]
+    private Collection $historialservicio;
+
     public function __construct()
     {
         $this->personas = new ArrayCollection();
+        $this->historialservicio = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,6 +89,36 @@ class Servicio
     public function setSvimagen(?string $svimagen): static
     {
         $this->svimagen = $svimagen;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Historialservicios>
+     */
+    public function getHistorialservicio(): Collection
+    {
+        return $this->historialservicio;
+    }
+
+    public function addHistorialservicio(Historialservicios $historialservicio): static
+    {
+        if (!$this->historialservicio->contains($historialservicio)) {
+            $this->historialservicio->add($historialservicio);
+            $historialservicio->setIdservicio($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistorialservicio(Historialservicios $historialservicio): static
+    {
+        if ($this->historialservicio->removeElement($historialservicio)) {
+            // set the owning side to null (unless already changed)
+            if ($historialservicio->getIdservicio() === $this) {
+                $historialservicio->setIdservicio(null);
+            }
+        }
 
         return $this;
     }

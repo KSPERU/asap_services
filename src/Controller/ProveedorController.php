@@ -29,8 +29,9 @@ class ProveedorController extends AbstractController
         if($persona->getPBiografia()===null){
             return $this->redirectToRoute('app_prov_bio', ['id' => $id]); 
         } 
-        return $this->render('proveedor/index.html.twig', [
+        return $this->render('proveedor/inicio_proveedor.html.twig', [
             'controller_name' => 'ProveedorController',
+            'proveedor' => $persona,
         ]);
     }
 
@@ -137,10 +138,80 @@ class ProveedorController extends AbstractController
             
         ]);
     }
-    #[Route('/proveedor/historial_servicios', name: 'app_proveedor_historial_servicios')]
-    public function historial_servicios(): Response
+
+    #[Route('/proveedor/{id}/perfil', name: 'app_prov_perfil')]
+    public function perfil($id, PersonaRepository $personas): Response
     {
-        return $this->render('proveedor/historial_servicios.html.twig', [
+        $proveedor = $personas->find($id);
+        
+        
+        return $this->render('proveedor/mi_perfil.html.twig', [
+            'proveedor' => $proveedor,
+            
+        ]);
+    }
+
+    #[Route('/proveedor/{id}/historialserv', name: 'app_prov_histserv')]
+    public function historialservicios($id, PersonaRepository $personas): Response
+    {
+        $proveedor = $personas->find($id);
+        $histservicios = $proveedor->getHistservproveedor();
+        
+        return $this->render('proveedor/historialservicios.html.twig', [
+            'historiales' => $histservicios,
+            
+        ]);
+    }
+
+    #[Route('/proveedor/{id}/ganancias', name: 'app_prov_ganancias')]
+    public function ganancias($id, PersonaRepository $personas): Response
+    {
+        $proveedor = $personas->find($id);
+        
+        
+        return $this->render('proveedor/ganancias.html.twig', [
+            'proveedor' => $proveedor,
+            
+        ]);
+    }
+
+    #[Route('/proveedor/{id}/chatclientes', name: 'app_prov_chat')]
+    public function chatclientes($id, PersonaRepository $personas): Response
+    {
+        $proveedor = $personas->find($id);
+        
+        
+        return $this->render('proveedor/chatclientes.html.twig', [
+            'proveedor' => $proveedor,
+            
+        ]);
+    }
+
+    #[Route('/proveedor/preguntas', name: 'app_prov_preguntas')]
+    public function preguntas(): Response
+    {
+      
+        return $this->render('proveedor/preguntas_frecuentes.html.twig', [
+            
+        ]);
+    }
+
+    #[Route('/proveedor/{id}/metcrobro', name: 'app_prov_metcobro')]
+    public function metcobro($id, PersonaRepository $personas): Response
+    {
+        $proveedor = $personas->find($id);
+
+        return $this->render('proveedor/metodocobro.html.twig', [
+            'proveedor' => $proveedor,
+        ]);
+    }
+
+    #[Route('/proveedor/ayuda', name: 'app_prov_ayuda')]
+    public function ayuda(): Response
+    {
+      
+        return $this->render('proveedor/ayuda.html.twig', [
+            
         ]);
     }
 }
