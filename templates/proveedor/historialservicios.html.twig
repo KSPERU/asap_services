@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Historial servicios
+{% endblock %}
+
+{% block body %}
+    <h2>Mis servicios</h2>
+    {% for historial in historiales %}
+
+      <div class="contenedorgeneral">
+        <p>{{ historial.hsfecha|date('l, d F, H:i A') |trans({'locale': 'es'})}}</p>
+        <p>{{historial.idservicio.svnombre}}</p>
+        <p>Cliente: {{historial.idcliente.pnombre}} {{historial.idcliente.papellido}}</p>
+        <p>Dirección: {{historial.idcliente.pdireccion}}</p>
+      </div>
+      
+    {% endfor %}
+
+{% endblock %}

@@ -58,9 +58,17 @@ class Persona
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $p_habilidades = null;
 
+    #[ORM\OneToMany(mappedBy: 'idcliente', targetEntity: Historialservicios::class)]
+    private Collection $histservcliente;
+
+    #[ORM\OneToMany(mappedBy: 'idproveedor', targetEntity: Historialservicios::class)]
+    private Collection $histservproveedor;
+
     public function __construct()
     {
         $this->servicios = new ArrayCollection();
+        $this->histservcliente = new ArrayCollection();
+        $this->histservproveedor = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -251,6 +259,66 @@ class Persona
     public function setPHabilidades(?string $p_habilidades): static
     {
         $this->p_habilidades = $p_habilidades;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Historialservicios>
+     */
+    public function getHistservcliente(): Collection
+    {
+        return $this->histservcliente;
+    }
+
+    public function addHistservcliente(Historialservicios $histservcliente): static
+    {
+        if (!$this->histservcliente->contains($histservcliente)) {
+            $this->histservcliente->add($histservcliente);
+            $histservcliente->setIdcliente($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistservcliente(Historialservicios $histservcliente): static
+    {
+        if ($this->histservcliente->removeElement($histservcliente)) {
+            // set the owning side to null (unless already changed)
+            if ($histservcliente->getIdcliente() === $this) {
+                $histservcliente->setIdcliente(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Historialservicios>
+     */
+    public function getHistservproveedor(): Collection
+    {
+        return $this->histservproveedor;
+    }
+
+    public function addHistservproveedor(Historialservicios $histservproveedor): static
+    {
+        if (!$this->histservproveedor->contains($histservproveedor)) {
+            $this->histservproveedor->add($histservproveedor);
+            $histservproveedor->setIdproveedor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistservproveedor(Historialservicios $histservproveedor): static
+    {
+        if ($this->histservproveedor->removeElement($histservproveedor)) {
+            // set the owning side to null (unless already changed)
+            if ($histservproveedor->getIdproveedor() === $this) {
+                $histservproveedor->setIdproveedor(null);
+            }
+        }
 
         return $this;
     }
