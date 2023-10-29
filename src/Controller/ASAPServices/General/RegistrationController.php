@@ -90,20 +90,20 @@ class RegistrationController extends AbstractController
 
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation(
-                'app_asap_services_general_control_correo',
+                'app_asap_services_general_proveedor_control_correo',
                 $user,
                 (new TemplatedEmail())
-                    ->from(new Address('prueba@gmail.com', 'Pruebita'))
+                    ->from(new Address('confirmacion@ksperu.com', 'Confirmación KSPERU'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email de proveedor')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
+                    ->htmlTemplate('asap_services/general/registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_asap_services_general_proveedor_login');
         }
 
-        return $this->render('asap_services/general/registration/registro_prov.html.twig', [
+        return $this->render('asap_services/general/registration/registro_proveedor.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
@@ -144,26 +144,26 @@ class RegistrationController extends AbstractController
         $id = $request->get('id');
 
         if (null === $id) {
-            return $this->redirectToRoute('app_proveedor');
+            return $this->redirectToRoute('app_asap_services_general_proveedor_registro');
         }
 
         $user = $usuarioRepository->find($id);
 
         if (null === $user) {
-            return $this->redirectToRoute('app_proveedor');
+            return $this->redirectToRoute('app_asap_services_general_proveedor_registro');
         }
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $user);
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
 
-            return $this->redirectToRoute('app_proveedor');
+            return $this->redirectToRoute('app_asap_services_general_proveedor_registro');
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', 'Your email address has been verified.');
 
-        return $this->redirectToRoute('app_asap_services_general_cliente_login');
+        return $this->redirectToRoute('app_asap_services_general_proveedor_login');
     }
 
     // By Frontend - Solo para visualizar temporalmente los terminos y condiciones
