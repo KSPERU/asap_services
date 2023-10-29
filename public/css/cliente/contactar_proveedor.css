@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+
+body {
+    background-image: url('/image/Imagen1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+.contboton-cerrar {
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.contboton-cerrar a {
+    color: #000;
+    text-decoration: none;
+}
+
+.contenido-general-contactar-proveedor-cliente {
+    min-height: 65vh;
+    max-height: 65vh;
+    background-color: #fff !important;
+}
+
+.detalles-contacto-proveedor-cliente {
+    font-family: Nunito;
+    font-weight: 700;
+    text-align: center;
+}
+
+.titulo-contactar-proveedor-cliente {
+    color: #4302AE;
+    font-size: 20px;
+}
+
+.texto-contactar-proveedor-cliente {
+    color: #000;
+    font-size: 14px;
+}
+
+/*chat general*/
+.chat-container-scroll {
+    overflow-y: scroll;
+    height: 42vh;
+}
+
+.mensaje-cliente-a-proveedor,
+.mensaje-proveedor-a-cliente {
+    overflow-y: auto;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.icono-cliente-a-proveedor,
+.icono-proveedor-a-cliente {
+    width: 100%;
+}
+
+
+
+/*enviar mensajes al chat general*/
+.container-opciones-mensajes {
+    position: fixed;
+    right: 0;
+    bottom: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#message-input-cliente {
+    flex: 1;
+    border: none;
+    padding: 5px;
+
+    width: 100%;
+    filter: drop-shadow(0px 4px 25px rgba(0, 0, 0, 0.25));
+
+    padding-top: 10px;
+    padding-left: 20px
+}
+
+#send-button-cliente {
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    filter: drop-shadow(0px 4px 25px rgba(0, 0, 0, 0.25));
+}
+
+#icon-submit-cliente {
+    font-size: 40px;
+    color: black;
+}
