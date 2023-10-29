@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+
+*{
+    font-family: Nunito;
+}
+
+body {
+    /*min-height: 90vh;*/
+    background-image: url('/image/Imagen1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+
+}
+
+.proveedor-chatclientes-container{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chatclientes-container{
+    height: 65vh;
+    background: white;
+    border-radius: 40px;
+    width: 100%;
+    padding: 18px 24px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+    }
+
+.chatclientes-header span{
+    color: #4302AE;
+    font-family: Nunito;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.chatclientes-mensaje figure{
+    margin: 0;
+}
+
+.chatclientes-mensaje img{
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+}
+
+.chatcliente-mensaje-text{
+    border-radius: 35px;
+background: rgba(220, 206, 242, 0.62);
+padding: 6px 18px;
+max-width: auto;
+
+}
+
+.chatcliente-mensaje-text p{
+    margin: 0;
+    font-size: 14px;
+    word-wrap: break-word;
+}
