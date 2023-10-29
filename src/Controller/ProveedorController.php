@@ -209,8 +209,22 @@ class ProveedorController extends AbstractController
     #[Route('/proveedor/ayuda', name: 'app_prov_ayuda')]
     public function ayuda(): Response
     {
-      
         return $this->render('proveedor/ayuda.html.twig', [
+            
+        ]);
+    }
+
+    #[Route('/proveedor/historial_servicios', name: 'app_prov_historial_servicios')]
+    public function historial_servicios(): Response
+    {
+        return $this->render('proveedor/historial_servicios.html.twig', [
+            
+        ]);
+    }
+    #[Route('/proveedor/chatclientes', name: 'app_prov_chatclientes')]
+    public function chatclientesX(): Response
+    {
+        return $this->render('proveedor/chatclientes.html.twig', [
             
         ]);
     }
