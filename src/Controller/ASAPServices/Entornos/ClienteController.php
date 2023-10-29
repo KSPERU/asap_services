@@ -113,10 +113,24 @@ class ClienteController extends AbstractController
     #[Route('/cliente/servicio_electricista', name: 'app_cliente_servicio_electricista')]
     public function servicio_electricista(): Response
     {
-        return $this->render('asap_services/entornos/cliente/servicio_electricista.html.twig', [
+        return $this->render('asap_services/entornos/cliente/servicio_electricidad.html.twig', [
             
         ]);
     }
-
+    #[Route('/cliente/servicio_gasfiteria', name: 'app_cliente_servicio_gasfiteria')]
+    public function servicio_gasfiteria(): Response
+    {
+        return $this->render('asap_services/entornos/cliente/servicio_gasfiteria.html.twig', [
+            
+        ]);
+    }
+    #[Route('/cliente/servicios_menu', name: 'app_cliente_servicios_menu')]
+    public function servicios_menu(): Response
+    {
+        return $this->render('asap_services/entornos/cliente/servicios_menu.html.twig', [
+            
+        ]);
+    }
+    
     // FIN
 }

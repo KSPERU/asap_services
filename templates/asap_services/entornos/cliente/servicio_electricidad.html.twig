@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  Servicios disponibles
+{% endblock %}
+
+{% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  <link rel="stylesheet" href="{{ asset('css/cliente/servicios_tipos.css') }}" />
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    {{ include("components/cabecera.html.twig") }}
+
+    <div class="cliente-servicios-container">
+      <h3 class="servicio_tipo mb-2">Electricidad</h3>
+      {# Div scrolleable #}
+      <div class="servicios-tipos-container d-flex flex-column align-items-center overflow-auto" style="max-height: calc(100% - 50px);">
+        <div class="position-relative d-flex align-items-center my-2">
+            <figure class="position-absolute">
+                <img src="{{asset("image/avatar_prueba.png")}}" width="105px"/>
+            </figure>
+            <div class="servicio-card-detalles">
+                <h3>Cristhian Ramirez</h3>
+                <h4>&#9733 3.7 / 5</h4>
+                <h5>Ubiacion: 2 KM</h5>
+                <h6>Distrito: San Juan de Lurigancho</h6>
+                <span><a href="#">Ver detalle</a></span>
+            </div>
+        </div>
+        {#  #}
+        <div class="position-relative d-flex align-items-center my-2">
+            <figure class="position-absolute">
+                <img src="{{asset("image/avatar_prueba.png")}}" width="105px"/>
+            </figure>
+            <div class="servicio-card-detalles">
+                <h3>Cristhian Ramirez</h3>
+                <h4>&#9733 3.7 / 5</h4>
+                <h5>Ubiacion: 2 KM</h5>
+                <h6>Distrito: San Juan de Lurigancho</h6>
+                <span><a href="#">Ver detalle</a></span>
+            </div>
+        </div>
+        {#  #}
+                <div class="position-relative d-flex align-items-center my-2">
+            <figure class="position-absolute">
+                <img src="{{asset("image/avatar_prueba.png")}}" width="105px"/>
+            </figure>
+            <div class="servicio-card-detalles">
+                <h3>Cristhian Ramirez</h3>
+                <h4>&#9733 3.7 / 5</h4>
+                <h5>Ubiacion: 2 KM</h5>
+                <h6>Distrito: San Juan de Lurigancho</h6>
+                <span><a href="#">Ver detalle</a></span>
+            </div>
+        </div>
+        {#  #}
+        <div class="position-relative d-flex align-items-center my-2">
+            <figure class="position-absolute">
+                <img src="{{asset("image/avatar_prueba.png")}}" width="105px"/>
+            </figure>
+            <div class="servicio-card-detalles">
+                <h3>Cristhian Ramirez</h3>
+                <h4>&#9733 3.7 / 5</h4>
+                <h5>Ubiacion: 2 KM</h5>
+                <h6>Distrito: San Juan de Lurigancho</h6>
+                <span><a href="#">Ver detalle</a></span>
+            </div>
+        </div>
+        {#  #}
+                <div class="position-relative d-flex align-items-center my-2">
+            <figure class="position-absolute">
+                <img src="{{asset("image/avatar_prueba.png")}}" width="105px"/>
+            </figure>
+            <div class="servicio-card-detalles">
+                <h3>Cristhian Ramirez</h3>
+                <h4>&#9733 3.7 / 5</h4>
+                <h5>Ubiacion: 2 KM</h5>
+                <h6>Distrito: San Juan de Lurigancho</h6>
+                <span><a href="#">Ver detalle</a></span>
+            </div>
+        </div>
+        {#  #}
+        <div class="position-relative d-flex align-items-center my-2">
+            <figure class="position-absolute">
+                <img src="{{asset("image/avatar_prueba.png")}}" width="105px"/>
+            </figure>
+            <div class="servicio-card-detalles">
+                <h3>Cristhian Ramirez</h3>
+                <h4>&#9733 3.7 / 5</h4>
+                <h5>Ubiacion: 2 KM</h5>
+                <h6>Distrito: San Juan de Lurigancho</h6>
+                <span><a href="#">Ver detalle</a></span>
+            </div>
+        </div>
+        {#  #}
+      <div>
+    </div>
+
+    
+
+    {# <h3>¿Que servicios deseas hoy?</h3>
+      {% for servicio in servicios %}
+        <form method="post" action="{{ path('app_cliente_servprov', {'id': servicio.id}) }}"> 
+            <button type="submit" class="btn btn-primary col-12 boton-ofreceservicios-proveedor" style="max-width: 300px;"><img src="{{ asset('image/' ~ servicio.svimagen) }}" width="50px" height="50px">
+            {{servicio.svnombre}}</button>
+        </form>
+      {% endfor %} #}
+      {{ include("components/footer.html.twig") }}
+{% endblock %}
