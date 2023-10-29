@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Contactaa tu Servicio
+{% endblock %}
+
+{% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  <link rel="stylesheet" href="{{ asset('css/cliente/pre_contactar_proveedor.css') }}" />
+{% endblock %}
+
+{% block body %}
+  {# Empieza vista #}
+  <div class="container p-3">
+    <div class="container">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-3 d-flex justify-content-center"></div>
+        <div class="col-6 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
+        <div class="col-3 d-flex justify-content-center contboton-cerrar">
+          <a href="">x</a>
+        </div>
+      </div>
+
+      <div class="container rounded-5 contenido-precontactar-proveedor-cliente">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 titulo-precontactar-proveedor-cliente pt-3 pb-2">Comunicate con el proveedor</div>
+          </div>
+
+          <div class="p-2 d-flex justify-content-center">
+            <div class="row" style="width: 100%;">
+              <div class="col-5 p-0 d-flex justify-content-center align-items-center" style="
+    z-index: 1;">
+                <img class="col-6" style="width: 100%;" src="{{ asset('/image/avatar_prueba.png') }}" alt="" />
+              </div>
+              <div class="col-7 ms-auto d-grid justify-content-center text-center" style="
+    z-index: 1;">
+                <span class="titulo-detalle-precontactar-proveedor-cliente">Cristhian Ramirez</span>
+                <span class="texto-detalle-precontactar-proveedor-cliente">★ 3.7 / 5</span>
+                <span class="texto-detalle-precontactar-proveedor-cliente">Ubicacion: 2 KM</span>
+                <span class="texto-detalle-precontactar-proveedor-cliente">Distrito: San Juan de Lurigancho</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="contenedor-general"></div>
+
+          <div class="row contenido-boton-precontactar-proveedor">
+            <div class="col-10">
+              <button type="submit" class="btn col-12 boton-precontactar-proveedor"><a href="">Ir al chat</a></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{ include('components/footer.html.twig') }}
+{% endblock %}
