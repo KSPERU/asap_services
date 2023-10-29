@@ -52,7 +52,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
 
         if (in_array("ROLE_CLI", $aux_roles)) {
-            return new RedirectResponse($this->urlGenerator->generate('app_cliente'));
+            return new RedirectResponse($this->urlGenerator->generate('app_asap_services_entornos_cliente_inicio'));
         } elseif (in_array("ROLE_PROV", $aux_roles)) {
             return new RedirectResponse($this->urlGenerator->generate('app_proveedor'));
         } else {
