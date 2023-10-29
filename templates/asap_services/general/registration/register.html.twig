@@ -8,8 +8,7 @@
   {{ encore_entry_link_tags('app') }}
 
   <link rel="stylesheet" href="{{ asset('css/registration/registro_cliente.css') }}" />
-  <link rel="stylesheet" href="{{ asset('css/cliente/apoyo_usuario.css') }}" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="{{ asset('css/cliente/invitar_amigos.css') }}" />
 {% endblock %}
 
 {% block body %}
@@ -93,7 +92,42 @@
     </div>
   </div> 
 #}
-  
+  <div class="container p-3">
+    <div class="container">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-3 d-flex justify-content-center"></div>
+        <div class="col-6 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
+        <div class="col-3 d-flex justify-content-center contboton-cerrar">
+          <a href="">x</a>
+        </div>
+      </div>
+
+      <div class="container rounded-5 contenido-invitar-amigos-cliente">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 titulo-invitar-amigos-cliente pt-3 pb-2">Invitar amigos</div>
+          </div>
+          <div class="row">
+            <div class="col-12 texto-invitar-amigos-cliente mb-3">Comparte tu código y obtendras descuentos.</div>
+          </div>
+          <div class="row d-flex justify-content-center mb-3">
+            <img class="col-6" src="{{ asset('/image/icono_invitar_amigos.png') }}" alt="" />
+          </div>
+          <div class="row">
+            <div class="col-12 texto-invitar-amigos-cliente mb-3">Cuando tus amigos se registren y hayan solicitado su primer servicio de asistencia, obtendrás un descuento del 50% en tu siguiente solicitud.</div>
+          </div>
+          <div class="row d-flex justify-content-center">
+            <div class="col-12 texto-codigo-invitar-amigos-cliente mb-3">CM01</div>
+          </div>
+          <div class="row contenido-boton-invitar-amigos">
+            <div class="col-10">
+              <button type="submit" class="btn col-12 boton-invitar-amigos">Invitar amigos</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   {{ include('components/footer.html.twig') }}
 {% endblock %}
