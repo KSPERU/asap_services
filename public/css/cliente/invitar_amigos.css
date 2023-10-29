@@ -7,9 +7,6 @@ body {
     background-attachment: fixed;
     overflow: hidden;
 }
-.icono-invitar-amigos{
-    background-image: url('/image/icono-invitar-amigos.png');
-}
 
 .contboton-cerrar {
     font-size: 50px;
