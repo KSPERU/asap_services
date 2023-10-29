@@ -8,11 +8,12 @@
   {{ encore_entry_link_tags('app') }}
 
   <link rel="stylesheet" href="{{ asset('css/registration/registro_cliente.css') }}" />
-{% endblock %}
+  <link rel="stylesheet" href="{{ asset('css/cliente/pre_contactar_proveedor.css') }}" />
+ {% endblock %}
 
 {% block body %}
   {# Empieza vista #}
-  {#   <div class="container p-3">
+  <div class="container p-3">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-1"></div>
@@ -33,7 +34,7 @@
           </div>
           {{ form_start(registrationForm) }}
             <div class="row d-flex justify-content-center">
-              <div class="col-12 titulo-registrar-usuario text-center" style="margin-top: 8px;margin-bottom: 0px;">Bienvenido a Asap Services</div>
+              <div class="col-12 titulo-registrar-usuario text-center" style="margin-top: 4px;margin-bottom: 0px;">Bienvenido a Asap Services</div>
             </div>
             <div class="row">
               <div class="col-12 d-flex justify-content-center" >
@@ -44,28 +45,28 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-12 row row-gap-3">
-                <div class="input-group mb-1">
+              <div class="col-12 row">
+                <div class="input-group mb-3">
                   {{ form_widget(registrationForm.idPersona.p_nombre, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
                   {{ form_label(registrationForm.idPersona.p_nombre, 'Nombres', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
                 </div>
-                <div class="input-group mb-1">
+                <div class="input-group mb-3">
                   {{ form_widget(registrationForm.idPersona.p_apellido, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
                   {{ form_label(registrationForm.idPersona.p_apellido, 'Apellidos', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
                 </div>
-                <div class="input-group mb-1">
+                <div class="input-group mb-3">
                   {{ form_widget(registrationForm.idPersona.p_contacto, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
                   {{ form_label(registrationForm.idPersona.p_contacto, 'Numero de Celular', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
                 </div>
-                <div class="input-group mb-1">
+                <div class="input-group mb-3">
                   {{ form_widget(registrationForm.idPersona.p_direccion, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
                   {{ form_label(registrationForm.idPersona.p_direccion, 'Dirección', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
                 </div>
-                <div class="input-group mb-1">
+                <div class="input-group mb-3">
                   {{ form_widget(registrationForm.email, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
                   {{ form_label(registrationForm.email, 'Correo Electrónico', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
                 </div>
-                <div class="input-group mb-1">
+                <div class="input-group mb-3">
                   {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
                   {{ form_label(registrationForm.plainPassword, 'Contraseña', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
                 </div>
@@ -90,8 +91,44 @@
       </div>
     </div>
   </div> 
-#}
- 
+
+ {#  <div class="container p-3">
+    <div class="container">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-3 d-flex justify-content-center"></div>
+        <div class="col-6 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
+        <div class="col-3 d-flex justify-content-center contboton-cerrar">
+          <a href="">x</a>
+        </div>
+      </div>
+
+      <div class="container rounded-5 contenido-precontactar-proveedor-cliente">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 titulo-precontactar-proveedor-cliente pt-3 pb-2">Comunicate con el proveedor</div>
+          </div>
+          <div class="row" style="width: 100%;">
+            <div class="contenedor1">
+              <img class="icono-precontactar-usuario" style="width: 100%;" src="{{ asset('/image/avatar_prueba.png') }}" alt="" />
+            </div>
+            <div class="contenedor2">
+              <span class="titulo-detalle-precontactar-proveedor-cliente">Cristhian Ramirez</span>
+              <span class="texto-detalle-precontactar-proveedor-cliente">★ 3.7 / 5</span>
+              <span class="texto-detalle-precontactar-proveedor-cliente">Ubicacion: 2 KM</span>
+              <span class="texto-detalle-precontactar-proveedor-cliente">Distrito: San Juan de Lurigancho</span>
+            </div>
+          </div>
+          <div class="contenedor-general"></div>
+
+          <div class="row contenido-boton-precontactar-proveedor">
+            <div class="col-10">
+              <button type="submit" class="btn col-12 boton-precontactar-proveedor"><a href="">Ir al chat</a></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> #}
 
   {{ include('components/footer.html.twig') }}
 {% endblock %}
