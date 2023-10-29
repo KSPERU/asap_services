@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\ASAPServices\Entornos;
 
 use App\Entity\Persona;
 use App\Form\ProveedorType;
@@ -22,14 +22,15 @@ class ProveedorController extends AbstractController
     {
         $user = $this->getUser();
         $proveedor = $usuarios->findOneBy([
-            'email'=>$user->getUserIdentifier(),
+            'email' => $user->getUserIdentifier(),
         ]);
         $persona = $proveedor->getIdPersona();
         $id = $persona->getId();
-        if($persona->getPBiografia()===null){
-            return $this->redirectToRoute('app_prov_bio', ['id' => $id]); 
-        } 
-        return $this->render('proveedor/inicio_proveedor.html.twig', [
+        if ($persona->getPBiografia() === null) {
+            return $this->redirectToRoute('app_prov_bio', ['id' => $id]);
+        }
+
+        return $this->render('asap_services/entornos/proveedor/inicio_proveedor.html.twig', [
             'controller_name' => 'ProveedorController',
             'proveedor' => $persona,
         ]);
@@ -40,28 +41,28 @@ class ProveedorController extends AbstractController
     {
         $form = $this->createForm(ProveedorType::class, $persona);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $archivo = $form['p_foto']->getData();
-            if($archivo!==null){
-                $destino = $this->getParameter('kernel.project_dir').'/public/img';
+            if ($archivo !== null) {
+                $destino = $this->getParameter('kernel.project_dir') . '/public/img';
                 $archivo->move($destino, $archivo->getClientOriginalName());
                 $persona->setPFoto($archivo->getClientOriginalName());
             }
             $archivo = $form['p_cv']->getData();
-            if($archivo!==null){
-                $destino = $this->getParameter('kernel.project_dir').'/public/doc';
+            if ($archivo !== null) {
+                $destino = $this->getParameter('kernel.project_dir') . '/public/doc';
                 $archivo->move($destino, $archivo->getClientOriginalName());
                 $persona->setPFoto($archivo->getClientOriginalName());
             }
             $archivo = $form['p_antpen']->getData();
-            if($archivo!==null){
-                $destino = $this->getParameter('kernel.project_dir').'/public/doc';
+            if ($archivo !== null) {
+                $destino = $this->getParameter('kernel.project_dir') . '/public/doc';
                 $archivo->move($destino, $archivo->getClientOriginalName());
                 $persona->setPFoto($archivo->getClientOriginalName());
             }
             $archivo = $form['p_cert']->getData();
-            if($archivo!==null){
-                $destino = $this->getParameter('kernel.project_dir').'/public/doc';
+            if ($archivo !== null) {
+                $destino = $this->getParameter('kernel.project_dir') . '/public/doc';
                 $archivo->move($destino, $archivo->getClientOriginalName());
                 $persona->setPFoto($archivo->getClientOriginalName());
             }
@@ -72,12 +73,12 @@ class ProveedorController extends AbstractController
                     $form->get('usuario')->get('password')->getData()
                 )
             );
-            $entityManager->flush(); 
+            $entityManager->flush();
         }
-        return $this->render('proveedor\edit.html.twig', [
+        return $this->render('asap_services/entornos/proveedor/edit.html.twig', [
             'form' => $form,
-            'persona'=>$persona,
-            
+            'persona' => $persona,
+
         ]);
     }
 
@@ -95,11 +96,11 @@ class ProveedorController extends AbstractController
                 $entityManager->flush();
             }
 
-            
+
             return $this->redirectToRoute('app_prov_serv', ['id' => $id]);
         }
 
-        return $this->render('proveedor/biografia.html.twig', [
+        return $this->render('asap_services/entornos/proveedor/biografia.html.twig', [
             'controller_name' => 'ProveedorController',
             'persona' => $persona
         ]);
@@ -109,15 +110,15 @@ class ProveedorController extends AbstractController
     public function servicios($id, Request $request, PersonaRepository $personas, ServicioRepository $servicios, EntityManagerInterface $entityManager): Response
     {
         $persona = $personas->find($id);
-        
+
         if ($request->isMethod('POST')) {
-            $serviciosselect = $request->get('servicios',[]);
+            $serviciosselect = $request->get('servicios', []);
 
             if ($persona) {
-                foreach($serviciosselect as $servicioid){
+                foreach ($serviciosselect as $servicioid) {
                     $servicio = $servicios->find($servicioid);
 
-                    if($servicio){
+                    if ($servicio) {
                         $personaservicio = new PersonaServicio;
                         $personaservicio->setIdPersona($persona);
                         $personaservicio->setIdServicio($servicio);
@@ -125,17 +126,16 @@ class ProveedorController extends AbstractController
                     }
                 }
                 $entityManager->flush();
-                
             }
 
             return $this->redirectToRoute('app_proveedor');
         }
 
-        return $this->render('proveedor/ofrecer_servicios.html.twig', [
+        return $this->render('asap_services/entornos/proveedor/ofrecer_servicios.html.twig', [
             'controller_name' => 'ProveedorController',
             'persona' => $persona,
             'servicios' => $servicios->findAll(),
-            
+
         ]);
     }
 
@@ -143,11 +143,11 @@ class ProveedorController extends AbstractController
     public function perfil($id, PersonaRepository $personas): Response
     {
         $proveedor = $personas->find($id);
-        
-        
-        return $this->render('proveedor/mi_perfil.html.twig', [
+
+
+        return $this->render('asap_services/entornos/proveedor/mi_perfil.html.twig', [
             'proveedor' => $proveedor,
-            
+
         ]);
     }
 
@@ -156,10 +156,10 @@ class ProveedorController extends AbstractController
     {
         $proveedor = $personas->find($id);
         $histservicios = $proveedor->getHistservproveedor();
-        
-        return $this->render('proveedor/historialservicios.html.twig', [
+
+        return $this->render('asap_services/entornos/proveedor/historialservicios.html.twig', [
             'historiales' => $histservicios,
-            
+
         ]);
     }
 
@@ -167,11 +167,11 @@ class ProveedorController extends AbstractController
     public function ganancias($id, PersonaRepository $personas): Response
     {
         $proveedor = $personas->find($id);
-        
-        
-        return $this->render('proveedor/ganancias.html.twig', [
+
+
+        return $this->render('asap_services/entornos/proveedor/ganancias.html.twig', [
             'proveedor' => $proveedor,
-            
+
         ]);
     }
 
@@ -179,21 +179,19 @@ class ProveedorController extends AbstractController
     public function chatclientes($id, PersonaRepository $personas): Response
     {
         $proveedor = $personas->find($id);
-        
-        
-        return $this->render('proveedor/chatclientes.html.twig', [
+
+
+        return $this->render('asap_services/entornos/proveedor/chatclientes.html.twig', [
             'proveedor' => $proveedor,
-            
+
         ]);
     }
 
     #[Route('/proveedor/preguntas', name: 'app_prov_preguntas')]
     public function preguntas(): Response
     {
-      
-        return $this->render('proveedor/preguntas_frecuentes.html.twig', [
-            
-        ]);
+
+        return $this->render('asap_services/entornos/proveedor/preguntas_frecuentes.html.twig', []);
     }
 
     #[Route('/proveedor/{id}/metcrobro', name: 'app_prov_metcobro')]
@@ -201,7 +199,7 @@ class ProveedorController extends AbstractController
     {
         $proveedor = $personas->find($id);
 
-        return $this->render('proveedor/metodocobro.html.twig', [
+        return $this->render('asap_services/entornos/proveedor/metodocobro.html.twig', [
             'proveedor' => $proveedor,
         ]);
     }
@@ -209,32 +207,24 @@ class ProveedorController extends AbstractController
     #[Route('/proveedor/ayuda', name: 'app_prov_ayuda')]
     public function ayuda(): Response
     {
-        return $this->render('proveedor/ayuda.html.twig', [
-            
-        ]);
+        return $this->render('asap_services/entornos/proveedor/ayuda.html.twig', []);
     }
 
     // CREADO POR FRONTEND PARA VISUALIZAR LAS VISTAS - EKIMINAR SI ES NECESARIO
     #[Route('/proveedor/historial_servicios', name: 'app_prov_historial_servicios')]
     public function historial_servicios(): Response
     {
-        return $this->render('proveedor/historial_servicios.html.twig', [
-            
-        ]);
+        return $this->render('asap_services/entornos/proveedor/historial_servicios.html.twig', []);
     }
     #[Route('/proveedor/conversa_cliente', name: 'app_prov_conversa_cliente')]
     public function conversa_cliente(): Response
     {
-        return $this->render('proveedor/conversa_cliente.html.twig', [
-            
-        ]);
+        return $this->render('asap_services/entornos/proveedor/conversa_cliente.html.twig', []);
     }
     #[Route('/proveedor/chatclientes', name: 'app_prov_chatclientes')]
     public function chatclientesX(): Response
     {
-        return $this->render('proveedor/chatclientes.html.twig', [
-            
-        ]);
+        return $this->render('asap_services/entornos/proveedor/chatclientes.html.twig', []);
     }
     // FIN
 
