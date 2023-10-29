@@ -65,7 +65,7 @@ body {
 }
 
 .boton-precontactar-proveedor {
-    margin-top: 15vh;
+    margin-top: 10vh;
     border-radius: 40px;
     background: #4302AE;
     border: none;
@@ -104,34 +104,14 @@ body {
 }
 
 .contenedor-general {
+    position: relative;
     border-radius: 40px;
     background: #FFF;
     box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.25);
-    height: 230px;
+    height: 154px;
     padding: 16px;
-    left: -50px; /* Ajusta este valor para mover el contenedor a la izquierda */
-}
-
-.icono-precontactar-usuario {
-    position: absolute;
-    top: 20px;
-
-}
-
-.contenedor1 {
-    width: 150px;
-    height: 200px;
-    background-color: transparent;
-    position: relative;
-    z-index: 1;
-}
-
-.contenedor2 {
-    display: grid;
-    place-items: center;
-    width: 200px;
-    height: 200px;
-    position: relative;
-    top: -200px;
-    left: 115px; /* Ajusta este valor para alinear el contenido correctamente */
+    left: 49px;
+    width: 240px;
+    top: -154px;
+    z-index: 0;
 }
