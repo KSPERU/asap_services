@@ -2,10 +2,50 @@
 
 {% block title %}Password Reset Email Sent{% endblock %}
 
+{% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  <link rel="stylesheet" href="{{ asset('css/reset_password/verificacion_correo.css') }}" />
+{% endblock %}
+
 {% block body %}
+    
     <p>
         If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
         This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
     </p>
     <p>If you don't receive an email please check your spam folder or <a href="{{ path('app_forgot_password_request') }}">try again</a>.</p>
+    <div class="container p-3">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-1"></div>
+        <div class="col-10 d-flex justify-content-center">{{ include('components/logo_mediano.html.twig') }}</div>
+        <div class="col-1"></div>
+      </div>
+
+      <div class="container bg-light rounded-5 contenido-codigo-verificacion">
+        <div class="container">
+          <div class="row d-flex justify-content-center">
+            <div class="col-12">
+              <p class="titulo-codigo-verificacion">Ingresar Codigo de Verificacion</p>
+              <p class="subtexto-codigo-verificacion">Revisa tu correo, se envió un código de verificación</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 row">
+              <div class="input-group mt-3">
+                <input type="number" class="input-field form-control" id="floatingInput" placeholder=" " />
+                <label class="input-label texto-codigo-verificacion" for="floatingInput">Codigo</label>
+              </div>
+              <span class="reenviar-codigo-verificacion mb-3"><a href="">Enviar de nuevo</a></span>
+            </div>
+          </div>
+          <div class="row contenido-boton-verificacion">
+            <div class="col-10">
+              <button type="button" class="btn col-12 boton-codigo-verificacion">Validar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

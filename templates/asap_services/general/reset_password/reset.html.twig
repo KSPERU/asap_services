@@ -34,14 +34,14 @@
           {{ form_start(resetForm) }}
             <div class="row">
                 <div class="col-12 row row-gap-3">
-                <div class="input-group mb-3 mt-3">
-                    <input type="password" class="input-field form-control" id="floatingInput" placeholder=" " />
-                    <label class="input-label texto-cambiar-password" for="floatingInput">Nueva contraseña</label>
-                </div>
-                <div class="input-group mb-3 mt-3">
-                    <input type="password" class="input-field form-control" id="floatingInput" placeholder=" " />
-                    <label class="input-label texto-cambiar-password" for="floatingInput">Confirma contraseña</label>
-                </div>
+                  <div class="input-group mb-3 mt-3">
+                    {{ form_widget(resetForm.plainPassword.first, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
+                    {{ form_label(resetForm.plainPassword.first, 'Nueva Contraseña', {'label_attr': {'class': 'input-label texto-cambiar-password'}, 'attr': {'for': 'floatingInput'}}) }}
+                  </div>
+                  <div class="input-group mb-3 mt-3">
+                    {{ form_widget(resetForm.plainPassword.second, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
+                    {{ form_label(resetForm.plainPassword.second, 'Confirmar Contraseña', {'label_attr': {'class': 'input-label texto-cambiar-password'}, 'attr': {'for': 'floatingInput'}}) }}
+                  </div>
                 </div>
             </div>
             <div class="row contenido-boton-cambiarpassword mt-3">
