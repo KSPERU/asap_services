@@ -93,75 +93,7 @@
     </div>
   </div> 
 #}
-  <div class="container p-3">
-    <div class="container">
-      <div class="row d-flex justify-content-center align-items-center">
-        <div class="col-3 d-flex justify-content-center"></div>
-        <div class="col-6 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
-        <div class="col-3 d-flex justify-content-center contboton-cerrar">
-          <a href="">x</a>
-        </div>
-      </div>
-
-      <div class="container rounded-5 contenido-general-apoyo-usuario-cliente">
-        <div class="container">
-          <div class="row">
-            <div class="col-12 titulo-apoyo-usuario-cliente pt-3 pb-2">Soporte</div>
-          </div>
-          <div class="row" style="display: flex; justify-content:center; align-items:center">
-            <div class="col-4 icono-apoyo-usuario-cliente mb-3">
-              <img class="icono_promociones_cupones" style="width: 100%;" src="{{ asset('/image/icono_pequenio_ayuda_cliente.png') }}" alt="" />
-            </div>
-            <div class="col-8 texto-apoyo-usuario-cliente mb-3">Apoyo al usuario</div>
-          </div>
-
-          {# chat general #}
-
-          <div class="chat-container-scroll">
-            <div class="container-mensaje-cliente text-end">
-              <div class="row d-flex align-items-center" style="width:100%">
-                <div class="col-9">
-                  <div class="mensaje-cliente-soporte">
-                    <span class="bg-secondary text-white p-1 rounded-3 d-block">Disculpe</span>
-                  </div>
-                </div>
-                <div class="col-3">
-                  <img class="icono-usuario-soporte" src="{{ asset('/image/icono_invitar_amigos.png') }}" alt="" />
-                </div>
-              </div>
-            </div>
-
-            <div class="container-mensaje-proveedor text-start">
-              <div class="row d-flex align-items-center" style="width:100%">
-                <div class="col-3">
-                  <img class="icono-proveedor-soporte" src="{{ asset('/image/icono_pequenio_ayuda_cliente.png') }}" alt="" />
-                </div>
-                <div class="col-9">
-                  <div class="mensaje-proveedor-soporte">
-                    <span class="bg-secondary text-white p-1 rounded-3 d-block">Hola!</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {# inputs para enviar mensaje al chat general #}
-          <div class="container container-flex-input-submit">
-            <div class="row d-flex justify-content-center input-submit-container" style="width: 100%;">
-              <div class="col-9 p-0">
-                <textarea class="form-control rounded-5" id="message-input" placeholder="Escribe tu mensaje..."></textarea>
-              </div>
-              <div class="col-3">
-                <button class="btn btn-primary d-flex justify-content-center p-0 rounded-5" id="send-button"><i class="fas fa-arrow-up" id="icon-submit"></i></button>
-              </div>
-            </div>
-          </div>
-
-          {# fin chat #}
-        </div>
-      </div>
-    </div>
-  </div>
+  
 
   {{ include('components/footer.html.twig') }}
 {% endblock %}
