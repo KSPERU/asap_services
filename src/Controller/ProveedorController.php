@@ -214,6 +214,7 @@ class ProveedorController extends AbstractController
         ]);
     }
 
+    // CREADO POR FRONTEND PARA VISUALIZAR LAS VISTAS - EKIMINAR SI ES NECESARIO
     #[Route('/proveedor/historial_servicios', name: 'app_prov_historial_servicios')]
     public function historial_servicios(): Response
     {
@@ -235,4 +236,7 @@ class ProveedorController extends AbstractController
             
         ]);
     }
+    // FIN
+
+
 }

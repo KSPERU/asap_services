@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+
+body {
+    /*min-height: 90vh;*/
+    background-image: url('/image/Imagen1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.cliente-servicios-container{
+    height: 65vh;
+    border-radius: 40px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 16px;
+}
+
+.servicios-tipos-container{
+    border-radius: 0 0 40px 40px;
+}
+
+.cliente-servicios-item{
+    display: flex;
+    align-items: center;
+    width: 90%;
+    padding: 0;
+    border-radius: 40px;
+    background: #FFF;
+    box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.15);
+}
+
+.cliente-servicios-item a{
+    width: 100%;
+    /* margin: 0 0 0 30px; */
+    text-decoration: none;
+    line-height: 46px;
+}    
+
+
+.footer-text-asap{
+    color: rgba(0, 0, 0, 0.66);
+font-family: Odor Mean Chey;
+font-size: 15px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+
+.servicio_tipo{
+    color: #FFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Nunito;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    background-color: #4302AE;
+    text-align: center;
+    padding: 12px 24px;
+    width: 200px;
+    border-radius: 40px;
+    margin: 0 auto;
+}
+
+.servicio-card-detalles{
+    border-radius: 40px;
+    background: #FFF;
+    box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.10);
+    margin-left: 50px;
+    padding: 8px 20px 12px 45px;
+}
+
+.servicio-card-detalles h3{
+    color: #4302AE;
+font-family: Nunito;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+margin: 5px;
+text-align:center;
+}
+
+.servicio-card-detalles h4{
+    color: #000;
+text-align: center;
+text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+font-family: Nunito;
+font-size: 14px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+margin: 5px;
+text-align:center;
+}
+
+.servicio-card-detalles h5{
+    color: #000;
+text-align: center;
+text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+font-family: Nunito;
+font-size: 14px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+margin: 5px;
+text-align:center;
+}
+
+.servicio-card-detalles h6{
+    color: #000;
+text-align: center;
+text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+font-family: Nunito;
+font-size: 14px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+margin: 5px;
+text-align:center;
+}
+
+.servicio-card-detalles span{
+    float: inline-end;
+}
+
+.servicio-card-detalles span a{
+    text-decoration: none;
+}

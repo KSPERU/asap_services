@@ -101,4 +101,22 @@ class ClienteController extends AbstractController
             'aux_session' => $this->getUser(),
         ]);
     }
+
+    // CREADO POR FRONTEND PARA VISUALIZAR LAS VISTAS - EKIMINAR SI ES NECESARIO
+    #[Route('/cliente/verservicios', name: 'app_cliente_verservicios')]
+    public function verservicios2(): Response
+    {
+        return $this->render('asap_services/entornos/cliente/showservicios.html.twig', [
+            
+        ]);
+    }
+    #[Route('/cliente/servicio_electricista', name: 'app_cliente_servicio_electricista')]
+    public function servicio_electricista(): Response
+    {
+        return $this->render('asap_services/entornos/cliente/servicio_electricista.html.twig', [
+            
+        ]);
+    }
+
+    // FIN
 }
