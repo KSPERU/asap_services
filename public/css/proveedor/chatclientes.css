@@ -62,3 +62,8 @@ max-width: auto;
     font-size: 14px;
     word-wrap: break-word;
 }
+
+
+.chatclientes-mensaje:nth-child(even){
+    flex-direction: row-reverse;
+}
