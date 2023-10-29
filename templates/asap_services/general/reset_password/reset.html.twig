@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  <link rel="stylesheet" href="{{ asset('css/reset_password/nueva_contrasenia.css') }}" />
+{% endblock %}
+
+{% block body %}
+{# 
+    <h1>Reset your password</h1>
+
+    {{ form_start(resetForm) }}
+        {{ form_row(resetForm.plainPassword) }}
+        <button class="btn btn-primary">Reset password</button>
+    {{ form_end(resetForm) }}
+#}
+
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-1"></div>
+        <div class="col-10 d-flex justify-content-center">{{ include('components/logo_mediano.html.twig') }}</div>
+        <div class="col-1"></div>
+      </div>
+
+      <div class="container bg-light rounded-5 contenido-cambiar-password">
+        <div class="container">
+          <div class="row d-flex justify-content-center">
+            <div class="col-12">
+              <p class="titulo-cambiar-password">Cambiar contraseña</p>
+            </div>
+          </div>
+          {{ form_start(resetForm) }}
+            <div class="row">
+                <div class="col-12 row row-gap-3">
+                <div class="input-group mb-3 mt-3">
+                    <input type="password" class="input-field form-control" id="floatingInput" placeholder=" " />
+                    <label class="input-label texto-cambiar-password" for="floatingInput">Nueva contraseña</label>
+                </div>
+                <div class="input-group mb-3 mt-3">
+                    <input type="password" class="input-field form-control" id="floatingInput" placeholder=" " />
+                    <label class="input-label texto-cambiar-password" for="floatingInput">Confirma contraseña</label>
+                </div>
+                </div>
+            </div>
+            <div class="row contenido-boton-cambiarpassword mt-3">
+                <div class="col-10">
+                <button type="submit" class="btn col-12 boton-cambiar-password">Cambiar Contraseña</button>
+                </div>
+            </div>
+            {{ form_widget(resetForm._token) }}
+          {{ form_end(resetForm) }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -29,7 +29,7 @@
 
   {# RECORDAR PASSWORD #}
 
-  {# <div class="container p-3">
+  <div class="container p-3">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-1"></div>
@@ -47,28 +47,33 @@
               <p class="subtexto-recordar-password ">Ingrese su correo electronico y le enviaremos las instrucciones</p>
             </div>
           </div>
-          <div class="row">
-            <div class="col-12 row row-gap-3">
-              <div class="input-group mb-3 mt-3">
-                <input type="email" class="input-field form-control" id="floatingInput" placeholder=" " />
-                <label class="input-label texto-recordar-password" for="floatingInput">Correo Electrónico</label>
+          {% for flash_error in app.flashes('reset_password_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+          {% endfor %}
+          {{ form_start(requestForm) }}
+            <div class="row">
+              <div class="col-12 row row-gap-3">
+                <div class="input-group mb-3 mt-3">
+                  {{ form_widget(requestForm.email, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
+                  {{ form_label(requestForm.email, 'Correo Electrónico', {'label_attr': {'class': 'input-label texto-recordar-password'}, 'attr': {'for': 'floatingInput'}}) }}
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row contenido-boton-recordar">
-            <div class="col-10">
-              <button type="button" class="btn col-12 boton-recordar-password">Registrate</button>
+            <div class="row contenido-boton-recordar">
+              <div class="col-10">
+                <button type="submit" class="btn col-12 boton-recordar-password">Recordar</button>
+              </div>
             </div>
-          </div>
+            {{ form_widget(requestForm._token) }}
+          {{ form_end(requestForm) }}
         </div>
       </div>
     </div>
-  </div> 
-#}
+  </div>
 
   {# INGRRESAR CODIGO DE VERIFICACION #}
 
-  <div class="container p-3">
+  {#  <div class="container p-3">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-1"></div>
@@ -101,7 +106,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> #}
 
   {# CAMBIAR PASSWORD #}
 
