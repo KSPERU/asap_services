@@ -221,6 +221,13 @@ class ProveedorController extends AbstractController
             
         ]);
     }
+    #[Route('/proveedor/conversa_cliente', name: 'app_prov_conversa_cliente')]
+    public function conversa_cliente(): Response
+    {
+        return $this->render('proveedor/conversa_cliente.html.twig', [
+            
+        ]);
+    }
     #[Route('/proveedor/chatclientes', name: 'app_prov_chatclientes')]
     public function chatclientesX(): Response
     {
