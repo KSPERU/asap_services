@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+
+*{
+    font-family: Nunito;
+}
+
+body {
+    /*min-height: 90vh;*/
+    background-image: url('/image/Imagen1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+
+}
+
+.proveedor-historial-servicios-container{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.historial-servicios-container{
+    height: 65vh;
+    background: white;
+    border-radius: 40px;
+    width: 100%;
+    padding: 18px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.historial-servicios-title{
+    color: #4302AE;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+.historial-servicios-fecha{
+    color: #000;
+text-align: center;
+font-family: Nunito;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+
+.historial-servicios-text{
+    color: #000;
+text-align: center;
+font-family: Nunito;
+font-size: 24px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+
+.historial-servicios-card{
+    border-radius: 20px;
+    border: 1px solid #0f0f0f;
+    padding: 18px;
+}
+
+.contboton-cerrar {
+    font-size: 50px;
+    font-weight: 700;
+    
+}
+.contboton-cerrar a {
+color: #000;
+text-decoration: none;
+}

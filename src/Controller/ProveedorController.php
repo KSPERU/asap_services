@@ -137,4 +137,10 @@ class ProveedorController extends AbstractController
             
         ]);
     }
+    #[Route('/proveedor/historial_servicios', name: 'app_proveedor_historial_servicios')]
+    public function historial_servicios(): Response
+    {
+        return $this->render('proveedor/historial_servicios.html.twig', [
+        ]);
+    }
 }
