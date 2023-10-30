@@ -1,13 +1,107 @@
+<style>
+.btn-menu{
+  border:none;
+  z-index: 50;
+  background: transparent;
+}
+
+.menu-nav{
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+
+  background: rgba(67, 2, 174, 0.9);
+  height: 100%;
+  width: 80%;
+  left:0;
+  z-index:9;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.menu-nav.show{
+  transform: translateX(0);
+}
+
+.menu-nav-header{
+  position:relative;
+  z-index:10;
+  color:#fff;
+}
+
+.menu-nav-header figure img{
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+
+.menu-nav-body{
+  position:relative;
+  z-index:11;
+  background: #fff;
+}
+.menu-nav-body h4{
+  padding: 8px 16px;
+  border-radius: 40px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+  margin: 20px auto;
+
+  color: #000;
+  text-align: center;
+  font-family: Nunito;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.menu-nav-body h4 a{
+  text-decoration:none;
+  color: #0f0f0f
+}
+
+{# menu convertible #}
+.btn-menu {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  position: relative;
+  background: none;
+  border: none;
+}
+
+.bar {
+  width: 100%;
+  height: 4px;
+  background-color: #000; /* Color de las barras del menú hamburguesa */
+  margin: 6px 0;
+  transition: transform 0.4s ease;
+  border-radius: 8px;
+}
+
+.btn-menu.active .bar:nth-child(1) {
+  transform: rotate(-45deg) translate(-7px, 7px); /* Ajusta la posición de la primera barra */
+  background-color: #fff;
+}
+
+.btn-menu.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.btn-menu.active .bar:nth-child(3) {
+  transform: rotate(45deg) translate(-7px, -7px); /* Ajusta la posición de la tercera barra */
+  background-color: #fff;
+}
+
+
+</style>
+
 <div class="row d-flex justify-content-center align-items-center">
   <div class="col-3 d-flex justify-content-center">
-    <a href="https://www.google.com">
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="48" height="48" fill="white" fill-opacity="0.01"/>
-        <path d="M7.94977 11.9498H39.9498" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M7.94977 23.9498H39.9498" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M7.94977 35.9498H39.9498" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </a>
+    <button class="btn-menu" id="btn-menu" onclick="openMenu()">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </button>
   </div>
   <div class="col-6 d-flex justify-content-center">
     {{ include("components/logo_pequenio.html.twig") }}
@@ -18,3 +112,33 @@
     </a>
   </div>
 </div>
+
+<div id="menu-nav" class="menu-nav position-absolute top-0">
+  <div class="menu-nav-header d-flex flex-column align-items-center justify-content-center my-4">
+    <figure>
+      <img src="{{asset("image/ceci.png")}}" />
+    </figure>
+    <h5>Cecilia Marin</h5>
+    <h6>cecilia.marin45@gmail.com</h6>
+  </div>
+  <div class="menu-nav-body px-4 py-1 text-center overflow-auto" style="max-height: calc(100% - 225px);">
+    <h4><a href="#">Historial de servicios</a></h4>
+    <h4><a href="#">Métodos de pago</a></h4>
+    <h4><a href="#">Saldos y pagos</a></h4>
+    <h4><a href="#">Invitar amigos</a></h4>
+    <h4><a href="#">Promociones y cupones</a></h4>
+    <h4><a href="#">Tú opinión importa</a></h4>
+    <h4><a href="#">Ayuda</a></h4>
+  </div>
+</div>
+
+<script>
+const btnMenu = document.getElementById("btn-menu");
+const menuNav = document.getElementById("menu-nav");
+
+const openMenu = () => {
+  menuNav.classList.toggle("show");
+  btnMenu.classList.toggle("active");
+}
+
+</script>
