@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Canjea tu Codigo
+{% endblock %}
+
+{% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  <link rel="stylesheet" href="{{ asset('css/cliente/detalle_tarjeta.css') }}" />
+{% endblock %}
+
+{% block body %}
+  {# Empieza vista #}
+  <div class="container p-3">
+    <div class="container">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-3 d-flex justify-content-center"></div>
+        <div class="col-6 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
+        <div class="col-3 d-flex justify-content-center contboton-cerrar">
+          <a href="">x</a>
+        </div>
+      </div>
+
+      <div class="container rounded-5 contenido-detalle-tarjeta-cliente">
+        <div class="row">
+          <div class="col-12 text-center pt-3 pb-2">
+            <span><img class="icono_aniadir_tarjeta text-center" style="height: 14vh;" src="{{ asset('/image/icono_Detalle_tarjeta.png') }}" alt="" /></span>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label texto-detalle-tarjeta-cliente">Número de tarjeta</label>
+                <input type="number" class="form-control input-detalle-tarjeta-cliente" id="exampleFormControlInput1" placeholder="#### #### #### ####" />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-floating mb-3">
+                <input type="number" class="form-control input-detalle-tarjeta-cliente" id="floatingInput" placeholder="MM/AA" />
+                <label for="floatingInput" class="texto-detalle-tarjeta-cliente">Caducidad</label>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-floating mb-0">
+                <input type="number" class="form-control input-detalle-tarjeta-cliente" id="floatingInput" placeholder="name@example.com" />
+                <label for="floatingInput" class="texto-detalle-tarjeta-cliente">CVV</label>
+              </div>
+            </div>
+            <span class="subtexto-detalle-tarjeta-cliente mb-3">Tu Información de pago se guardará de forma segura</span>
+          </div>
+        </div>
+        <div class="row contenido-boton-detalle-tarjeta-cliente">
+          <div class="col-10">
+            <button type="submit" class="btn col-12 boton-detalle-tarjeta-cliente">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{ include('components/footer.html.twig') }}
+{% endblock %}

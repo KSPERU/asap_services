@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+
+body {
+    /*min-height: 90vh;*/
+    background-image: url('/image/Imagen1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+.contboton-cerrar a {
+    font-size: 50px;
+    font-weight: 700;
+    color: #000;
+    text-decoration: none;
+}
+
+.contenido-aniadir-tarjeta-cliente {
+    min-height: 65vh;
+    max-height: 65vh;
+    background-color: #fff !important;
+}
+
+.titulo-aniadir-tarjeta-cliente {
+    color: #4302AE;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.barra_aniadir-tarjeta{
+    border: 2px solid rgba(30, 30, 30, 0.42);
+}
+
+.icono_aniadir_tarjeta{
+    width: 100%;
+    align-items: center;
+}
+

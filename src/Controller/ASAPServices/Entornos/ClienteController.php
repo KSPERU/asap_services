@@ -131,6 +131,21 @@ class ClienteController extends AbstractController
             
         ]);
     }
+    #[Route('/cliente/aniadir_tarjeta', name: 'app_aniadir_tarjeta.html.twig')]
+    public function aniadir_tarjeta(): Response
+    {
+        return $this->render('asap_services/entornos/cliente/aniadir_tarjeta.html.twig', [
+            
+        ]);
+    }
+    #[Route('/cliente/detalle_tarjeta', name: 'app_detalle_tarjeta.html.twig')]
+    public function detalle_tarjeta(): Response
+    {
+        return $this->render('asap_services/entornos/cliente/detalle_tarjeta.html.twig', [
+            
+        ]);
+    }
+    
     
     // FIN
 }
