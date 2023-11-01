@@ -145,6 +145,20 @@ class ClienteController extends AbstractController
             
         ]);
     }
+    #[Route('/cliente/saldos_pagos', name: 'app_saldos_pagos.html.twig')]
+    public function saldos_pagos(): Response
+    {
+        return $this->render('asap_services/entornos/cliente/saldos_pagos.html.twig', [
+            
+        ]);
+    }
+    #[Route('/cliente/detalles_saldos_pagos', name: 'app_detalles_saldos_pagos.html.twig')]
+    public function detalles_saldos_pagos(): Response
+    {
+        return $this->render('asap_services/entornos/cliente/detalles_saldos_pagos.html.twig', [
+            
+        ]);
+    }
     
     
     // FIN

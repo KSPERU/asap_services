@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Detalles Saldos Y Pagos
+{% endblock %}
+
+{% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  <link rel="stylesheet" href="{{ asset('css/cliente/detalle_saldos_pagos.css') }}" />
+{% endblock %}
+
+{% block body %}
+  <div class="container p-3">
+    <div class="container">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-3 d-flex justify-content-center"></div>
+        <div class="col-6 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
+        <div class="col-3 d-flex justify-content-center contboton-cerrar">
+          <a href="">x</a>
+        </div>
+      </div>
+
+      <div class="container rounded-5 contenido-detalle-saldos-pagos-cliente">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 titulo-detalle-saldos-pagos-cliente pt-3 pb-2">Confirmacion de pago</div>
+          </div>
+
+          <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+              <img class="icono_aniadir_tarjeta text-center" style="width: 100%;" src="{{ asset('/image/avatar_prueba.png') }}" alt="" />
+            </div>
+            <div class="col-3"></div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 titulo-detalle-saldos-pagos-cliente pt-3 pb-2">Cristhian Ramirez</div>
+          </div>
+
+          <div class="container rounded-4 mb-4" style="box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.25);background: #FFF;">
+            <div class="row d-flex align-items-center p-2">
+              <span class="titulo-texto-detalle-saldos-pagos-cliente tamanio-detalle-texto-saldos-pagos-cliente ">Detalles del servicio</span>
+              <span class="separacion-detalle-saldos-pagos-cliente titulo-texto-detalle-saldos-pagos-cliente tamanio-detalle-texto-saldos-pagos-cliente ">Tipo de servicio</span>
+              <span class="separacion1-detalle-saldos-pagos-cliente texto-detalle-saldos-pagos-cliente tamanio-detalle-texto-saldos-pagos-cliente">Pintura</span>
+              <span class="separacion-detalle-saldos-pagos-cliente titulo-texto-detalle-saldos-pagos-cliente tamanio-detalle-texto-saldos-pagos-cliente">Distrito</span>
+              <span class="separacion1-detalle-saldos-pagos-cliente titulo-texto-detalle-saldos-pagos-cliente tamanio-detalle-texto-saldos-pagos-cliente">Molina</span>
+              <span class="separacion-detalle-saldos-pagos-cliente texto-detalle-saldos-pagos-cliente tamanio-detalle-texto-saldos-pagos-cliente">Precio aceptado</span>
+              <span class="separacion1-detalle-saldos-pagos-cliente texto-detalle-saldos-pagos-cliente tamanio-detalle-texto-saldos-pagos-cliente">600 soles</span>
+            </div>
+
+            <div class="row contenido-boton-detalle-saldos-pagos-cliente pb-2">
+              <div class="col-10">
+                <button type="submit" class="btn col-12 boton-detalle-saldos-pagos-cliente">Realizar Pago</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{ include('components/footer.html.twig') }}
+{% endblock %}
