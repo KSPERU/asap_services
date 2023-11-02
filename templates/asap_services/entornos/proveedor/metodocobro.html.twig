@@ -5,5 +5,26 @@
 {% endblock %}
 
 {% block body %}
-    <h2>Vista de metodo de cobro en construccion</h2>
+    <h2>Añadir método de cobro</h2>
+    <h3>Elije el banco de tu preferencia</h3>
+    <form method="post">
+      {% for metodocobro in metodocobros %}
+        <label class="checkbox-label">
+          <input type="checkbox" id="cbox{{ metodocobro.id }}" name="metodocobros[]" value="{{ metodocobro.id }}" class="checkbox-metodocobro-proveedor" onclick="toggleCheckbox({{ metodocobro.id }})">
+          {{ metodocobro.mcdescripcion }}
+        </label> 
+      {% endfor %}
+
+       <button type="submit" class="btn btn-primary col-12 boton-ofreceservicios-proveedor">Ingresar número de cuenta</button>
+    </form>
+    <script>
+      function toggleCheckbox(checkboxNumber) {
+        var checkboxes = document.getElementsByClassName('checkbox-metodocobro-proveedor')
+        for (var i = 0; i < checkboxes.length; i++) {
+          if (i + 1 !== checkboxNumber) {
+            checkboxes[i].checked = false // Desmarca los otros checkboxes
+          }
+        }
+      }
+    </script>
 {% endblock %}

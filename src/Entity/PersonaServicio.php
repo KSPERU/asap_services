@@ -21,6 +21,9 @@ class PersonaServicio
     #[ORM\JoinColumn(nullable: false)]
     private ?Servicio $idServicio = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $costoservicio = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -49,4 +52,17 @@ class PersonaServicio
 
         return $this;
     }
+
+    public function getCostoservicio(): ?float
+    {
+        return $this->costoservicio;
+    }
+
+    public function setCostoservicio(?float $costoservicio): static
+    {
+        $this->costoservicio = $costoservicio;
+
+        return $this;
+    }
+
 }

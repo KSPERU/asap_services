@@ -64,11 +64,19 @@ class Persona
     #[ORM\OneToMany(mappedBy: 'idproveedor', targetEntity: Historialservicios::class)]
     private Collection $histservproveedor;
 
+    #[ORM\OneToMany(mappedBy: 'idproveedor', targetEntity: MetcobroProveedor::class, orphanRemoval: true)]
+    private Collection $metcobro;
+
+    #[ORM\OneToMany(mappedBy: 'cd_idproveedor', targetEntity: CuentaNiubiz::class, orphanRemoval: true)]
+    private Collection $cuentaniubiz;
+
     public function __construct()
     {
         $this->servicios = new ArrayCollection();
         $this->histservcliente = new ArrayCollection();
         $this->histservproveedor = new ArrayCollection();
+        $this->metcobro = new ArrayCollection();
+        $this->cuentaniubiz = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -317,6 +325,66 @@ class Persona
             // set the owning side to null (unless already changed)
             if ($histservproveedor->getIdproveedor() === $this) {
                 $histservproveedor->setIdproveedor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MetcobroProveedor>
+     */
+    public function getMetcobro(): Collection
+    {
+        return $this->metcobro;
+    }
+
+    public function addMetcobro(MetcobroProveedor $metcobro): static
+    {
+        if (!$this->metcobro->contains($metcobro)) {
+            $this->metcobro->add($metcobro);
+            $metcobro->setIdproveedor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMetcobro(MetcobroProveedor $metcobro): static
+    {
+        if ($this->metcobro->removeElement($metcobro)) {
+            // set the owning side to null (unless already changed)
+            if ($metcobro->getIdproveedor() === $this) {
+                $metcobro->setIdproveedor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CuentaNiubiz>
+     */
+    public function getCuentaniubiz(): Collection
+    {
+        return $this->cuentaniubiz;
+    }
+
+    public function addCuentaniubiz(CuentaNiubiz $cuentaniubiz): static
+    {
+        if (!$this->cuentaniubiz->contains($cuentaniubiz)) {
+            $this->cuentaniubiz->add($cuentaniubiz);
+            $cuentaniubiz->setCdIdproveedor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCuentaniubiz(CuentaNiubiz $cuentaniubiz): static
+    {
+        if ($this->cuentaniubiz->removeElement($cuentaniubiz)) {
+            // set the owning side to null (unless already changed)
+            if ($cuentaniubiz->getCdIdproveedor() === $this) {
+                $cuentaniubiz->setCdIdproveedor(null);
             }
         }
 
