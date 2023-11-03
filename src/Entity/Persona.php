@@ -390,7 +390,4 @@ class Persona
 
         return $this;
     }
-
-    
-    
 }

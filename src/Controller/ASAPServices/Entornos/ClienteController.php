@@ -17,10 +17,18 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class ClienteController extends AbstractController
 {
     #[Route('/cliente', name: 'app_asap_services_entornos_cliente_inicio')]
-    public function verservicios(ServicioRepository $servicios): Response
+    public function verservicios(PersonaRepository $personaRepository, UsuarioRepository $usuarioRepository, ServicioRepository $servicios): Response
     {
+        $persona_aux = $this->getUser();
+        $usuario = $usuarioRepository->findOneBy([
+            'email' => $persona_aux->getUserIdentifier(),
+        ]);
+        $persona = $personaRepository->findOneBy([
+            'usuario' => $usuario,
+        ]);
         return $this->render('asap_services/entornos/cliente/showservicios.html.twig', [
-            'servicios' => $servicios->findAll()
+            'servicios' => $servicios->findAll(),
+            'persona' => $persona
         ]);
     }
 
@@ -54,6 +62,7 @@ class ClienteController extends AbstractController
     #[Route('/cliente/ajustes/{id}/editar', name: 'app_asap_services_entornos_cliente_ajustes_editar')]
     public function edit(Request $request, Persona $persona, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
     {
+        # El template no tiene un metodo para guardar y se requiere de un metodo para eliminar
         $form = $this->createForm(ClienteType::class, $persona);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
