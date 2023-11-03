@@ -9,71 +9,23 @@
 {% endblock %}
 
 {% block body %}
-<div class="container">
+  <div class="container">
     {{ include("components/cabecera.html.twig") }}
-
     <div class="cliente-servicios-container">
       <h3 class="cliente-servicios-title">¿Que servicios deseas hoy?</h3>
       <div class="cliente-servicios-container-body" >
-        <div class="d-flex justify-content-center align-items-center mt-4 ">
-          <div class="cliente-servicios-item">
-              <img src={{ asset("image/avatar_prueba.png") }} />
-              <a href="#" class="cliente-servicios-item-text">Electricidad</a>
-          </div>
-        </div>
-        <div class="d-flex justify-content-center align-items-center my-3 ">
-          <div class="cliente-servicios-item">
-              <img src={{ asset("image/avatar_prueba.png") }} />
-              <a href="#" class="cliente-servicios-item-text">Pintura</a>
-          </div>
-        </div>
-        <div class="d-flex justify-content-center align-items-center my-3 ">
-          <div class="cliente-servicios-item">
-              <img src={{ asset("image/avatar_prueba.png") }} />
-              <a href="#" class="cliente-servicios-item-text">Gasfitería</a>
-          </div>
-        </div>
-        <div class="d-flex justify-content-center align-items-center my-3 ">
-          <div class="cliente-servicios-item">
-              <img src={{ asset("image/avatar_prueba.png") }} />
-              <a href="#" class="cliente-servicios-item-text">Carpintería</a>
-          </div>
-        </div>
-        <div class="d-flex justify-content-center align-items-center my-3 ">
-          <div class="cliente-servicios-item">
-              <img src={{ asset("image/avatar_prueba.png") }} />
-              <a href="#" class="cliente-servicios-item-text">Limpieza</a>
-          </div>
-        </div>
-          <div class="d-flex justify-content-center align-items-center my-3 ">
-          <div class="cliente-servicios-item">
-              <img src={{ asset("image/avatar_prueba.png") }} />
-              <a href="#" class="cliente-servicios-item-text">Jardinería</a>
-          </div>
-        </div>
-        <div class="d-flex justify-content-center align-items-center my-3 ">
-          <div class="cliente-servicios-item">
-              <img src={{ asset("image/avatar_prueba.png") }} />
-              <a href="#" class="cliente-servicios-item-text">Reparación</a>
-          </div>
-        </div>
-        <div class="d-flex justify-content-center align-items-center my-3 ">
-          <div class="cliente-servicios-item">
-              <img src={{ asset("image/avatar_prueba.png") }} />
-              <a href="#" class="cliente-servicios-item-text">Cuidado Personal</a>
-          </div>
-        </div>
+        {% for servicio in servicios %}
+          <form method="post" action="{{ path('app_asap_services_entornos_cliente_ver_servicio', {'id': servicio.id}) }}"> 
+            <div class="d-flex justify-content-center align-items-center mt-4">
+              <button type="submit" class="cliente-servicios-item">
+                <img src="{{ servicio.svimagen }}" style="width: 20%; border-radius: 50%;">
+                <a class="cliente-servicios-item-text">{{ servicio.svnombre }}</a>
+              </button>
+            </div>
+          </form>
+        {% endfor %} 
       </div>
     </div>
-
     <p class="footer-text-asap mt-2">Asap Services</p>
-
-    {# <h3>¿Que servicios deseas hoy?</h3>
-      {% for servicio in servicios %}
-        <form method="post" action="{{ path('app_cliente_servprov', {'id': servicio.id}) }}"> 
-            <button type="submit" class="btn btn-primary col-12 boton-ofreceservicios-proveedor" style="max-width: 300px;"><img src="{{ asset('image/' ~ servicio.svimagen) }}" width="50px" height="50px">
-            {{servicio.svnombre}}</button>
-        </form>
-      {% endfor %} #}
-<div>
+  <div>
 {% endblock %}

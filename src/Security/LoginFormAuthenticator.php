@@ -62,8 +62,12 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     protected function getLoginUrl(Request $request): string
     {
+        $entorno = $request->attributes->get('entorno');
+        if (!$entorno) {
+            $entorno = 'cliente';
+        }
         return $this->urlGenerator->generate(self::LOGIN_ROUTE, [
-            'entorno' => 'cliente',
+            'entorno' => $entorno,
         ]);
     }
 }
