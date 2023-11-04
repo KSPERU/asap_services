@@ -11,6 +11,7 @@
 
 {% block body %}
   {# Empieza vista #}
+  {{ form_start(form) }}
   <div class="container p-3">
     <div class="container">
       <div class="row d-flex justify-content-center align-items-center">
@@ -32,18 +33,18 @@
             <div class="col-12">
               <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label texto-detalle-tarjeta-cliente">Número de tarjeta</label>
-                <input type="number" class="form-control input-detalle-tarjeta-cliente" id="exampleFormControlInput1" placeholder="#### #### #### ####" />
+                {{ form_widget(form.numeroTarjeta, {'attr': {'class': 'form-control input-detalle-tarjeta-cliente', 'placeholder': '#### #### #### ####'}}) }}
               </div>
             </div>
             <div class="col-6">
               <div class="form-floating mb-3">
-                <input type="number" class="form-control input-detalle-priv-tarjeta-cliente" id="floatingInput" placeholder="MM/AA" />
+                {{ form_widget(form.fechaVencimiento, {'attr': {'class': 'form-control input-detalle-priv-tarjeta-cliente', 'placeholder': 'MM/AA'}}) }}
                 <label for="floatingInput" class="texto-detalle-tarjeta-cliente">Caducidad</label>
               </div>
             </div>
             <div class="col-6">
               <div class="form-floating mb-0">
-                <input type="number" class="form-control input-detalle-priv-tarjeta-cliente" id="floatingInput" placeholder="name@example.com" />
+                {{ form_widget(form.cvv, {'attr': {'class': 'form-control input-detalle-priv-tarjeta-cliente', 'placeholder': '###'}}) }}
                 <label for="floatingInput" class="texto-detalle-tarjeta-cliente">CVV</label>
               </div>
             </div>
@@ -58,6 +59,7 @@
       </div>
     </div>
   </div>
+  {{ form_end(form) }}
 
   {{ include('components/footer.html.twig') }}
 {% endblock %}

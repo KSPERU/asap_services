@@ -3,8 +3,10 @@
 namespace App\Controller\ASAPServices\Entornos;
 
 use App\Entity\Persona;
+use App\Entity\Tarjeta;
 use App\Form\ClienteType;
 use App\Entity\Calificacion;
+use App\Form\TarjetaType;
 use App\Repository\PersonaRepository;
 use App\Repository\UsuarioRepository;
 use App\Repository\ServicioRepository;
@@ -223,15 +225,31 @@ class ClienteController extends AbstractController
     {
         return $this->render('asap_services/entornos/cliente/servicios_menu.html.twig', []);
     }
-    #[Route('/cliente/aniadir_tarjeta', name: 'app_aniadir_tarjeta.html.twig')]
+    #[Route('/cliente/aniadir_tarjeta', name: 'app_aniadir_tarjeta')]
     public function aniadir_tarjeta(): Response
     {
         return $this->render('asap_services/entornos/cliente/aniadir_tarjeta.html.twig', []);
     }
-    #[Route('/cliente/detalle_tarjeta', name: 'app_detalle_tarjeta.html.twig')]
-    public function detalle_tarjeta(): Response
+    #[Route('/cliente/detalle_tarjeta', name: 'app_detalle_tarjeta')]
+    public function detalle_tarjeta(Request $request, UsuarioRepository $usuarios, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('asap_services/entornos/cliente/detalle_tarjeta.html.twig', []);
+        $user = $this->getUser();
+        $cliente = $usuarios->findOneBy([
+            'email'=>$user->getUserIdentifier(),
+        ]);
+        $persona = $cliente->getIdPersona();
+        $tarjeta = new Tarjeta();
+        $form = $this->createForm(TarjetaType::class, $tarjeta);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $tarjeta->setPersona($persona);
+            $entityManager->persist($tarjeta);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_aniadir_tarjeta');
+        }
+        return $this->render('asap_services/entornos/cliente/detalle_tarjeta.html.twig', [
+            'form' => $form,
+        ]);
     }
     #[Route('/cliente/saldos_pagos', name: 'app_saldos_pagos.html.twig')]
     public function saldos_pagos(): Response
