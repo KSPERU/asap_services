@@ -122,4 +122,9 @@ class Servicio
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->sv_nombre;
+    }
 }

@@ -32,6 +32,12 @@ class Historialservicios
     #[ORM\Column]
     private ?bool $hs_estado = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $hs_estadopago = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $hs_importe = null;
+
     #[ORM\Column(length: 255)]
     private ?string $hs_direccion = null;
 
@@ -96,6 +102,30 @@ class Historialservicios
     public function setHsEstado(bool $hs_estado): static
     {
         $this->hs_estado = $hs_estado;
+
+        return $this;
+    }
+
+    public function isHsEstadopago(): ?bool
+    {
+        return $this->hs_estadopago;
+    }
+
+    public function setHsEstadopago(?bool $hs_estadopago): static
+    {
+        $this->hs_estadopago = $hs_estadopago;
+
+        return $this;
+    }
+
+    public function getHsImporte(): ?float
+    {
+        return $this->hs_importe;
+    }
+
+    public function setHsImporte(?float $hs_importe): static
+    {
+        $this->hs_importe = $hs_importe;
 
         return $this;
     }

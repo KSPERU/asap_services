@@ -23,7 +23,7 @@
           <div class="container" style="padding-top: 10px;">
             <div class="row d-flex justify-content-center conten-inicio-registro">
               <div class="col-6 opcion-registrar-usuario">
-                <a href="{{ path('app_asap_services_general_cliente_login') }}">Iniciar sesion</a>
+                <a href="{{ path('app_asap_services_general_login', {'entorno': 'cliente'}) }}">Iniciar sesion</a>
               </div>
               <div class="col-6 opcion-registrar-usuario boton-opcionn-registrar-usuario">
                 <a href="{{ path('app_asap_services_general_cliente_registro') }}">Registrate</a>
@@ -74,7 +74,7 @@
               <div class="col-12 d-flex justify-content-center p-2">
                 {{ form_widget(registrationForm.agreeTerms, {'label': ' ', 'attr': {'id': 'cbox1', 'class': 'checkbox-terminos-condiciones-cliente'}}) }}
                 <label class="checkbox-label texto-terminos-condificones-cliente">
-                  <a href="">Aceptar términos y condiciones</a>
+                  <a href="{{ path('app_asap_services_general_terminos') }}">Aceptar términos y condiciones</a>
                 </label>
               </div>
             </div>

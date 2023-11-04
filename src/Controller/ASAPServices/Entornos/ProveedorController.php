@@ -2,9 +2,11 @@
 
 namespace App\Controller\ASAPServices\Entornos;
 
+use App\Entity\MetcobroProveedor;
 use App\Entity\Persona;
 use App\Form\ProveedorType;
 use App\Entity\PersonaServicio;
+use App\Repository\MetodocobroRepository;
 use App\Repository\PersonaRepository;
 use App\Repository\UsuarioRepository;
 use App\Repository\ServicioRepository;
@@ -83,9 +85,8 @@ class ProveedorController extends AbstractController
     }
 
     #[Route('/proveedor/{id}/biografia', name: 'app_prov_bio')]
-    public function biografia($id, Request $request, PersonaRepository $personas, EntityManagerInterface $entityManager): Response
+    public function biografia($id, Request $request, Persona $persona, EntityManagerInterface $entityManager): Response
     {
-        $persona = $personas->find($id);
 
         if ($request->isMethod('POST')) {
             $biografia = $request->get('p_biografia');
@@ -107,10 +108,9 @@ class ProveedorController extends AbstractController
     }
 
     #[Route('/proveedor/{id}/servicios', name: 'app_prov_serv')]
-    public function servicios($id, Request $request, PersonaRepository $personas, ServicioRepository $servicios, EntityManagerInterface $entityManager): Response
+    public function servicios($id, Request $request, Persona $persona, ServicioRepository $servicios, EntityManagerInterface $entityManager): Response
     {
-        $persona = $personas->find($id);
-
+        
         if ($request->isMethod('POST')) {
             $serviciosselect = $request->get('servicios', []);
 
@@ -140,22 +140,19 @@ class ProveedorController extends AbstractController
     }
 
     #[Route('/proveedor/{id}/perfil', name: 'app_prov_perfil')]
-    public function perfil($id, PersonaRepository $personas): Response
+    public function perfil(Persona $persona): Response
     {
-        $proveedor = $personas->find($id);
-
-
+        
         return $this->render('asap_services/entornos/proveedor/mi_perfil.html.twig', [
-            'proveedor' => $proveedor,
+            'proveedor' => $persona,
 
         ]);
     }
 
     #[Route('/proveedor/{id}/historialserv', name: 'app_prov_histserv')]
-    public function historialservicios($id, PersonaRepository $personas): Response
+    public function historialservicios(Persona $persona): Response
     {
-        $proveedor = $personas->find($id);
-        $histservicios = $proveedor->getHistservproveedor();
+        $histservicios = $persona->getHistservproveedor();
 
         return $this->render('asap_services/entornos/proveedor/historialservicios.html.twig', [
             'historiales' => $histservicios,
@@ -164,25 +161,21 @@ class ProveedorController extends AbstractController
     }
 
     #[Route('/proveedor/{id}/ganancias', name: 'app_prov_ganancias')]
-    public function ganancias($id, PersonaRepository $personas): Response
+    public function ganancias(Persona $persona): Response
     {
-        $proveedor = $personas->find($id);
 
-
-        return $this->render('asap_services/entornos/proveedor/ganancias.html.twig', [
-            'proveedor' => $proveedor,
+            return $this->render('asap_services/entornos/proveedor/ganancias.html.twig', [
+            'proveedor' => $persona,
 
         ]);
     }
 
     #[Route('/proveedor/{id}/chatclientes', name: 'app_prov_chat')]
-    public function chatclientes($id, PersonaRepository $personas): Response
+    public function chatclientes(Persona $persona): Response
     {
-        $proveedor = $personas->find($id);
-
 
         return $this->render('asap_services/entornos/proveedor/chatclientes.html.twig', [
-            'proveedor' => $proveedor,
+            'proveedor' => $persona,
 
         ]);
     }
@@ -194,13 +187,54 @@ class ProveedorController extends AbstractController
         return $this->render('asap_services/entornos/proveedor/preguntas_frecuentes.html.twig', []);
     }
 
-    #[Route('/proveedor/{id}/metcrobro', name: 'app_prov_metcobro')]
-    public function metcobro($id, PersonaRepository $personas): Response
+    #[Route('/proveedor/{id}/metcobro', name: 'app_prov_metcobro')]
+    public function metcobro(Request $request,$id, Persona $persona, MetodocobroRepository $metodocobros): Response
     {
-        $proveedor = $personas->find($id);
+       
+        if ($request->isMethod('POST')) {
+            $metodocobroselect = $request->get('metodocobros', []);
+
+            if ($persona) {
+                $idmet = !empty($metodocobroselect) ? $metodocobroselect[0] : null;
+                return $this->redirectToRoute('app_prov_metcobro_numcuenta', ['id' => $persona->getId(), 'idmet'=>$idmet]);
+            }
+
+            
+        }
 
         return $this->render('asap_services/entornos/proveedor/metodocobro.html.twig', [
-            'proveedor' => $proveedor,
+            'proveedor' => $persona,
+            'metodocobros' => $metodocobros->findAll()
+        ]);
+    }
+
+    #[Route('/proveedor/{id}/metcobro/{idmet}/numcuenta', name: 'app_prov_metcobro_numcuenta')]
+    public function numcuenta(Request $request, $idmet, Persona $persona, MetodocobroRepository $metodocobros, EntityManagerInterface $entityManager): Response
+    {
+        
+        if($persona){
+            if ($request->isMethod('POST')) {
+
+                $metcobro = $metodocobros->find($idmet);
+                $numcuenta = $request->request->get('numcuenta');
+                if ($metcobro) {
+                    $metcobroprov = new MetcobroProveedor;
+                    $metcobroprov->setIdproveedor($persona);
+                    $metcobroprov->setIdmetcobro($metcobro);
+                    $metcobroprov->setMcpNumerocuenta($numcuenta);
+                    $metcobroprov->setMcpEstado(true);
+                    $entityManager->persist($metcobroprov);
+                    
+                }
+                $entityManager->flush();
+    
+                return $this->redirectToRoute('app_proveedor');
+            }
+        }
+        
+        return $this->render('asap_services/entornos/proveedor/numerocuenta.html.twig', [
+            'proveedor' => $persona,
+            'metodocobros' => $metodocobros->findAll()
         ]);
     }
 

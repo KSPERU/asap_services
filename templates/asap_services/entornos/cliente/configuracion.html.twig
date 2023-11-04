@@ -23,35 +23,41 @@
       </a>
     </div>
   <div>
-
   <div class="configuracion-container">
     <h3 class="configuracion-title">Configuración</h3>
     <div class="d-flex justify-content-center align-items-center my-3 ">
       <div class="configuracion-btn">
-          <h4 class="configuracion-text"><a href="{{ path('app_asap_services_entornos_cliente_editar', {'id': persona.id}) }}">Mi perfil</a></h4>
+          <h4 class="configuracion-text"><a href="{{ path('app_asap_services_entornos_cliente_ajustes_editar', {'id': persona.id}) }}">Mi perfil</a></h4>
       </div>
     </div>
     <div class="d-flex justify-content-center align-items-center my-3 ">
       <div class="configuracion-btn">
-          <h4 class="configuracion-text">Mis servicios favoritos</h4>
+          <a href="{{ path('app_asap_services_entornos_cliente_ajustes_favoritos') }}">
+            <h4 class="configuracion-text">Mis servicios favoritos</h4>
+          </a>
       </div>
     </div>
     <div class="d-flex justify-content-center align-items-center my-3 ">
       <div class="configuracion-btn">
-          <h4 class="configuracion-text">Privacidad</h4>
+          <a href="{{ path('app_asap_services_entornos_cliente_ajustes_privacidad') }}">
+            <h4 class="configuracion-text">Privacidad</h4>
+          </a>
       </div>
     </div>
     <div class="d-flex justify-content-center align-items-center my-3 ">
       <div class="configuracion-btn">
-          <h4 class="configuracion-text">Términos y condiciones</h4>
+          <a href="{{ path('app_asap_services_entornos_cliente_ajustes_terminos') }}">
+            <h4 class="configuracion-text">Términos y condiciones</h4>
+          </a>
       </div>
     </div>
     <div class="d-flex justify-content-center align-items-center my-3 ">
       <div class="configuracion-btn">
-          <h4 class="configuracion-text">Acerca de Asap Services</h4>
+          <a href="{{ path('app_asap_services_entornos_cliente_ajustes_acerca_de') }}">
+            <h4 class="configuracion-text">Acerca de Asap Services</h4>
+          </a>
       </div>
     </div>
-
     <div class="d-flex justify-content-center align-items-center my-3 ">
       <div class="cerrar-sesion-btn">
         <a href="{{ path('app_asap_services_general_logout') }}">
@@ -60,9 +66,7 @@
       </div>
     </div>
   </div>
-
 </div>
-
 {{ include('components/footer.html.twig') }}
 
 {% endblock %}

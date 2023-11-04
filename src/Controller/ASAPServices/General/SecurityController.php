@@ -9,7 +9,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    #[Route(path: '/cliente/login', name: 'app_asap_services_general_cliente_login')]
+    /*     #[Route(path: '/cliente/login', name: 'app_asap_services_general_cliente_login')]
     public function loginCli(AuthenticationUtils $authenticationUtils): Response
     {
         // if ($this->getUser()) {
@@ -37,6 +37,19 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('asap_services/general/security/login_prov.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+    } */
+
+    #[Route(path: '/{entorno}/login/', name: 'app_asap_services_general_login')]
+    public function identificarse($entorno, AuthenticationUtils $authenticationUtils): Response
+    {
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('asap_services/general/security/login.html.twig', [
+            'entorno' => $entorno,
+            'last_username' => $lastUsername,
+            'error' => $error
+        ]);
     }
 
     #[Route(path: '/desconectar', name: 'app_asap_services_general_logout')]

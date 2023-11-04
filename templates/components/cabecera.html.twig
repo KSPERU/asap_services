@@ -117,10 +117,10 @@
 <div id="menu-nav" class="menu-nav position-absolute top-0">
   <div class="menu-nav-header d-flex flex-column align-items-center justify-content-center my-4">
     <figure>
-      <img src="{{asset("image/ceci.png")}}" />
+      <img src="{{ asset('image/' ~ persona.pfoto) }}">
     </figure>
-    <h5>{{ app.user.idpersona.pnombre }} {{ app.user.idpersona.papellido }}</h5>
-    <h6>{{ app.user.email }}</h6>
+    <h5>{{ persona.pnombre }}</h5>
+    <h6>{{ persona.usuario.email }}</h6>
   </div>
   <div class="menu-nav-body px-4 py-1 text-center overflow-auto" style="max-height: calc(100% - 225px);">
     <h4><a href="#">Historial de servicios</a></h4>

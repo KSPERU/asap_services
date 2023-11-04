@@ -23,7 +23,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
-    public const LOGIN_ROUTE = 'app_asap_services_general_cliente_login';
+    public const LOGIN_ROUTE = 'app_asap_services_general_login';
 
     public function __construct(private UrlGeneratorInterface $urlGenerator, private Security $security)
     {
@@ -62,6 +62,12 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     protected function getLoginUrl(Request $request): string
     {
-        return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+        $entorno = $request->attributes->get('entorno');
+        if (!$entorno) {
+            $entorno = 'cliente';
+        }
+        return $this->urlGenerator->generate(self::LOGIN_ROUTE, [
+            'entorno' => $entorno,
+        ]);
     }
 }

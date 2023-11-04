@@ -60,7 +60,7 @@ class RegistrationController extends AbstractController
             );
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_asap_services_general_cliente_login');
+            return $this->redirectToRoute('app_asap_services_general_login', ['entorno' => 'cliente']);
         }
 
         return $this->render('asap_services/general/registration/register.html.twig', [
@@ -100,7 +100,7 @@ class RegistrationController extends AbstractController
             );
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_asap_services_general_proveedor_login');
+            return $this->redirectToRoute('app_asap_services_general_login', ['entorno' => 'proveedor']);
         }
 
         return $this->render('asap_services/general/registration/registro_proveedor.html.twig', [
@@ -134,7 +134,7 @@ class RegistrationController extends AbstractController
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', 'Tu dirección de correo electrónico ha sido verificada.');
 
-        return $this->redirectToRoute('app_asap_services_general_cliente_login');
+        return $this->redirectToRoute('app_asap_services_general_login', ['entorno' => 'cliente']);
     }
 
     #[Route('/proveedor/control/correo', name: 'app_asap_services_general_proveedor_control_correo')]
@@ -163,13 +163,13 @@ class RegistrationController extends AbstractController
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', 'Your email address has been verified.');
 
-        return $this->redirectToRoute('app_asap_services_general_proveedor_login');
+        return $this->redirectToRoute('app_asap_services_general_login', ['entorno' => 'proveedor']);
     }
 
     // By Frontend - Solo para visualizar temporalmente los terminos y condiciones
     #[Route('/terminos', name: 'app_asap_services_general_terminos')]
     public function terminos(): Response
     {
-        return $this->render('registration/terminos_condiciones.html.twig', []);
+        return $this->render('asap_services/general/registration/terminos_condiciones.html.twig', []);
     }
 }
