@@ -4,6 +4,7 @@ namespace App\Controller\ASAPServices\Entornos;
 
 use App\Entity\Persona;
 use App\Form\ClienteType;
+use App\Entity\Calificacion;
 use App\Repository\PersonaRepository;
 use App\Repository\UsuarioRepository;
 use App\Repository\ServicioRepository;
@@ -100,6 +101,81 @@ class ClienteController extends AbstractController
             'controller_name' => 'ClienteController',
             'aux_session' => $this->getUser(),
         ]);
+    }
+
+    #[Route('/cliente/histserv', name: 'app_cliente_histserv')]
+    public function histserv(UsuarioRepository $usuarios): Response
+    {
+        $user = $this->getUser();
+        $cliente = $usuarios->findOneBy([
+            'email'=>$user->getUserIdentifier(),
+        ]);
+        $persona = $cliente->getIdPersona();
+        $personaservs = $persona->getServicios();
+        return $this->render('asap_services\entornos\cliente\historial_servicios.html.twig', [
+            'personaservs'=>$personaservs,
+        ]);
+    }
+
+    #[Route('/cliente/invitar', name: 'app_cliente_invitar')]
+    public function invitar(UsuarioRepository $usuarios): Response
+    {
+        $user = $this->getUser();
+        $cliente = $usuarios->findOneBy([
+            'email'=>$user->getUserIdentifier(),
+        ]);
+        $persona = $cliente->getIdPersona();
+        $codigo = $persona->getCodigo()->getCCodigo();
+        return $this->render('asap_services\entornos\cliente\invitar_amigos.html.twig', [
+            'codigo'=>$codigo,
+        ]);
+    }
+
+    #[Route('/cliente/calificacion', name: 'app_cliente_calificacion')]
+    public function calificacion(Request $request, UsuarioRepository $usuarios, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $cliente = $usuarios->findOneBy([
+            'email'=>$user->getUserIdentifier(),
+        ]);
+        $persona = $cliente->getIdPersona();//para saber de quien es la opinion
+        $calificacion = new Calificacion();
+        $form = $this->createForm(CalificacionType::class, $calificacion);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($calificacion);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_cliente');
+        }
+
+        return $this->render('cliente\calificacion.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/cliente/promociones', name: 'app_cliente_promociones')]
+    public function Codigo(): Response
+    {
+        return $this->render('cliente\promocion.html.twig');
+    }
+
+    #[Route('/cliente/promociones/codigo', name: 'app_cliente_promociones_codigo')]
+    public function verificarCodigo(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $codigo = $request->request->get('codigo');
+        $codigoDescuento = $entityManager->getRepository(Promocion::class)->findOneBy(['codigo' => $codigo]);
+
+        if ($codigoDescuento) {
+            // Código de descuento válido
+            // Aquí puedes aplicar la lógica para aplicar el descuento en tu aplicación
+            // Por ejemplo, guardarlo en la sesión para su uso posterior
+            $this->addFlash('success', 'Código de descuento aplicado correctamente.');
+        } else {
+            $this->addFlash('error', 'Código de descuento no válido.');
+        }
+
+        return $this->redirectToRoute('app_cliente_promociones');
     }
 
     // CREADO POR FRONTEND PARA VISUALIZAR LAS VISTAS - EKIMINAR SI ES NECESARIO

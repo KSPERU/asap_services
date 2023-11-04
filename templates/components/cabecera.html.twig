@@ -119,8 +119,8 @@
     <figure>
       <img src="{{asset("image/ceci.png")}}" />
     </figure>
-    <h5>Cecilia Marin</h5>
-    <h6>cecilia.marin45@gmail.com</h6>
+    <h5>{{ app.user.idpersona.pnombre }} {{ app.user.idpersona.papellido }}</h5>
+    <h6>{{ app.user.email }}</h6>
   </div>
   <div class="menu-nav-body px-4 py-1 text-center overflow-auto" style="max-height: calc(100% - 225px);">
     <h4><a href="#">Historial de servicios</a></h4>

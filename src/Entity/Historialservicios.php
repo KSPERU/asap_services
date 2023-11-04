@@ -32,6 +32,9 @@ class Historialservicios
     #[ORM\Column]
     private ?bool $hs_estado = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $hs_direccion = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,6 +96,18 @@ class Historialservicios
     public function setHsEstado(bool $hs_estado): static
     {
         $this->hs_estado = $hs_estado;
+
+        return $this;
+    }
+
+    public function getHsDireccion(): ?string
+    {
+        return $this->hs_direccion;
+    }
+
+    public function setHsDireccion(string $hs_direccion): static
+    {
+        $this->hs_direccion = $hs_direccion;
 
         return $this;
     }

@@ -64,11 +64,18 @@ class Persona
     #[ORM\OneToMany(mappedBy: 'idproveedor', targetEntity: Historialservicios::class)]
     private Collection $histservproveedor;
 
+    #[ORM\OneToOne(mappedBy: 'persona', cascade: ['persist', 'remove'])]
+    private ?Codigo $codigo = null;
+
+    #[ORM\OneToMany(mappedBy: 'persona', targetEntity: Calificacion::class)]
+    private Collection $p_calificacion;
+
     public function __construct()
     {
         $this->servicios = new ArrayCollection();
         $this->histservcliente = new ArrayCollection();
         $this->histservproveedor = new ArrayCollection();
+        $this->p_calificacion = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -317,6 +324,58 @@ class Persona
             // set the owning side to null (unless already changed)
             if ($histservproveedor->getIdproveedor() === $this) {
                 $histservproveedor->setIdproveedor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCodigo(): ?Codigo
+    {
+        return $this->codigo;
+    }
+
+    public function setCodigo(?Codigo $codigo): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($codigo === null && $this->codigo !== null) {
+            $this->codigo->setPersona(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($codigo !== null && $codigo->getPersona() !== $this) {
+            $codigo->setPersona($this);
+        }
+
+        $this->codigo = $codigo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Calificacion>
+     */
+    public function getPCalificacion(): Collection
+    {
+        return $this->p_calificacion;
+    }
+
+    public function addPCalificacion(Calificacion $pCalificacion): static
+    {
+        if (!$this->p_calificacion->contains($pCalificacion)) {
+            $this->p_calificacion->add($pCalificacion);
+            $pCalificacion->setPersona($this);
+        }
+
+        return $this;
+    }
+
+    public function removePCalificacion(Calificacion $pCalificacion): static
+    {
+        if ($this->p_calificacion->removeElement($pCalificacion)) {
+            // set the owning side to null (unless already changed)
+            if ($pCalificacion->getPersona() === $this) {
+                $pCalificacion->setPersona(null);
             }
         }
 
