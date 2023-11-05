@@ -125,7 +125,7 @@ class ClienteController extends AbstractController
     #[Route('/cliente/menu/historial', name: 'app_asap_services_entornos_cliente_menu_hisorial_de_servicios')]
     public function histserv(UsuarioRepository $usuarios): Response
     {
-        # Corregir listado
+        # Corregir listado y listar en el template
         $user = $this->getUser();
         $cliente = $usuarios->findOneBy([
             'email' => $user->getUserIdentifier(),
