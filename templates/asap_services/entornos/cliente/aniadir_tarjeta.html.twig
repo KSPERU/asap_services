@@ -17,7 +17,7 @@
         <div class="col-3 d-flex justify-content-center"></div>
         <div class="col-6 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
         <div class="col-3 d-flex justify-content-center contboton-cerrar">
-          <a href="">x</a>
+          <a href="{{ path('app_asap_services_entornos_cliente_inicio') }}">x</a>
         </div>
       </div>
 
@@ -68,7 +68,7 @@
     document.addEventListener("DOMContentLoaded", function () {
         const redirectButton = document.getElementById("redirectButton");
         redirectButton.addEventListener("click", function () {
-            window.location.href = "{{ path('app_detalle_tarjeta') }}";
+            window.location.href = "{{ path('app_asap_services_entornos_cliente_menu_detalle_tarjeta') }}";
         });
     });
 </script>

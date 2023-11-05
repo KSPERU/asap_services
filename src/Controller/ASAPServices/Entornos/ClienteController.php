@@ -137,7 +137,123 @@ class ClienteController extends AbstractController
         ]);
     }
 
-    //Hasta aca estamos
+    #[Route('/cliente/menu/metodos', name: 'app_asap_services_entornos_cliente_menu_metodos_de_pago')]
+    public function metodopag(): Response
+    {
+        # No se encontro la vista Metodos de pago 
+        return $this->render('asap_services/entornos/cliente/aniadir_tarjeta.html.twig');
+    }
+
+    #[Route('/cliente/menu/detalle_tarjeta', name: 'app_asap_services_entornos_cliente_menu_detalle_tarjeta')]
+    public function detalle_tarjeta(Request $request, UsuarioRepository $usuarios, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $cliente = $usuarios->findOneBy([
+            'email' => $user->getUserIdentifier(),
+        ]);
+        $persona = $cliente->getIdPersona();
+        $tarjeta = new Tarjeta();
+        $form = $this->createForm(TarjetaType::class, $tarjeta);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $tarjeta->setPersona($persona);
+            $entityManager->persist($tarjeta);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_detalles_saldos_pagos');
+        }
+        return $this->render('asap_services/entornos/cliente/detalle_tarjeta.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/cliente/menu/saldos_pagos', name: 'app_asap_services_entornos_cliente_menu_saldos_pagos')]
+    public function saldos_pagos(): Response
+    {
+        #Faltan metodo de pago (Integración con tercero)
+        return $this->render('asap_services/entornos/cliente/saldos_pagos.html.twig', []);
+    }
+
+    #[Route('/cliente/menu/detalles_saldos_pagos', name: 'app_asap_services_entornos_cliente_menu_detalles_saldos_pagos')]
+    public function detalles_saldos_pagos(): Response
+    {
+        #El procedimiento pago esta incompleto
+        return $this->render('asap_services/entornos/cliente/detalles_saldos_pagos.html.twig', []);
+    }
+
+    #[Route('/cliente/menu/invitar', name: 'app_asap_services_entornos_cliente_menu_invitar')]
+    public function invitar(UsuarioRepository $usuarios): Response
+    {
+        # Falla la opcion de llamar codigo
+        $user = $this->getUser();
+        $cliente = $usuarios->findOneBy([
+            'email' => $user->getUserIdentifier(),
+        ]);
+        $persona = $cliente->getIdPersona();
+        $codigo = $persona->getCodigo()->getCCodigo();
+        return $this->render('asap_services\entornos\cliente\invitar_amigos.html.twig', [
+            'codigo' => $codigo,
+        ]);
+    }
+
+    #[Route('/cliente/menu/promociones', name: 'app_asap_services_entornos_cliente_menu_promociones')]
+    public function codigo(): Response
+    {
+        # No hay template
+        return $this->render('asap_services/entornos/cliente/promocion.html.twig');
+    }
+
+    #[Route('/cliente/menu/promociones/codigo', name: 'app_asap_services_entornos_cliente_menu_promociones_codigo')]
+    public function verificarCodigo(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        #Error en el entorno de promoción, clase promoción con errores
+        $codigo = $request->request->get('codigo');
+        $codigoDescuento = $entityManager->getRepository(Promocion::class)->findOneBy(['codigo' => $codigo]);
+
+        if ($codigoDescuento) {
+            // Código de descuento válido
+            // Aquí puedes aplicar la lógica para aplicar el descuento en tu aplicación
+            // Por ejemplo, guardarlo en la sesión para su uso posterior
+            $this->addFlash('success', 'Código de descuento aplicado correctamente.');
+        } else {
+            $this->addFlash('error', 'Código de descuento no válido.');
+        }
+
+        return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_promociones');
+    }
+
+    #[Route('/cliente/menu/calificacion', name: 'app_asap_services_entornos_cliente_menu_calificacion')]
+    public function calificacion(Request $request, UsuarioRepository $usuarios, EntityManagerInterface $entityManager): Response
+    {
+        # No hay metodo calificacion de formulario
+        $user = $this->getUser();
+        $cliente = $usuarios->findOneBy([
+            'email' => $user->getUserIdentifier(),
+        ]);
+        $persona = $cliente->getIdPersona(); //para saber de quien es la opinion
+        $calificacion = new Calificacion();
+        $form = $this->createForm(CalificacionType::class, $calificacion);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $calificacion->setPersona($persona);
+            $entityManager->persist($calificacion);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_cliente');
+        }
+
+        return $this->render('cliente\calificacion.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/cliente/menu/ayuda', name: 'app_asap_services_entornos_cliente_menu_ayuda')]
+    public function ayuda(): Response
+    {
+        # No hay template
+        return $this->redirectToRoute('app_asap_services_entornos_cliente_inicio');
+    }
+
+    //Fin de revisión 3er Sprint
 
     #[Route('/cliente/verservicios/proveedor/{id}', name: 'app_cliente_provdetalle')]
     public function verprovdet($id, Request $request, PersonaRepository $personas, ConversacionRepository $conversacionRepository, EntityManagerInterface $entityManager): Response
@@ -185,69 +301,6 @@ class ClienteController extends AbstractController
         ]);
     }
 
-    #[Route('/cliente/invitar', name: 'app_cliente_invitar')]
-    public function invitar(UsuarioRepository $usuarios): Response
-    {
-        $user = $this->getUser();
-        $cliente = $usuarios->findOneBy([
-            'email' => $user->getUserIdentifier(),
-        ]);
-        $persona = $cliente->getIdPersona();
-        $codigo = $persona->getCodigo()->getCCodigo();
-        return $this->render('asap_services\entornos\cliente\invitar_amigos.html.twig', [
-            'codigo' => $codigo,
-        ]);
-    }
-
-    #[Route('/cliente/calificacion', name: 'app_cliente_calificacion')]
-    public function calificacion(Request $request, UsuarioRepository $usuarios, EntityManagerInterface $entityManager): Response
-    {
-        $user = $this->getUser();
-        $cliente = $usuarios->findOneBy([
-            'email' => $user->getUserIdentifier(),
-        ]);
-        $persona = $cliente->getIdPersona(); //para saber de quien es la opinion
-        $calificacion = new Calificacion();
-        $form = $this->createForm(CalificacionType::class, $calificacion);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $calificacion->setPersona($persona);
-            $entityManager->persist($calificacion);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_cliente');
-        }
-
-        return $this->render('cliente\calificacion.html.twig', [
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/cliente/promociones', name: 'app_cliente_promociones')]
-    public function Codigo(): Response
-    {
-        return $this->render('cliente\promocion.html.twig');
-    }
-
-    #[Route('/cliente/promociones/codigo', name: 'app_cliente_promociones_codigo')]
-    public function verificarCodigo(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $codigo = $request->request->get('codigo');
-        $codigoDescuento = $entityManager->getRepository(Promocion::class)->findOneBy(['codigo' => $codigo]);
-
-        if ($codigoDescuento) {
-            // Código de descuento válido
-            // Aquí puedes aplicar la lógica para aplicar el descuento en tu aplicación
-            // Por ejemplo, guardarlo en la sesión para su uso posterior
-            $this->addFlash('success', 'Código de descuento aplicado correctamente.');
-        } else {
-            $this->addFlash('error', 'Código de descuento no válido.');
-        }
-
-        return $this->redirectToRoute('app_cliente_promociones');
-    }
-
-    // CREADO POR FRONTEND PARA VISUALIZAR LAS VISTAS - EKIMINAR SI ES NECESARIO
     #[Route('/cliente/verservicios', name: 'app_cliente_verservicios')]
     public function verservicios2(): Response
     {
@@ -269,44 +322,6 @@ class ClienteController extends AbstractController
     {
         return $this->render('asap_services/entornos/cliente/servicios_menu.html.twig', []);
     }
-    #[Route('/cliente/aniadir_tarjeta', name: 'app_aniadir_tarjeta')]
-    public function aniadir_tarjeta(): Response
-    {
-        return $this->render('asap_services/entornos/cliente/aniadir_tarjeta.html.twig', []);
-    }
-    #[Route('/cliente/detalle_tarjeta', name: 'app_detalle_tarjeta')]
-    public function detalle_tarjeta(Request $request, UsuarioRepository $usuarios, EntityManagerInterface $entityManager): Response
-    {
-        $user = $this->getUser();
-        $cliente = $usuarios->findOneBy([
-            'email' => $user->getUserIdentifier(),
-        ]);
-        $persona = $cliente->getIdPersona();
-        $tarjeta = new Tarjeta();
-        $form = $this->createForm(TarjetaType::class, $tarjeta);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $tarjeta->setPersona($persona);
-            $entityManager->persist($tarjeta);
-            $entityManager->flush();
-            return $this->redirectToRoute('app_detalles_saldos_pagos');
-        }
-        return $this->render('asap_services/entornos/cliente/detalle_tarjeta.html.twig', [
-            'form' => $form,
-        ]);
-    }
-    #[Route('/cliente/saldos_pagos', name: 'app_saldos_pagos.html.twig')]
-    public function saldos_pagos(): Response
-    {
-        return $this->render('asap_services/entornos/cliente/saldos_pagos.html.twig', []);
-    }
-    #[Route('/cliente/detalles_saldos_pagos', name: 'app_detalles_saldos_pagos')]
-    public function detalles_saldos_pagos(): Response
-    {
-        return $this->render('asap_services/entornos/cliente/detalles_saldos_pagos.html.twig', []);
-    }
-
-    // FIN
 
     #[Route('/cliente/test', name: 'app_asap_services_entornos_cliente_test')]
     public function index(UsuarioRepository $usuarios): Response
