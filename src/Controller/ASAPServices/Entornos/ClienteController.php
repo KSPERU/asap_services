@@ -289,7 +289,7 @@ class ClienteController extends AbstractController
             $tarjeta->setPersona($persona);
             $entityManager->persist($tarjeta);
             $entityManager->flush();
-            return $this->redirectToRoute('app_aniadir_tarjeta');
+            return $this->redirectToRoute('app_detalles_saldos_pagos');
         }
         return $this->render('asap_services/entornos/cliente/detalle_tarjeta.html.twig', [
             'form' => $form,
@@ -300,7 +300,7 @@ class ClienteController extends AbstractController
     {
         return $this->render('asap_services/entornos/cliente/saldos_pagos.html.twig', []);
     }
-    #[Route('/cliente/detalles_saldos_pagos', name: 'app_detalles_saldos_pagos.html.twig')]
+    #[Route('/cliente/detalles_saldos_pagos', name: 'app_detalles_saldos_pagos')]
     public function detalles_saldos_pagos(): Response
     {
         return $this->render('asap_services/entornos/cliente/detalles_saldos_pagos.html.twig', []);
