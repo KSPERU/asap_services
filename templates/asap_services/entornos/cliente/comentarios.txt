@@ -1,4 +1,4 @@
-# showservices
+# Ver servicios
 
     <button type="submit" class="btn btn-primary col-12 boton-ofreceservicios-proveedor" style="max-width: 300px;">
         <img src="{{ asset('image/' ~ servicio.svimagen) }}" width="50px" height="50px">
@@ -6,3 +6,42 @@
     </button>
 
     <h3>¿Que servicios deseas hoy?</h3>
+
+# Historial de servicios
+
+            {# /*PRIMER SERVICIO EN EL HISTORIAL*/ #}
+            <div class="row rounded-4 mb-3 border border-2" style="gap: 3px; padding:4px">
+              <span class="fecha-historial-servicios-cliente pb-1">Martes, 11 de Julio, 09:56am</span>
+              <div class="proveedor-historial-servicios-cliente">
+                <spam>Pintura</spam>
+                <p>Proveedor: Luis Vallejos</p>
+              </div>
+              <span class="direccion-historial-servicios-cliente">Dirección: Calle Las Hormigas 561</span>
+              <div>
+                <span class="verdetalle-historial-servicios-cliente"><a href="">Ver detalle</a></span>
+              </div>
+            </div>
+            {# /*SEGUNDO SERVICIO EN EL HISTORIAL*/ #}
+            <div class="row rounded-4 mb-3 border border-2" style="gap: 3px; padding:4px">
+              <span class="fecha-historial-servicios-cliente pb-1">Martes, 11 de Julio, 09:56am</span>
+              <div class="proveedor-historial-servicios-cliente">
+                <spam>Pintura</spam>
+                <p>Proveedor: Luis Vallejos</p>
+              </div>
+              <span class="direccion-historial-servicios-cliente">Dirección: Calle Las Hormigas 561</span>
+              <div>
+                <span class="verdetalle-historial-servicios-cliente"><a href="">Ver detalle</a></span>
+              </div>
+            </div>
+            {# /*TERCER SERVICIO EN EL HISTORIAL*/ #}
+            <div class="row rounded-4 mb-3 border border-2" style="gap: 3px; padding:4px">
+              <span class="fecha-historial-servicios-cliente pb-1">Martes, 11 de Julio, 09:56am</span>
+              <div class="proveedor-historial-servicios-cliente">
+                <spam>Pintura</spam>
+                <p>Proveedor: Luis Vallejos</p>
+              </div>
+              <span class="direccion-historial-servicios-cliente">Dirección: Calle Las Hormigas 561</span>
+              <div>
+                <span class="verdetalle-historial-servicios-cliente"><a href="">Ver detalle</a></span>
+              </div>
+            </div>

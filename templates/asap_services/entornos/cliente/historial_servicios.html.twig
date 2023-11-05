@@ -15,7 +15,7 @@
         <div class="col-3 d-flex justify-content-center"></div>
         <div class="col-6 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
         <div class="col-3 d-flex justify-content-center contboton-cerrar">
-          <a href="">x</a>
+          <a href="{{ path('app_asap_services_entornos_cliente_inicio') }}">x</a>
         </div>
       </div>
 
@@ -28,42 +28,21 @@
             <div class="col-12 texto-historial-servicios-cliente mb-3">Consulta tu registro de contrataciones</div>
           </div>
           <div class="container scroll-historial-servicios-cliente">
-            {# /*PRIMER SERVICIO EN EL HISTORIAL*/ #}
-            <div class="row rounded-4 mb-3 border border-2" style="gap: 3px; padding:4px">
-              <span class="fecha-historial-servicios-cliente pb-1">Martes, 11 de Julio, 09:56am</span>
-              <div class="proveedor-historial-servicios-cliente">
-                <spam>Pintura</spam>
-                <p>Proveedor: Luis Vallejos</p>
+            {% for reg in personaservs %}
+              <div class="row rounded-4 mb-3 border border-2" style="gap: 3px; padding:4px">
+                <span class="fecha-historial-servicios-cliente pb-1">Martes, 11 de Julio, 09:56am</span>
+                <div class="proveedor-historial-servicios-cliente">
+                  <spam>Pintura</spam>
+                  <p>Proveedor: Luis Vallejos</p>
+                </div>
+                <span class="direccion-historial-servicios-cliente">Dirección: Calle Las Hormigas 561</span>
+                <div>
+                  <span class="verdetalle-historial-servicios-cliente"><a href="">Ver detalle</a></span>
+                </div>
               </div>
-              <span class="direccion-historial-servicios-cliente">Dirección: Calle Las Hormigas 561</span>
-              <div>
-                <span class="verdetalle-historial-servicios-cliente"><a href="">Ver detalle</a></span>
-              </div>
-            </div>
-            {# /*SEGUNDO SERVICIO EN EL HISTORIAL*/ #}
-            <div class="row rounded-4 mb-3 border border-2" style="gap: 3px; padding:4px">
-              <span class="fecha-historial-servicios-cliente pb-1">Martes, 11 de Julio, 09:56am</span>
-              <div class="proveedor-historial-servicios-cliente">
-                <spam>Pintura</spam>
-                <p>Proveedor: Luis Vallejos</p>
-              </div>
-              <span class="direccion-historial-servicios-cliente">Dirección: Calle Las Hormigas 561</span>
-              <div>
-                <span class="verdetalle-historial-servicios-cliente"><a href="">Ver detalle</a></span>
-              </div>
-            </div>
-            {# /*TERCER SERVICIO EN EL HISTORIAL*/ #}
-            <div class="row rounded-4 mb-3 border border-2" style="gap: 3px; padding:4px">
-              <span class="fecha-historial-servicios-cliente pb-1">Martes, 11 de Julio, 09:56am</span>
-              <div class="proveedor-historial-servicios-cliente">
-                <spam>Pintura</spam>
-                <p>Proveedor: Luis Vallejos</p>
-              </div>
-              <span class="direccion-historial-servicios-cliente">Dirección: Calle Las Hormigas 561</span>
-              <div>
-                <span class="verdetalle-historial-servicios-cliente"><a href="">Ver detalle</a></span>
-              </div>
-            </div>
+            {% else %}
+                <p>No hay servicios</p>
+            {% endfor %}
           </div>
         </div>
       </div>

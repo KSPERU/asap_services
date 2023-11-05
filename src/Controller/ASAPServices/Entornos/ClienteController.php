@@ -121,6 +121,22 @@ class ClienteController extends AbstractController
         # No se encontro la vista Acerca de
         return $this->redirectToRoute('app_asap_services_entornos_cliente_inicio');
     }
+
+    #[Route('/cliente/menu/historial', name: 'app_asap_services_entornos_cliente_menu_hisorial_de_servicios')]
+    public function histserv(UsuarioRepository $usuarios): Response
+    {
+        # Corregir listado
+        $user = $this->getUser();
+        $cliente = $usuarios->findOneBy([
+            'email' => $user->getUserIdentifier(),
+        ]);
+        $persona = $cliente->getIdPersona();
+        $personaservs = $persona->getServicios();
+        return $this->render('asap_services\entornos\cliente\historial_servicios.html.twig', [
+            'personaservs' => $personaservs,
+        ]);
+    }
+
     //Hasta aca estamos
 
     #[Route('/cliente/verservicios/proveedor/{id}', name: 'app_cliente_provdetalle')]
@@ -143,10 +159,9 @@ class ClienteController extends AbstractController
         // $form = $this->createForm(ConversacionType::class);
         // $form->handleRequest($request);
 
-        if($request->isMethod('POST'))
-        {   
+        if ($request->isMethod('POST')) {
             // $conversacion = new Conversacion();
-            
+
             // $participante = new Participante();
             // $participante->setUsuarioId($this->getUser());
             // $participante->setConversacionId($conversacion);
@@ -170,31 +185,17 @@ class ClienteController extends AbstractController
         ]);
     }
 
-    #[Route('/cliente/histserv', name: 'app_cliente_histserv')]
-    public function histserv(UsuarioRepository $usuarios): Response
-    {
-        $user = $this->getUser();
-        $cliente = $usuarios->findOneBy([
-            'email'=>$user->getUserIdentifier(),
-        ]);
-        $persona = $cliente->getIdPersona();
-        $personaservs = $persona->getServicios();
-        return $this->render('asap_services\entornos\cliente\historial_servicios.html.twig', [
-            'personaservs'=>$personaservs,
-        ]);
-    }
-
     #[Route('/cliente/invitar', name: 'app_cliente_invitar')]
     public function invitar(UsuarioRepository $usuarios): Response
     {
         $user = $this->getUser();
         $cliente = $usuarios->findOneBy([
-            'email'=>$user->getUserIdentifier(),
+            'email' => $user->getUserIdentifier(),
         ]);
         $persona = $cliente->getIdPersona();
         $codigo = $persona->getCodigo()->getCCodigo();
         return $this->render('asap_services\entornos\cliente\invitar_amigos.html.twig', [
-            'codigo'=>$codigo,
+            'codigo' => $codigo,
         ]);
     }
 
@@ -203,9 +204,9 @@ class ClienteController extends AbstractController
     {
         $user = $this->getUser();
         $cliente = $usuarios->findOneBy([
-            'email'=>$user->getUserIdentifier(),
+            'email' => $user->getUserIdentifier(),
         ]);
-        $persona = $cliente->getIdPersona();//para saber de quien es la opinion
+        $persona = $cliente->getIdPersona(); //para saber de quien es la opinion
         $calificacion = new Calificacion();
         $form = $this->createForm(CalificacionType::class, $calificacion);
         $form->handleRequest($request);
@@ -278,7 +279,7 @@ class ClienteController extends AbstractController
     {
         $user = $this->getUser();
         $cliente = $usuarios->findOneBy([
-            'email'=>$user->getUserIdentifier(),
+            'email' => $user->getUserIdentifier(),
         ]);
         $persona = $cliente->getIdPersona();
         $tarjeta = new Tarjeta();
@@ -321,7 +322,7 @@ class ClienteController extends AbstractController
             'aux_session' => $this->getUser(),
         ]);
     }
-    
+
     // #[Route('cliente/conversacion', name: 'app_conversacion')]
     // public function newConversacion($id, ConversacionRepository $conversacionRepository, PersonaRepository $personaRepository): Response
     // {
