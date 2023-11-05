@@ -1,0 +1,15 @@
+{% for cn in conversacion %}
+<li>
+    <strong>
+        {{cn.mensaje}}
+    </strong>
+    |||
+    <strong>
+        {{cn.email}}
+    </strong>
+    |||
+    <strong>
+    <a href="{{ path('app_chat', {'id': cn.conversationId}) }}">ver Chat</a>
+    </strong>
+</li>
+{% endfor %}

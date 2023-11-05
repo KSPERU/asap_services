@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{# <div id="conversaciones"> #}
+{# {% for cn in conversacion %}
+  <li>
+      <strong>
+        {{cn.mensaje}}
+      </strong>
+      |||
+      <strong>
+          {{cn.email}}
+      </strong>
+      |||
+      <strong>
+      <a href="{{ path('app_chat', {'id': cn.conversationId}) }}">ver Chat</a>
+      </strong>
+      <strong>
+        {{ cn.fecha_creacion|date('d/m/y H:i:s') }}
+      </strong>
+  </li>
+{% endfor %} #}
+{# </div> #}
+<div id="messages" {{ turbo_stream_listen('/chat/conversacion') }}>
+
+                {{ include('chat/turbo/_conversacionList.html.twig') }}
+      
+</div>
+{% endblock %}
+{% block javascripts %}
+  {# <script>
+    const eventSource = new EventSource("{{ mercure('https://example.com/conversacion/{id}')|escape('js') }}");
+    eventSource.onmessage = event => {
+      const data = JSON.parse(event.data);
+        const mensajeElement = document.getElementById(`message-${data.conversationId}`);
+          if (mensajeElement) {
+              mensajeElement.innerHTML = data.uMensaje;
+          }
+    }
+  </script> #}
+{% endblock %}

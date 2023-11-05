@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Chat</h1>
+<div class="container">
+    <div id="messages" {{ turbo_stream_listen('/chat/conversacion/' ~ conversacion.id) }}>
+        {#
+            The messages will be displayed here.
+            "turbo_stream_listen()" automatically registers a Stimulus controller that subscribes to the "chat" topic as managed by the transport.
+            All connected users will receive the new messages!
+         #}
+         <div style="height: 150px; overflow: auto;">
+            <ul class="list-unstyled" id="chat-box">
+                {{ include('chat/turbo/_chatList.html.twig') }}
+            </ul>
+        </div>
+        <div class="demo-container-inner-secondary p-4">
+            <form id="chat-form" action="{{ path('app_chat_turbo', {id: conversacion.id}) }}" method="POST">
+                {{ include('chat/turbo/_chatForm.html.twig') }}
+            </form>
+        </div>
+    </div>
+</div>
+
+
+    {# <turbo-stream action="update" target="chat-box">
+        <template>
+            {{ include('chat/message.stream.html.html.twig') }}
+        </template>
+    </turbo-stream> #}
+{% endblock %}

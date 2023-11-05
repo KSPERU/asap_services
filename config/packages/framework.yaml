@@ -1,4 +1,9 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
+when@dev:
+    framework:
+        http_client:
+            default_options:
+                verify_peer: false
 framework:
     secret: '%env(APP_SECRET)%'
     #csrf_protection: true

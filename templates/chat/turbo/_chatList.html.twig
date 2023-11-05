@@ -1,0 +1,15 @@
+{% for participante in participantes %}
+    {% for mensaje in participante.conversacionId.chats %}
+    <li>
+        <strong>
+            {# {{ message.username }}: #}
+            {# {{ participante.conversacionId.ultimoMensajeId.mensaje}} #}
+            {# {{message.mensaje}} #}
+                {{mensaje.usuarioId.email}}:{{mensaje.mensaje}}        
+        </strong>
+        {# {{ message.mensajeLeido }} #}
+    </li>
+    {% endfor %}
+{% else %}
+    <li>Start the conversation!</li>
+{% endfor %}

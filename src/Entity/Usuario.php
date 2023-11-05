@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\UsuarioRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -39,6 +41,17 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'usuario', cascade: ['persist', 'remove'])]
     private ?Persona $idPersona = null;
 
+    #[ORM\OneToMany(mappedBy: 'usuario_id', targetEntity: Chat::class)]
+    private Collection $chats;
+
+    #[ORM\OneToMany(mappedBy: 'usuario_id', targetEntity: Participante::class)]
+    private Collection $participantes;
+
+    public function __construct()
+    {
+        $this->chats = new ArrayCollection();
+        $this->participantes = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -148,7 +161,65 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    /**
+     * @return Collection<int, Chat>
+     */
+    public function getChats(): Collection
+    {
+        return $this->chats;
+    }
 
+    public function addChat(Chat $chat): static
+    {
+        if (!$this->chats->contains($chat)) {
+            $this->chats->add($chat);
+            $chat->setUsuarioId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChat(Chat $chat): static
+    {
+        if ($this->chats->removeElement($chat)) {
+            // set the owning side to null (unless already changed)
+            if ($chat->getUsuarioId() === $this) {
+                $chat->setUsuarioId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Participante>
+     */
+    public function getParticipantes(): Collection
+    {
+        return $this->participantes;
+    }
+
+    public function addParticipante(Participante $participante): static
+    {
+        if (!$this->participantes->contains($participante)) {
+            $this->participantes->add($participante);
+            $participante->setUsuarioId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipante(Participante $participante): static
+    {
+        if ($this->participantes->removeElement($participante)) {
+            // set the owning side to null (unless already changed)
+            if ($participante->getUsuarioId() === $this) {
+                $participante->setUsuarioId(null);
+            }
+        }
+
+        return $this;
+    }
 
 
 }
