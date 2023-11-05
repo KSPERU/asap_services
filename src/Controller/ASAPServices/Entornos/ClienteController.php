@@ -6,7 +6,11 @@ use App\Entity\Persona;
 use App\Entity\Tarjeta;
 use App\Form\ClienteType;
 use App\Entity\Calificacion;
+use App\Entity\Conversacion;
+use App\Entity\Participante;
+use App\Form\ConversacionType;
 use App\Form\TarjetaType;
+use App\Repository\ConversacionRepository;
 use App\Repository\PersonaRepository;
 use App\Repository\UsuarioRepository;
 use App\Repository\ServicioRepository;
@@ -120,11 +124,49 @@ class ClienteController extends AbstractController
     //Hasta aca estamos
 
     #[Route('/cliente/verservicios/proveedor/{id}', name: 'app_cliente_provdetalle')]
-    public function verprovdet($id, PersonaRepository $personas): Response
+    public function verprovdet($id, Request $request, PersonaRepository $personas, ConversacionRepository $conversacionRepository, EntityManagerInterface $entityManager): Response
     {
         $proveedor = $personas->find($id);
+
+        $otherUser = $request->get('otherUser', 0);
+        $otherUser = $personas->find($otherUser);
+        // echo $otherUser->getId();
+        // echo $proveedor->getId();
+        // echo $this->getUser()->getId();
+        $conversacion = $conversacionRepository->findConversationByParticipants(
+            $proveedor->getId(),
+            $this->getUser()->getId()
+        );
+        if (count($conversacion)) {
+            throw new \Exception("La conversación ya existe");
+        }
+        // $form = $this->createForm(ConversacionType::class);
+        // $form->handleRequest($request);
+
+        if($request->isMethod('POST'))
+        {   
+            // $conversacion = new Conversacion();
+            
+            // $participante = new Participante();
+            // $participante->setUsuarioId($this->getUser());
+            // $participante->setConversacionId($conversacion);
+
+            // $otroParticipante = new Participante();
+            // $otroParticipante->setUsuarioId($proveedor);
+            // $otroParticipante->setConversacionId($conversacion);
+
+            // $entityManager->persist($conversacion);
+            // $entityManager->persist($participante);
+            // $entityManager->persist($otroParticipante);
+
+            // $entityManager->flush();
+
+            $this->redirectToRoute('app_chat_conversacion');
+        }
+        // echo $proveedor;
         return $this->render('asap_services/entornos/cliente/detalleproveedor.html.twig', [
             'proveedor' => $proveedor,
+            // 'form' => $form,
         ]);
     }
 
@@ -279,4 +321,26 @@ class ClienteController extends AbstractController
             'aux_session' => $this->getUser(),
         ]);
     }
+    
+    // #[Route('cliente/conversacion', name: 'app_conversacion')]
+    // public function newConversacion($id, ConversacionRepository $conversacionRepository, PersonaRepository $personaRepository): Response
+    // {
+    //     $conversaciones = $conversacionRepository->findConversationsByUser($this->getUser()->getId());
+
+    //     $conversacion = $personaRepository->find($id);
+    //     return $this->render('chat/conversacion.html.twig', [
+    //         'conversacion' => $conversaciones,  
+    //     ]);
+    //     // return $this->json([
+    //     //     'conver' => $conversacion,
+    //     // ]);
+    // }
+    // #[Route('/cliente/verservicios/proveedor/{id}', name: 'app_cliente_provdetalle')]
+    // public function verprovdet($id, PersonaRepository $personas): Response
+    // {
+    //     $proveedor = $personas->find($id);
+    //     return $this->render('asap_services/entornos/cliente/detalleproveedor.html.twig', [
+    //         'proveedor' => $proveedor,
+    //     ]);
+    // }
 }
