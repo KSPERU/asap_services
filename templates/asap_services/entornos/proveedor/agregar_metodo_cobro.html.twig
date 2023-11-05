@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Agregar Método de Cobro
+{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	<link href="{{ asset('css/proveedor/agregar_metodo_cobro.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+	<div class="d-flex justify-content-center align-items-center h-100 w-100">
+		<div class="container proveedor-agregar-metodo-cobro-container">
+			<div class="d-flex flex-column justify-content-center align-items-center w-100">
+				{{ include('components/cabecera_con_X.html.twig') }}
+			</div>
+			<div class="d-flex flex-column agregar-metodo-cobro-container">
+				<h1 class="text-center agregar-metodo-cobro-title mb-4">Añadir método de cobro</h1>
+
+				<h5 class="text-center">Elige el banco de tu preferencia</h5>
+
+                <div class="p-3">
+                    <label for="BCP">
+                        <input class="me-2" id="BCP" name="opciones" type="checkbox" value="Opción 1">
+                        BCP
+                    </label><br>
+
+                    <label for="BBVA">
+                        <input class="me-2" id="BBVA" name="opciones" type="checkbox" value="Opción 2">
+                        BBVA
+                    </label><br>
+
+                    <label for="Interbank">
+                        <input class="me-2" id="Interbank" name="opciones" type="checkbox" value="Opción 3">
+                        Interbank
+                    </label>
+                </div>
+
+                <div class="p-3">
+                    <a class="btn-agregar-metodo-cobro" href="#">Ingresar número de cuenta</a>
+                </div>
+			</div>
+		</div>
+	</div>
+
+	{{ include("components/footer.html.twig") }}
+{% endblock %}

@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+
+*{
+    font-family: Nunito;
+}
+
+body {
+    /*min-height: 90vh;*/
+    background-image: url('/image/Imagen1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+
+}
+
+.proveedor-agregar-metodo-cobro-container{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.agregar-metodo-cobro-container{
+    height: 65vh;
+    background: white;
+    border-radius: 40px;
+    width: 100%;
+    padding: 18px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.agregar-metodo-cobro-title{
+    color: #4302AE;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+.btn-agregar-metodo-cobro{
+    padding: 18px;
+    border-radius: 40px;
+    background: #FFF;
+    box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.15);
+
+    text-decoration: none;
+    color: #0f0f0f;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}

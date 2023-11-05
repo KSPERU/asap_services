@@ -260,6 +260,17 @@ class ProveedorController extends AbstractController
     {
         return $this->render('asap_services/entornos/proveedor/chatclientes.html.twig', []);
     }
+    // 5/11/23
+    #[Route('/proveedor/agregar_metodo_cobro', name: 'app_prov_agregar_metodo_cobro')]
+    public function agregar_metodo_cobro(): Response
+    {
+        return $this->render('asap_services/entornos/proveedor/agregar_metodo_cobro.html.twig', []);
+    }
+    #[Route('/proveedor/agregar_numero_cuenta', name: 'app_prov_agregar_numero_cuenta')]
+    public function agregar_numero_cuenta(): Response
+    {
+        return $this->render('asap_services/entornos/proveedor/agregar_numero_cuenta.html.twig', []);
+    }
     // FIN
 
 

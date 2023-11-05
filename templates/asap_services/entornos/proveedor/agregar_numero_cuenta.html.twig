@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Ingresar Número de Cuenta
+{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	<link href="{{ asset('css/proveedor/agregar_numero_cuenta.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+	<div class="d-flex justify-content-center align-items-center h-100 w-100">
+		<div class="container proveedor-agregar-numero-cuenta-container">
+			<div class="d-flex flex-column justify-content-center align-items-center w-100">
+				{{ include('components/cabecera_con_X.html.twig') }}
+			</div>
+			<div class="d-flex flex-column agregar-numero-cuenta-container">
+				<h1 class="text-center agregar-numero-cuenta-title mb-4">Ingresar número de cuenta</h1>
+
+                <div class="p-3">
+                    <input type="text" class="input-agregar-numero-cuenta" />
+                </div>
+
+                <div class="p-3">
+                    <a class="btn-agregar-numero-cuenta" href="#">Aceptar</a>
+                </div>
+			</div>
+		</div>
+	</div>
+
+	{{ include("components/footer.html.twig") }}
+{% endblock %}
