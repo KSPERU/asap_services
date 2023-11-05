@@ -168,6 +168,7 @@ class ClienteController extends AbstractController
         $form = $this->createForm(CalificacionType::class, $calificacion);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $calificacion->setPersona($persona);
             $entityManager->persist($calificacion);
             $entityManager->flush();
 
