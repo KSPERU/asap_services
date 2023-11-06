@@ -19,7 +19,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ProveedorController extends AbstractController
 {
-    #[Route('/proveedor', name: 'app_proveedor')]
+
+    #[Route('/proveedor', name: 'app_asap_services_entornos_proveedor_inicio')]
     public function index(UsuarioRepository $usuarios): Response
     {
         $user = $this->getUser();
@@ -29,7 +30,7 @@ class ProveedorController extends AbstractController
         $persona = $proveedor->getIdPersona();
         $id = $persona->getId();
         if ($persona->getPBiografia() === null) {
-            return $this->redirectToRoute('app_prov_bio', ['id' => $id]);
+            return $this->redirectToRoute('app_asap_services_entornos_proveedor_biografia', ['id' => $id]);
         }
 
         return $this->render('asap_services/entornos/proveedor/inicio_proveedor.html.twig', [
@@ -37,6 +38,162 @@ class ProveedorController extends AbstractController
             'proveedor' => $persona,
         ]);
     }
+
+    #[Route('/proveedor/{id}/biografia', name: 'app_asap_services_entornos_proveedor_biografia')]
+    public function biografia($id, Request $request, Persona $persona, EntityManagerInterface $entityManager): Response
+    {
+
+        if ($request->isMethod('POST')) {
+            $biografia = $request->get('p_biografia');
+
+            if ($persona) {
+                $persona->setPBiografia($biografia);
+                $entityManager->persist($persona);
+                $entityManager->flush();
+            }
+
+
+            return $this->redirectToRoute('app_asap_services_entornos_proveedor_servicios', ['id' => $id]);
+        }
+
+        return $this->render('asap_services/entornos/proveedor/biografia.html.twig', [
+            'controller_name' => 'ProveedorController',
+            'persona' => $persona
+        ]);
+    }
+
+    #[Route('/proveedor/{id}/servicios', name: 'app_asap_services_entornos_proveedor_servicios')]
+    public function servicios($id, Request $request, Persona $persona, ServicioRepository $servicios, EntityManagerInterface $entityManager): Response
+    {
+
+        if ($request->isMethod('POST')) {
+            $serviciosselect = $request->get('servicios', []);
+
+            if ($persona) {
+                foreach ($serviciosselect as $servicioid) {
+                    $servicio = $servicios->find($servicioid);
+
+                    if ($servicio) {
+                        $personaservicio = new PersonaServicio;
+                        $personaservicio->setIdPersona($persona);
+                        $personaservicio->setIdServicio($servicio);
+                        $entityManager->persist($personaservicio);
+                    }
+                }
+                $entityManager->flush();
+            }
+
+            return $this->redirectToRoute('app_asap_services_entornos_proveedor_inicio');
+        }
+
+        return $this->render('asap_services/entornos/proveedor/ofrecer_servicios.html.twig', [
+            'controller_name' => 'ProveedorController',
+            'persona' => $persona,
+            'servicios' => $servicios->findAll(),
+
+        ]);
+    }
+
+    #[Route('/proveedor/menu/{id}/perfil', name: 'app_asap_services_entornos_proveedor_menu_perfil')]
+    public function perfil(Persona $persona): Response
+    {
+        # Falta adaptar el template
+        return $this->render('asap_services/entornos/proveedor/mi_perfil.html.twig', [
+            'proveedor' => $persona,
+        ]);
+    }
+
+    #[Route('/proveedor/menu/{id}/historial', name: 'app_asap_services_entornos_proveedor_menu_historial')]
+    public function historialservicios(Persona $persona): Response
+    {
+        # El template esta vacio
+        $histservicios = $persona->getHistservproveedor();
+        return $this->render('asap_services/entornos/proveedor/historialservicios.html.twig', [
+            'historiales' => $histservicios,
+
+        ]);
+    }
+
+    #[Route('/proveedor/menu/{id}/ganancias', name: 'app_asap_services_entornos_proveedor_menu_ganancias')]
+    public function ganancias(Persona $persona): Response
+    {
+        # No tiene contenido
+        return $this->render('asap_services/entornos/proveedor/ganancias.html.twig', [
+            'proveedor' => $persona,
+        ]);
+    }
+
+    #[Route('/proveedor/menu/{id}/chatclientes', name: 'app_asap_services_entornos_proveedor_menu_chat')]
+    public function chatclientes(Persona $persona): Response
+    {
+        #Solo template falta integrar con back
+        return $this->render('asap_services/entornos/proveedor/chatclientes.html.twig', [
+            'proveedor' => $persona,
+
+        ]);
+    }
+
+    #[Route('/proveedor/menu/preguntas', name: 'app_asap_services_entornos_proveedor_menu_preguntas')]
+    public function preguntas(): Response
+    {
+        return $this->render('asap_services/entornos/proveedor/preguntas_frecuentes.html.twig', []);
+    }
+
+    #[Route('/proveedor/menu/{id}/metcobro', name: 'app_asap_services_entornos_proveedor_menu_metodo')]
+    public function metcobro(Request $request, $id, Persona $persona, MetodocobroRepository $metodocobros): Response
+    {
+        #No tiene template
+        if ($request->isMethod('POST')) {
+            $metodocobroselect = $request->get('metodocobros', []);
+
+            if ($persona) {
+                $idmet = !empty($metodocobroselect) ? $metodocobroselect[0] : null;
+                return $this->redirectToRoute('app_asap_services_entornos_proveedor_menu_metodo_numero', ['id' => $persona->getId(), 'idmet' => $idmet]);
+            }
+        }
+
+        return $this->render('asap_services/entornos/proveedor/metodocobro.html.twig', [
+            'proveedor' => $persona,
+            'metodocobros' => $metodocobros->findAll()
+        ]);
+    }
+
+    #[Route('/proveedor/menu/{id}/metcobro/{idmet}/numcuenta', name: 'app_asap_services_entornos_proveedor_menu_metodo_numero')]
+    public function numcuenta(Request $request, $idmet, Persona $persona, MetodocobroRepository $metodocobros, EntityManagerInterface $entityManager): Response
+    {
+        #No tiene template
+        if ($persona) {
+            if ($request->isMethod('POST')) {
+
+                $metcobro = $metodocobros->find($idmet);
+                $numcuenta = $request->request->get('numcuenta');
+                if ($metcobro) {
+                    $metcobroprov = new MetcobroProveedor;
+                    $metcobroprov->setIdproveedor($persona);
+                    $metcobroprov->setIdmetcobro($metcobro);
+                    $metcobroprov->setMcpNumerocuenta($numcuenta);
+                    $metcobroprov->setMcpEstado(true);
+                    $entityManager->persist($metcobroprov);
+                }
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_asap_services_entornos_proveedor_inicio');
+            }
+        }
+
+        return $this->render('asap_services/entornos/proveedor/numerocuenta.html.twig', [
+            'proveedor' => $persona,
+            'metodocobros' => $metodocobros->findAll()
+        ]);
+    }
+
+    #[Route('/proveedor/menu/ayuda', name: 'app_asap_services_entornos_proveedor_menu_ayuda')]
+    public function ayuda(): Response
+    {
+        return $this->render('asap_services/entornos/proveedor/ayuda.html.twig', []);
+    }
+
+    # Fin de revision sprint 03
 
     #[Route('/proveedor/{id}/edit', name: 'app_proveedor_edit')]
     public function edit(Request $request, Persona $persona, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
@@ -84,167 +241,6 @@ class ProveedorController extends AbstractController
         ]);
     }
 
-    #[Route('/proveedor/{id}/biografia', name: 'app_prov_bio')]
-    public function biografia($id, Request $request, Persona $persona, EntityManagerInterface $entityManager): Response
-    {
-
-        if ($request->isMethod('POST')) {
-            $biografia = $request->get('p_biografia');
-
-            if ($persona) {
-                $persona->setPBiografia($biografia);
-                $entityManager->persist($persona);
-                $entityManager->flush();
-            }
-
-
-            return $this->redirectToRoute('app_prov_serv', ['id' => $id]);
-        }
-
-        return $this->render('asap_services/entornos/proveedor/biografia.html.twig', [
-            'controller_name' => 'ProveedorController',
-            'persona' => $persona
-        ]);
-    }
-
-    #[Route('/proveedor/{id}/servicios', name: 'app_prov_serv')]
-    public function servicios($id, Request $request, Persona $persona, ServicioRepository $servicios, EntityManagerInterface $entityManager): Response
-    {
-        
-        if ($request->isMethod('POST')) {
-            $serviciosselect = $request->get('servicios', []);
-
-            if ($persona) {
-                foreach ($serviciosselect as $servicioid) {
-                    $servicio = $servicios->find($servicioid);
-
-                    if ($servicio) {
-                        $personaservicio = new PersonaServicio;
-                        $personaservicio->setIdPersona($persona);
-                        $personaservicio->setIdServicio($servicio);
-                        $entityManager->persist($personaservicio);
-                    }
-                }
-                $entityManager->flush();
-            }
-
-            return $this->redirectToRoute('app_proveedor');
-        }
-
-        return $this->render('asap_services/entornos/proveedor/ofrecer_servicios.html.twig', [
-            'controller_name' => 'ProveedorController',
-            'persona' => $persona,
-            'servicios' => $servicios->findAll(),
-
-        ]);
-    }
-
-    #[Route('/proveedor/{id}/perfil', name: 'app_prov_perfil')]
-    public function perfil(Persona $persona): Response
-    {
-        
-        return $this->render('asap_services/entornos/proveedor/mi_perfil.html.twig', [
-            'proveedor' => $persona,
-
-        ]);
-    }
-
-    #[Route('/proveedor/{id}/historialserv', name: 'app_prov_histserv')]
-    public function historialservicios(Persona $persona): Response
-    {
-        $histservicios = $persona->getHistservproveedor();
-
-        return $this->render('asap_services/entornos/proveedor/historialservicios.html.twig', [
-            'historiales' => $histservicios,
-
-        ]);
-    }
-
-    #[Route('/proveedor/{id}/ganancias', name: 'app_prov_ganancias')]
-    public function ganancias(Persona $persona): Response
-    {
-
-            return $this->render('asap_services/entornos/proveedor/ganancias.html.twig', [
-            'proveedor' => $persona,
-
-        ]);
-    }
-
-    #[Route('/proveedor/{id}/chatclientes', name: 'app_prov_chat')]
-    public function chatclientes(Persona $persona): Response
-    {
-
-        return $this->render('asap_services/entornos/proveedor/chatclientes.html.twig', [
-            'proveedor' => $persona,
-
-        ]);
-    }
-
-    #[Route('/proveedor/preguntas', name: 'app_prov_preguntas')]
-    public function preguntas(): Response
-    {
-
-        return $this->render('asap_services/entornos/proveedor/preguntas_frecuentes.html.twig', []);
-    }
-
-    #[Route('/proveedor/{id}/metcobro', name: 'app_prov_metcobro')]
-    public function metcobro(Request $request,$id, Persona $persona, MetodocobroRepository $metodocobros): Response
-    {
-       
-        if ($request->isMethod('POST')) {
-            $metodocobroselect = $request->get('metodocobros', []);
-
-            if ($persona) {
-                $idmet = !empty($metodocobroselect) ? $metodocobroselect[0] : null;
-                return $this->redirectToRoute('app_prov_metcobro_numcuenta', ['id' => $persona->getId(), 'idmet'=>$idmet]);
-            }
-
-            
-        }
-
-        return $this->render('asap_services/entornos/proveedor/metodocobro.html.twig', [
-            'proveedor' => $persona,
-            'metodocobros' => $metodocobros->findAll()
-        ]);
-    }
-
-    #[Route('/proveedor/{id}/metcobro/{idmet}/numcuenta', name: 'app_prov_metcobro_numcuenta')]
-    public function numcuenta(Request $request, $idmet, Persona $persona, MetodocobroRepository $metodocobros, EntityManagerInterface $entityManager): Response
-    {
-        
-        if($persona){
-            if ($request->isMethod('POST')) {
-
-                $metcobro = $metodocobros->find($idmet);
-                $numcuenta = $request->request->get('numcuenta');
-                if ($metcobro) {
-                    $metcobroprov = new MetcobroProveedor;
-                    $metcobroprov->setIdproveedor($persona);
-                    $metcobroprov->setIdmetcobro($metcobro);
-                    $metcobroprov->setMcpNumerocuenta($numcuenta);
-                    $metcobroprov->setMcpEstado(true);
-                    $entityManager->persist($metcobroprov);
-                    
-                }
-                $entityManager->flush();
-    
-                return $this->redirectToRoute('app_proveedor');
-            }
-        }
-        
-        return $this->render('asap_services/entornos/proveedor/numerocuenta.html.twig', [
-            'proveedor' => $persona,
-            'metodocobros' => $metodocobros->findAll()
-        ]);
-    }
-
-    #[Route('/proveedor/ayuda', name: 'app_prov_ayuda')]
-    public function ayuda(): Response
-    {
-        return $this->render('asap_services/entornos/proveedor/ayuda.html.twig', []);
-    }
-
-    // CREADO POR FRONTEND PARA VISUALIZAR LAS VISTAS - EKIMINAR SI ES NECESARIO
     #[Route('/proveedor/historial_servicios', name: 'app_prov_historial_servicios')]
     public function historial_servicios(): Response
     {
@@ -260,7 +256,7 @@ class ProveedorController extends AbstractController
     {
         return $this->render('asap_services/entornos/proveedor/chatclientes.html.twig', []);
     }
-    // 5/11/23
+
     #[Route('/proveedor/agregar_metodo_cobro', name: 'app_prov_agregar_metodo_cobro')]
     public function agregar_metodo_cobro(): Response
     {
@@ -271,7 +267,4 @@ class ProveedorController extends AbstractController
     {
         return $this->render('asap_services/entornos/proveedor/agregar_numero_cuenta.html.twig', []);
     }
-    // FIN
-
-
 }
