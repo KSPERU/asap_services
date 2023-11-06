@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ganancias{% endblock %}
+
+{% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  <link rel="stylesheet" href="{{ asset('css/proveedor/ganancias_3.css') }}" />
+ {% endblock %}
+
+{% block body %}
+
+<div class="container">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-3 d-flex justify-content-center">
+    </div>
+    <div class="col-6 d-flex justify-content-center">
+      {{ include("components/logo_pequenio.html.twig") }}
+    </div>
+    <div class="col-3 d-flex justify-content-center contboton-cerrar" style="margin-top: -55px;">
+      <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
+    </div>
+  <div>
+
+  <div class="container-morado"> 
+    <div class="ganancias-texto">
+      <div class="saldo">Saldo</div>
+      <div class="ganancia">S/. 1500</div>
+    </div>
+  </div>
+    
+  <div class="container-ganancia">
+    <div class="texto">Si aceptas la tarifa, confirma el pago.Una vez que lo confirmes, procesaremos la solicitud de inmediato. Si bien nuestro objetivo es hacer lo pagos lo más rápido posible, no se garantiza un plazo exacto, ya que depende de tu banco.</div>
+      <div class="ganancia-info">
+        <div class="textos-1">
+          <span class="recibo">Tu recibo: </span>
+        </div>
+        <div class="textos-1 ">
+          <span class="precio">S/1500</span>
+        </div>
+      </div>
+
+      <div class="row contenido-boton-confirmar">
+        <div class="col-10">
+          <button type="submit" class="btn col-12 boton-confirmar">Confirmar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  {{ include("components/footer.html.twig") }}
+
+{% endblock %}

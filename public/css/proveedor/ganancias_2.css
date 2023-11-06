@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+
+body {
+    /*min-height: 90vh;*/
+    background-image: url('/image/Imagen1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
+
+.container-ganancia{
+    border-radius: 40px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 16px;
+}
+
+.detalles {
+    color: #4302AE;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+.fecha {
+    color: #000;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-top: 10px;
+}
+
+.estadistica-img{
+    text-align: center;
+}
+
+.estadistica-img img {
+    max-width: 200px;
+    width: 250px;
+    height: 120px;
+    flex-shrink: 0;
+    background: lightgray 50% / cover no-repeat;
+}
+
+.ganancia-info {
+    display: flex;
+    align-items: center;
+}
+
+
+.textos-1 {
+    display: flex;
+    flex-direction: column;
+    color: #000000;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-left: 35px;
+}
+
+.textos-2 {
+    display: flex;
+    flex-direction: column;
+    color: #000000;
+    margin-right: 20px;
+    margin-top: 5px;
+    margin-left: 35px;
+}
+
+.conectado {
+    color: #000;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.tiempo {
+    color: #000;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.estadistica {
+    color: #000;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.servicio {
+    color: #000;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.desglose {
+    color: #000;
+    font-family: Nunito;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-top: 15px;
+    margin-left: 25px;
+}
+
+.concepto-cobro {
+    color: #000;
+    font-family: Nunito;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-left: 5px;
+}
+
+.concepto-cobro-1 {
+    color: #000;
+    font-family: Nunito;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-left: 5px;
+}
+
+.ganancia-total {
+    color: #000;
+    font-family: Nunito;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-left: 5px;
+    margin-top: 10px;
+}
+
+.impuesto {
+    color: #000;
+    font-family: Nunito;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.linea {
+    border-top: 2px solid black;
+    width: 70%;
+    margin-top: 2px;
+    margin-left: 30px;
+  }
+
+.contenido-boton-cobrar {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.boton-cobrar {
+    border-radius: 40px;
+    background: #4302AE;
+    border: none;
+    color: #FFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Nunito;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    height: 45px;
+}
+
+
+
+.boton-cobrar:hover {
+    color: #fff;
+    background-color: #7A5AAC;
+    border-color: #7A5AAC;
+}
