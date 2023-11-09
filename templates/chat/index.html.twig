@@ -21,7 +21,11 @@
         </div>
     </div>
 </div>
-
+{% if is_granted('ROLE_PROV') %}
+    <form action="{{ path('app_cantidad_post', {id: conversacion.id})}}" method="POST">
+        <button type="submit">Mandar precio</button>
+    </form>
+{% endif %}
 
     {# <turbo-stream action="update" target="chat-box">
         <template>

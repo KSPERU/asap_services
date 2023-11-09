@@ -14,7 +14,10 @@
     <p>Distrito: {{proveedor.pdistrito}}</p>
     <p>Habilidades técnicas: {{proveedor.phabilidades}}</p>
 </div>
-<form method="POST">
+{# <form method="POST"> 
+  <button type="submit">Enviar</button>
+</form> #}
+<form action="{{ path('app_cliente_provdetalle_post', {'id': proveedor.id}) }}" method="post">
   <button type="submit">Enviar</button>
 </form>
 {# {{ form(form) }} #}

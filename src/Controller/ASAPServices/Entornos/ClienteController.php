@@ -256,15 +256,10 @@ class ClienteController extends AbstractController
     //Fin de revisión 3er Sprint
 
     #[Route('/cliente/verservicios/proveedor/{id}', name: 'app_cliente_provdetalle')]
-    public function verprovdet($id, Request $request, PersonaRepository $personas, ConversacionRepository $conversacionRepository, EntityManagerInterface $entityManager): Response
+    public function verprovdet($id, PersonaRepository $personas, ConversacionRepository $conversacionRepository): Response
     {
         $proveedor = $personas->find($id);
 
-        $otherUser = $request->get('otherUser', 0);
-        $otherUser = $personas->find($otherUser);
-        // echo $otherUser->getId();
-        // echo $proveedor->getId();
-        // echo $this->getUser()->getId();
         $conversacion = $conversacionRepository->findConversationByParticipants(
             $proveedor->getId(),
             $this->getUser()->getId()
@@ -272,33 +267,42 @@ class ClienteController extends AbstractController
         if (count($conversacion)) {
             throw new \Exception("La conversación ya existe");
         }
-        // $form = $this->createForm(ConversacionType::class);
-        // $form->handleRequest($request);
-
-        if ($request->isMethod('POST')) {
-            // $conversacion = new Conversacion();
-
-            // $participante = new Participante();
-            // $participante->setUsuarioId($this->getUser());
-            // $participante->setConversacionId($conversacion);
-
-            // $otroParticipante = new Participante();
-            // $otroParticipante->setUsuarioId($proveedor);
-            // $otroParticipante->setConversacionId($conversacion);
-
-            // $entityManager->persist($conversacion);
-            // $entityManager->persist($participante);
-            // $entityManager->persist($otroParticipante);
-
-            // $entityManager->flush();
-
-            $this->redirectToRoute('app_chat_conversacion');
-        }
-        // echo $proveedor;
         return $this->render('asap_services/entornos/cliente/detalleproveedor.html.twig', [
             'proveedor' => $proveedor,
             // 'form' => $form,
         ]);
+    }
+
+    #[Route('/cliente/verservicios/proveedor/post/{id}', name: 'app_cliente_provdetalle_post')]
+    public function newConversacion($id, PersonaRepository $personas, UsuarioRepository $usuarioRepository, ConversacionRepository $conversacionRepository, EntityManagerInterface $entityManager): Response
+    {
+        $proveedor = $personas->find($id);
+        $conversacion = $conversacionRepository->findConversationByParticipants(
+            $proveedor->getId(),
+            $this->getUser()->getId()
+        );
+        $aux = $usuarioRepository->find($id);
+        
+            if (count($conversacion)) {
+                throw new \Exception("La conversación ya existe");
+            }
+            $conversacion = new Conversacion();
+            // echo $conversacion;
+            $participante = new Participante();
+            $participante->setUsuarioId($this->getUser());
+            $participante->setConversacionId($conversacion);
+
+            $otroParticipante = new Participante();
+            $otroParticipante->setUsuarioId($aux);
+            $otroParticipante->setConversacionId($conversacion);
+
+            $entityManager->persist($conversacion);
+            $entityManager->persist($participante);
+            $entityManager->persist($otroParticipante);
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_chat_conversacion');
     }
 
     #[Route('/cliente/verservicios', name: 'app_cliente_verservicios')]

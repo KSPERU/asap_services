@@ -41,6 +41,11 @@ class Historialservicios
     #[ORM\Column(length: 255)]
     private ?string $hs_direccion = null;
 
+    public function __construct()
+    {
+        $this->hs_fecha = new \DateTimeImmutable();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

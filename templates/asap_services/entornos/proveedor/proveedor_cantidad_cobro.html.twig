@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <form action="{{ path('app_historial_post', {id: conversacion.id})}}" method="POST">
+        <input name="cantidad-cobro" type="number"></input>
+        <button type="submit">Mandar precio</button>
+    </form>
+{% endblock %}

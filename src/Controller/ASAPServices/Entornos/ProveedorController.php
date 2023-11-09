@@ -2,6 +2,8 @@
 
 namespace App\Controller\ASAPServices\Entornos;
 
+use App\Entity\Conversacion;
+use App\Entity\Historialservicios;
 use App\Entity\MetcobroProveedor;
 use App\Entity\Persona;
 use App\Form\ProveedorType;
@@ -266,5 +268,64 @@ class ProveedorController extends AbstractController
     public function agregar_numero_cuenta(): Response
     {
         return $this->render('asap_services/entornos/proveedor/agregar_numero_cuenta.html.twig', []);
+    }
+
+    #[Route('/proveedor/cantidad/{id}', name: 'app_cantidad')]
+    public function newCantidadVist(Conversacion $conversacion): Response
+    {
+        return $this->render('asap_services/entornos/proveedor/proveedor_cantidad_cobro.html.twig', [
+            'conversacion' => $conversacion,
+        ]);
+    }
+
+    #[Route('/post/historial/{id}', name: 'app_historial_post', methods: ['POST'])]
+    public function newHistorial(Conversacion $conversacion, Request $request, EntityManagerInterface $entityManager, ServicioRepository $servicioRepository, PersonaRepository $personaRepository): Response
+    {
+        $participantes = $conversacion->getParticipantes();
+
+        $btnCobro = $request->request->get('cantidad-cobro');
+
+        foreach($participantes as $participante) {
+            if ($participante->getUsuarioId()->getId() !== $this->getUser()->getId()) {
+                $otroParticipante = $participante;
+            }
+        }
+
+        $idCliente = $otroParticipante->getUsuarioId()->getId();
+        $idProveedor = $this->getUser()->getId();
+        $direccionCliente = $otroParticipante->getUsuarioId()->getIdPersona()->getPDireccion();
+
+        foreach ($this->getUser()->getIdPersona()->getServicios() as $servicio) {
+            if ($participante->getUsuarioId()->getId() === $this->getUser()->getId()) {
+                $servicioProv = $servicio->getIdServicio()->getId();
+            }
+        }
+
+        $servEnt = $servicioRepository->find($servicioProv);
+        $cliEnt = $personaRepository->find($idCliente);
+        $provEnt = $personaRepository->find($idProveedor);
+        
+        $historial = new Historialservicios();  
+        $historial->setIdservicio($servEnt);
+        $historial->setIdcliente($cliEnt);
+        $historial->setIdproveedor($provEnt);
+        $historial->setHsEstado(false);
+        $historial->setHsEstadopago(false);
+        $historial->setHsImporte($btnCobro);
+        $historial->setHsDireccion($direccionCliente);
+        $entityManager->persist($historial);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_cantidad', [
+            'id' => $conversacion->getId(),
+        ]);
+    }
+
+    #[Route('/post/cantidad/{id}', name: 'app_cantidad_post', methods: ['POST'])]
+    public function newCantidad(Conversacion $conversacion): Response
+    {
+        return $this->redirectToRoute('app_cantidad', [
+            'id' => $conversacion->getId(),
+        ]);
     }
 }
