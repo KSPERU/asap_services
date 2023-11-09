@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+
+body {
+    /*min-height: 90vh;*/
+    background-image: url('/image/Imagen1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
+
+.img-perfil{
+    display: flex;
+    justify-content: center;
+    width: 30%;
+    height: 30%;
+}
+
+.nombre-proveedor{
+    color: #4302AE;
+    font-family: Nunito;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    align-content: center;
+}
+
+.prov-container{
+    height: auto;
+    border-radius: 40px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 12px;
+}
+
+.info-prov-container{
+    height: auto;
+    border-radius: 40px;
+    background: #FFF;
+    box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.25);
+}
+
+.edad{
+    padding: 15px;
+    text-align: right;
+    padding-left: 20px;
+}
+
+.edad span{
+    color: #000;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.titulo{
+    color: #2B0567;
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.sobre-mi{
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.sobre-mi p{
+    color: #000;
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.titulo-2{
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.titulo-2 span:first-child{
+    color: #2B0567;
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.titulo-2 span{
+    color: #000;
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.habilidades{
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.habilidades p{
+    color: #000;
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
