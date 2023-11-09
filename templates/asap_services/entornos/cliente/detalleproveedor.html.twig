@@ -9,8 +9,6 @@
 {% endblock %}
 
 {% block body %}
-
-{% block body %}
 <div class="container mt-3">
     <div class="prov-container">
 
@@ -59,14 +57,15 @@
         </div>
     </div>
 
-    {# <form method="POST"> 
-      <button type="submit">Enviar</button>
-      </form> #}
-      <form action="{{ path('app_cliente_provdetalle_post', {'id': proveedor.id}) }}" method="post">
-      <button type="submit">Enviar</button>
+    {# 
+      <form method="POST"> 
+        <button type="submit">Enviar</button>
       </form>
-      {# {{ form(form) }} #}
-      
+      <form action="{{ path('app_cliente_provdetalle_post', {'id': proveedor.id}) }}" method="post">
+        <button type="submit">Enviar</button>
+      </form>
+      {{ form(form) }} 
+    #}
   </div>
             
   {{ include('components/footer.html.twig') }}
