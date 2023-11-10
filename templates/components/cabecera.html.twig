@@ -113,9 +113,15 @@
 {# MENU #}
 <div id="menu-nav" class="menu-nav position-absolute top-0">
   <div class="menu-nav-header d-flex flex-column align-items-center justify-content-center my-4">
-    <figure>
-      <img src="{{ asset('image/' ~ persona.pfoto) }}">
-    </figure>
+    {% if persona.pfoto %}
+      <figure>
+        <img src="{{ asset('image/' ~ persona.pfoto) }}">
+      </figure>
+    {% else %}
+      <figure>
+        <img src="{{ asset('image/perfil_cliente.png') }}">
+      </figure>
+    {% endif %}
     <h5>{{ persona.pnombre }}</h5>
     <h6>{{ persona.usuario.email }}</h6>
   </div>

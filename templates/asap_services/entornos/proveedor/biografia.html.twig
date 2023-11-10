@@ -84,7 +84,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <form method="post" action="{{ path('app_prov_bio', {'id': persona.id}) }}">
+              <form method="post" action="{{ path('app_asap_services_entornos_proveedor_biografia', {'id': persona.id}) }}">
                   <textarea class="texto-biografia-proveedor" name="p_biografia" id="p_biografia" cols="30" rows="5" style="width: 100%; font-size:14px; font-family:Nunito; font-weight:700; padding-top: 8px; padding-left: 8px;" placeholder="Agregar biografía">{{ persona.pbiografia }}</textarea>
                   <div class="row contenido-boton-proveedor">
                     <button type="submit" class="btn col-12 boton-biografia-proveedor">Detalles de servicio</button>
