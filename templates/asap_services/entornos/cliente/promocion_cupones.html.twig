@@ -39,7 +39,16 @@
             </div>
           </div>
         </button>
-
+        {% for flashSuccess in app.flashes('success') %}
+          <div class="alert alert-success mt-4" role="alert">
+            {{ flashSuccess }}
+          </div>
+        {% endfor %}
+        {% for flashError in app.flashes('error') %}
+          <div class="alert alert-danger mt-4" role="alert">
+            {{ flashError }}
+          </div>
+        {% endfor %}
         <div class="offcanvas offcanvas-bottom" style="background-color: #DCCEF2; border-top-left-radius: 15px;
             border-top-right-radius: 15px;height: 60vh;" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
           <div class="offcanvas-header">
@@ -48,17 +57,16 @@
           </div>
           <hr />
           <div class="offcanvas-body small">
-
-            <form class="form-floating">
-              <input type="email" class="form-control" id="floatingInputValue" placeholder="name@example.com" />
+            <form action="{{ path('app_asap_services_entornos_cliente_menu_promociones_codigo') }}" method="post" class="form-floating">
+              <input type="text" name="codigo" class="form-control" id="floatingInputValue" placeholder="" />
               <label for="floatingInputValue">Tu código promocional</label>
-            </form>
 
-            <div class="row contenido-promocion-cupones-cliente pt-3">
-              <div class="col-8">
-                <button type="submit" class="btn col-12 boton-activar-promocion-cliente">Activar</button>
+              <div class="row contenido-promocion-cupones-cliente pt-3">
+                  <div class="col-8">
+                      <button type="submit" class="btn col-12 boton-activar-promocion-cliente">Activar</button>
+                  </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>

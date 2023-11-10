@@ -2,16 +2,18 @@
 
 namespace App\Controller\ASAPServices\Entornos;
 
+use App\Entity\Codigo;
 use App\Entity\Persona;
 use App\Entity\Tarjeta;
+use App\Entity\Usuario;
 use App\Form\ClienteType;
 use App\Form\TarjetaType;
 use App\Entity\Calificacion;
 use App\Entity\Conversacion;
 use App\Entity\Participante;
-use App\Entity\Usuario;
 use App\Form\CalificacionType;
 use App\Form\ConversacionType;
+use App\Repository\CodigoRepository;
 use App\Repository\PersonaRepository;
 use App\Repository\UsuarioRepository;
 use App\Repository\ServicioRepository;
@@ -226,26 +228,22 @@ class ClienteController extends AbstractController
     #[Route('/cliente/menu/promociones', name: 'app_asap_services_entornos_cliente_menu_promociones')]
     public function codigo(): Response
     {
-        # No hay template
-        return $this->render('asap_services/entornos/cliente/promocion.html.twig');
+        return $this->render('asap_services/entornos/cliente/promocion_cupones.html.twig');
     }
 
     #[Route('/cliente/menu/promociones/codigo', name: 'app_asap_services_entornos_cliente_menu_promociones_codigo')]
     public function verificarCodigo(Request $request, EntityManagerInterface $entityManager): Response
     {
-        #Error en el entorno de promoción, clase promoción con errores
         $codigo = $request->request->get('codigo');
-        $codigoDescuento = $entityManager->getRepository(Promocion::class)->findOneBy(['codigo' => $codigo]);
+        $codigoDescuento = $entityManager->getRepository(Codigo::class)->findOneBy(['c_codigo' => $codigo]);
 
         if ($codigoDescuento) {
-            // Código de descuento válido
-            // Aquí puedes aplicar la lógica para aplicar el descuento en tu aplicación
-            // Por ejemplo, guardarlo en la sesión para su uso posterior
-            $this->addFlash('success', 'Código de descuento aplicado correctamente.');
+            // Código de descuento válido guardarlo en algun lugar para la compra y el descuento
+            $this->addFlash('success', 'Código aplicado correctamente.');
+            
         } else {
-            $this->addFlash('error', 'Código de descuento no válido.');
+            $this->addFlash('error', 'Código no válido.');
         }
-
         return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_promociones');
     }
 
