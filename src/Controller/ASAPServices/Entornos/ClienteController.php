@@ -240,14 +240,13 @@ class ClienteController extends AbstractController
         if ($codigoDescuento) {
             // Código de descuento válido guardarlo en algun lugar para la compra y el descuento
             $this->addFlash('success', 'Código aplicado correctamente.');
-            
         } else {
             $this->addFlash('error', 'Código no válido.');
         }
         return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_promociones');
     }
 
-    #[Route('/cliente/menu/calificacion', name: 'app_asap_services_entornos_cliente_menu_calificacion')]//terminado
+    #[Route('/cliente/menu/calificacion', name: 'app_asap_services_entornos_cliente_menu_calificacion')] //terminado
     public function calificacion(Request $request, UsuarioRepository $usuarios, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
@@ -301,19 +300,19 @@ class ClienteController extends AbstractController
     public function newConversacion($id, PersonaRepository $personas, UsuarioRepository $usuarioRepository, ConversacionRepository $conversacionRepository, EntityManagerInterface $entityManager): Response
     {
         $proveedor = $personas->find($id);
-       
+
         $conversacion = $conversacionRepository->findConversationByParticipants(
             $proveedor->getId(),
             $this->getUser()->getId()
         );
 
         $aux = $usuarioRepository->find($id);
-        
+
         if (count($conversacion)) {
             throw new \Exception("La conversación ya existe");
         }
         $conversacion = new Conversacion();
-            // echo $conversacion;
+        // echo $conversacion;
         $participante = new Participante();
         $participante->setUsuarioId($this->getUser());
         $participante->setConversacionId($conversacion);
@@ -330,6 +329,7 @@ class ClienteController extends AbstractController
 
         return $this->redirectToRoute('app_chat_conversacion');
     }
+
     //Vista
     #[Route('/cliente/verservicios/proveedor/comunicate/{id}', name: 'app_cliente_comunicate')]
     public function verComunicate($id, PersonaRepository $personaRepository, ConversacionRepository $conversacionRepository): Response
@@ -339,8 +339,9 @@ class ClienteController extends AbstractController
             'proveedor' => $proveedor
         ]);
     }
+
     //Redireccion a vista pre_contactar_proveedor
-    #[Route('/cliente/verservicios/proveedor/comunicate/post/{id}', name: 'app_cliente_comunicate_post', methods:['POST'])]
+    #[Route('/cliente/verservicios/proveedor/comunicate/post/{id}', name: 'app_cliente_comunicate_post', methods: ['POST'])]
     public function verComunicatePost(Usuario $usuario): Response
     {
         return $this->redirectToRoute('app_cliente_comunicate', [
