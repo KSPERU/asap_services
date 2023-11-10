@@ -9,6 +9,7 @@ use App\Form\TarjetaType;
 use App\Entity\Calificacion;
 use App\Entity\Conversacion;
 use App\Entity\Participante;
+use App\Entity\Usuario;
 use App\Form\CalificacionType;
 use App\Form\ConversacionType;
 use App\Repository\PersonaRepository;
@@ -41,7 +42,7 @@ class ClienteController extends AbstractController
     }
 
     #[Route('/cliente/verservicios/{id}', name: 'app_asap_services_entornos_cliente_ver_servicio')]
-    public function verprov($id, ServicioRepository $servicios, PersonaRepository $personaRepository, UsuarioRepository $usuarioRepository): Response
+    public function verprov($id, ServicioRepository $servicios, UsuarioRepository $usuarioRepository, PersonaRepository $personaRepository): Response
     {
         # Identifiquemos al usuario
         $persona_aux = $this->getUser();
@@ -54,11 +55,10 @@ class ClienteController extends AbstractController
 
         $servicio = $servicios->find($id);
         $proveedores = $servicio->getPersonas();
-
         return $this->render('asap_services/entornos/cliente/showproveedores.html.twig', [
             'proveedores' => $proveedores,
             'servicio' => $servicio,
-            'persona' => $persona
+            'persona' => $persona,
         ]);
     }
 
@@ -66,13 +66,13 @@ class ClienteController extends AbstractController
     public function verprovdet($id, PersonaRepository $personas, ConversacionRepository $conversacionRepository): Response
     {
         $proveedor = $personas->find($id);
-        $conversacion = $conversacionRepository->findConversationByParticipants(
-            $proveedor->getId(),
-            $this->getUser()->getId()
-        );
-        if (count($conversacion)) {
-            throw new \Exception("La conversación ya existe");
-        }
+        // $conversacion = $conversacionRepository->findConversationByParticipants(
+        //     $proveedor->getId(),
+        //     $this->getUser()->getId()
+        // );
+        // if (count($conversacion)) {
+        //     throw new \Exception("La conversación ya existe");
+        // }
         return $this->render('asap_services/entornos/cliente/detalleproveedor.html.twig', [
             'proveedor' => $proveedor,
             // 'form' => $form,
@@ -281,21 +281,41 @@ class ClienteController extends AbstractController
 
     //Fin de revisión 3er Sprint
 
+    // #[Route('/cliente/verservicios/proveedor/{id}', name: 'app_cliente_provdetalle')]
+    // public function verprovdet($id, PersonaRepository $personas, ConversacionRepository $conversacionRepository): Response
+    // {
+    //     $proveedor = $personas->find($id);
+
+    //     $conversacion = $conversacionRepository->findConversationByParticipants(
+    //         $proveedor->getId(),
+    //         $this->getUser()->getId()
+    //     );
+    //     if (count($conversacion)) {
+    //         throw new \Exception("La conversación ya existe");
+    //     }
+    //     return $this->render('asap_services/entornos/cliente/detalleproveedor.html.twig', [
+    //         'proveedor' => $proveedor,
+    //         // 'form' => $form,
+    //     ]);
+    // }
+
     #[Route('/cliente/verservicios/proveedor/post/{id}', name: 'app_cliente_provdetalle_post')]
     public function newConversacion($id, PersonaRepository $personas, UsuarioRepository $usuarioRepository, ConversacionRepository $conversacionRepository, EntityManagerInterface $entityManager): Response
     {
         $proveedor = $personas->find($id);
+       
         $conversacion = $conversacionRepository->findConversationByParticipants(
             $proveedor->getId(),
             $this->getUser()->getId()
         );
-        $aux = $usuarioRepository->find($id);
 
+        $aux = $usuarioRepository->find($id);
+        
         if (count($conversacion)) {
             throw new \Exception("La conversación ya existe");
         }
         $conversacion = new Conversacion();
-        // echo $conversacion;
+            // echo $conversacion;
         $participante = new Participante();
         $participante->setUsuarioId($this->getUser());
         $participante->setConversacionId($conversacion);
@@ -311,6 +331,23 @@ class ClienteController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('app_chat_conversacion');
+    }
+    //Vista
+    #[Route('/cliente/verservicios/proveedor/comunicate/{id}', name: 'app_cliente_comunicate')]
+    public function verComunicate($id, PersonaRepository $personaRepository, ConversacionRepository $conversacionRepository): Response
+    {
+        $proveedor = $personaRepository->find($id);
+        return $this->render('asap_services/entornos/cliente/pre_contactar_proveedor.html.twig', [
+            'proveedor' => $proveedor
+        ]);
+    }
+    //Redireccion a vista pre_contactar_proveedor
+    #[Route('/cliente/verservicios/proveedor/comunicate/post/{id}', name: 'app_cliente_comunicate_post', methods:['POST'])]
+    public function verComunicatePost(Usuario $usuario): Response
+    {
+        return $this->redirectToRoute('app_cliente_comunicate', [
+            'id' => $usuario->getId(),
+        ]);
     }
 
     #[Route('/cliente/verservicios', name: 'app_cliente_verservicios')]

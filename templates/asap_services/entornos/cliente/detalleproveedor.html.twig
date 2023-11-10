@@ -57,17 +57,16 @@
         </div>
     </div>
 
-    {# 
-      <form method="POST"> 
+    
+      {# <form method="POST"> 
         <button type="submit">Enviar</button>
+      </form> #}
+      <form action="{{ path('app_cliente_comunicate_post', {'id': proveedor.id}) }}" method="post">
+        <button type="submit">Comunicate</button>
       </form>
-      <form action="{{ path('app_cliente_provdetalle_post', {'id': proveedor.id}) }}" method="post">
-        <button type="submit">Enviar</button>
-      </form>
-      {{ form(form) }} 
-    #}
+      {# {{ form(form) }}  #}
+   
   </div>
             
   {{ include('components/footer.html.twig') }}
-
 {% endblock %}
