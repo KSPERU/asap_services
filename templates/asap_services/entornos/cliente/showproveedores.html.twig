@@ -3,20 +3,32 @@
   {{servicio.svnombre}} proveedores
 {% endblock %}
 
+{% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  <link rel="stylesheet" href="{{ asset('css/cliente/servicios_tipos.css') }}" />
+{% endblock %}
+
 {% block body %}
-  <div class="contenedor general" data-turbo="false">
-    <h2>{{servicio.svnombre}}</h2>
+  <div class="container" data-turbo="false">
+  {{ include("components/cabecera.html.twig") }}
+    <div class="cliente-servicios-container">
+      <h3 class="servicio_tipo mb-2">{{servicio.svnombre}}</h3>
+      <div class="servicios-tipos-container d-flex flex-column align-items-center overflow-auto" style="max-height: calc(100% - 50px);">
       {% for proveedor in proveedores %}
-        <div>
-          <img src="{{ asset('image/' ~ proveedor.idpersona.pfoto) }}" width="100px" height="100px">
-          <h2>{{proveedor.idpersona.pnombre}} {{proveedor.idpersona.papellido}}</h2>
-          <p>Valoracion</p> {# desarrollar funcionalidad#}
-          <p>Ubicacion: Cerca de ti</p> {# desarrollar funcionalidad#}
-          <p>Distrito: {{proveedor.idpersona.pdistrito}}</p>
-          <form method="post" action="{{ path('app_cliente_provdetalle', {'id': proveedor.idpersona.id})}}"> 
-            <button type="submit">Detalles</button>
-          </form>
+        <div class="position-relative d-flex align-items-center my-2">
+            <img src="{{ asset('image/' ~ proveedor.idpersona.pfoto) }}" width="100px" height="100px"/>
+            <div class="servicio-card-detalles">
+                <h2>{{proveedor.idpersona.pnombre}} {{proveedor.idpersona.papellido}}</h2>
+                <h4>&#9733 3.7 / 5</h4>
+                <h5>Ubicacion: 2 KM</h5>
+                <h6>Distrito: {{proveedor.idpersona.pdistrito}}</h6>
+                <form method="post" action="{{ path('app_cliente_provdetalle', {'id': proveedor.idpersona.id})}}"> 
+                  <button type="submit">Detalles</button>
+                </form>
+            </div>
         </div>
       {% endfor %}
+      </div>
+    </div>
   </div>   
 {% endblock %}
