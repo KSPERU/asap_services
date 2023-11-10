@@ -5,16 +5,17 @@ namespace App\Controller\ASAPServices\Entornos;
 use App\Entity\Persona;
 use App\Entity\Tarjeta;
 use App\Form\ClienteType;
+use App\Form\TarjetaType;
 use App\Entity\Calificacion;
 use App\Entity\Conversacion;
 use App\Entity\Participante;
+use App\Form\CalificacionType;
 use App\Form\ConversacionType;
-use App\Form\TarjetaType;
-use App\Repository\ConversacionRepository;
 use App\Repository\PersonaRepository;
 use App\Repository\UsuarioRepository;
 use App\Repository\ServicioRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ConversacionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -153,13 +154,12 @@ class ClienteController extends AbstractController
     #[Route('/cliente/menu/historial', name: 'app_asap_services_entornos_cliente_menu_hisorial_de_servicios')]
     public function histserv(UsuarioRepository $usuarios): Response
     {
-        # Corregir listado y listar en el template
         $user = $this->getUser();
         $cliente = $usuarios->findOneBy([
             'email' => $user->getUserIdentifier(),
         ]);
         $persona = $cliente->getIdPersona();
-        $personaservs = $persona->getServicios();
+        $personaservs = $persona->getHistservcliente();
         return $this->render('asap_services\entornos\cliente\historial_servicios.html.twig', [
             'personaservs' => $personaservs,
         ]);
@@ -249,15 +249,14 @@ class ClienteController extends AbstractController
         return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_promociones');
     }
 
-    #[Route('/cliente/menu/calificacion', name: 'app_asap_services_entornos_cliente_menu_calificacion')]
+    #[Route('/cliente/menu/calificacion', name: 'app_asap_services_entornos_cliente_menu_calificacion')]//terminado
     public function calificacion(Request $request, UsuarioRepository $usuarios, EntityManagerInterface $entityManager): Response
     {
-        # No hay metodo calificacion de formulario
         $user = $this->getUser();
         $cliente = $usuarios->findOneBy([
             'email' => $user->getUserIdentifier(),
         ]);
-        $persona = $cliente->getIdPersona(); //para saber de quien es la opinion
+        $persona = $cliente->getIdPersona();
         $calificacion = new Calificacion();
         $form = $this->createForm(CalificacionType::class, $calificacion);
         $form->handleRequest($request);
@@ -265,11 +264,10 @@ class ClienteController extends AbstractController
             $calificacion->setPersona($persona);
             $entityManager->persist($calificacion);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_cliente');
+            return $this->redirectToRoute('app_asap_services_entornos_cliente_inicio');
         }
 
-        return $this->render('cliente\calificacion.html.twig', [
+        return $this->render('asap_services\entornos\cliente\tu_opinon_importa.html.twig', [
             'form' => $form,
         ]);
     }
