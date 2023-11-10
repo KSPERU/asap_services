@@ -314,7 +314,7 @@ class ClienteController extends AbstractController
         $aux = $usuarioRepository->find($id);
         
         if (count($conversacion)) {
-            throw new \Exception("La conversación ya existe");
+            return $this->redirectToRoute('app_chat_conversacion');
         }
         $conversacion = new Conversacion();
             // echo $conversacion;
