@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  Contactaa tu Servicio
+  Contacta tu Servicio
 {% endblock %}
 
 {% block stylesheets %}
@@ -35,10 +35,10 @@
               </div>
               <div class="col-7 ms-auto d-grid justify-content-center text-center" style="
     z-index: 1;">
-                <span class="titulo-detalle-precontactar-proveedor-cliente">Cristhian Ramirez</span>
-                <span class="texto-detalle-precontactar-proveedor-cliente">★ 3.7 / 5</span>
-                <span class="texto-detalle-precontactar-proveedor-cliente">Ubicacion: 2 KM</span>
-                <span class="texto-detalle-precontactar-proveedor-cliente">Distrito: San Juan de Lurigancho</span>
+                <span class="titulo-detalle-precontactar-proveedor-cliente">{{ proveedor.pnombre ~ proveedor.papellido }}</span>
+                <span class="texto-detalle-precontactar-proveedor-cliente">★ - / 5</span> {# Desarrollar funcionalidad#}
+                <span class="texto-detalle-precontactar-proveedor-cliente">Ubicacion: {{ (proveedor.pdireccion is null) ? '-' :  proveedor.pdireccion }}</span> {# 2KM #}
+                <span class="texto-detalle-precontactar-proveedor-cliente">Distrito: {{ (proveedor.pdistrito is null) ? '-' : proveedor.pdistrito }}</span>
               </div>
             </div>
           </div>
@@ -46,8 +46,13 @@
           <div class="contenedor-general"></div>
 
           <div class="row contenido-boton-precontactar-proveedor">
-            <div class="col-10">
+            {# <div class="col-10">
               <button type="submit" class="btn col-12 boton-precontactar-proveedor"><a href="">Ir al chat</a></button>
+            </div> #}
+            <div class="col-10">
+            <form action="{{ path('app_cliente_provdetalle_post', {'id': proveedor.id}) }}" method="post">
+              <button type="submit" class="btn col-12 boton-precontactar-proveedor text-white">Ir al chat</button>
+            </form>
             </div>
           </div>
         </div>

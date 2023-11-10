@@ -1,22 +1,51 @@
 {% extends 'base.html.twig' %}
+
 {% block title %}
   {{servicio.svnombre}} proveedores
 {% endblock %}
 
+{% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  <link rel="stylesheet" href="{{ asset('css/cliente/servicios_tipos.css') }}" />
+{% endblock %}
+
 {% block body %}
-  <div class="contenedor general" data-turbo="false">
-    <h2>{{servicio.svnombre}}</h2>
-      {% for proveedor in proveedores %}
-        <div>
-          <img src="{{ asset('image/' ~ proveedor.idpersona.pfoto) }}" width="100px" height="100px">
-          <h2>{{proveedor.idpersona.pnombre}} {{proveedor.idpersona.papellido}}</h2>
-          <p>Valoracion</p> {# desarrollar funcionalidad#}
-          <p>Ubicacion: Cerca de ti</p> {# desarrollar funcionalidad#}
-          <p>Distrito: {{proveedor.idpersona.pdistrito}}</p>
-          <form method="post" action="{{ path('app_cliente_provdetalle', {'id': proveedor.idpersona.id})}}"> 
-            <button type="submit">Detalles</button>
-          </form>
-        </div>
-      {% endfor %}
-  </div>   
+  <div class="container">
+  
+    {{ include("components/cabecera.html.twig") }}
+
+    <div class="cliente-servicios-container">
+      <h3 class="servicio_tipo mb-2">{{servicio.svnombre}}</h3>
+
+      <div class="servicios-tipos-container d-flex flex-column align-items-center overflow-auto" style="max-height: calc(100% - 50px);">
+        {% for proveedor in proveedores %}
+          <div class="position-relative d-flex align-items-center my-2">
+            {% if proveedor.idpersona.pfoto %}
+              <figure class="position-absolute">
+                <img src="{{ asset("image/" ~ proveedor.idpersona.pfoto) }}" width="105px"/>
+              </figure>
+            {% else %}
+              <figure class="position-absolute">
+                <img src="{{ asset("image/perfil.png") }}" width="30%"/>
+              </figure>
+            {% endif %}
+            <div class="servicio-card-detalles">
+                <form action="{{ path('app_cliente_comunicate_post', {'id': proveedor.idpersona.id}) }}" method="post">
+                    <button type="submit" class="btn btn-unstyled"><h3>{{ proveedor.idpersona.pnombre }} {{ proveedor.idpersona.papellido }}</h3></button>
+                </form>
+                <h4>&#9733; - / 5</h4> {# Desarrollar funcionalidad#}
+                <h5>Ubicación: {{ (proveedor.idpersona.pdireccion is null) ? '-' : proveedor.idpersona.pdireccion }} </h5> {# API distancias necesario majorar #}
+                <h6>Distrito: {{ (proveedor.idpersona.pdistrito is null) ? '-' : proveedor.idpersona.pdistrito }} </h6> {# Mejorar funcionalidad#}
+                <span><a href="{{ path('app_asap_services_entornos_cliente_ver_servicio_ver_detalle_proveedor', {'id': proveedor.idpersona.id }) }}">Ver detalle</a></span>
+            </div>
+          </div>
+        {% else %}
+          <div>
+              <h5>No hay servicios disponibles.</h5>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    {{ include("components/footer.html.twig") }}
+  </div>
 {% endblock %}

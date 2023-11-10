@@ -30,12 +30,12 @@
           <div class="container scroll-historial-servicios-cliente">
             {% for reg in personaservs %}
               <div class="row rounded-4 mb-3 border border-2" style="gap: 3px; padding:4px">
-                <span class="fecha-historial-servicios-cliente pb-1">Martes, 11 de Julio, 09:56am</span>
+                <span class="fecha-historial-servicios-cliente pb-1">{{ reg.HsFecha|date('l, j F Y h:i A') }}</span>
                 <div class="proveedor-historial-servicios-cliente">
-                  <spam>Pintura</spam>
-                  <p>Proveedor: Luis Vallejos</p>
+                  <spam>{{ reg.Idservicio.SvNombre }}</spam>
+                  <p>Proveedor: {{ reg.Idproveedor.PNombre }}</p>
                 </div>
-                <span class="direccion-historial-servicios-cliente">Dirección: Calle Las Hormigas 561</span>
+                <span class="direccion-historial-servicios-cliente">Dirección: {{ reg.HsDireccion }}</span>
                 <div>
                   <span class="verdetalle-historial-servicios-cliente"><a href="">Ver detalle</a></span>
                 </div>

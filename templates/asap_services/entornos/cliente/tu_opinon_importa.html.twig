@@ -21,7 +21,7 @@
           <a href="">x</a>
         </div>
       </div>
-
+      {{ form_start(form) }}
       <div class="container rounded-5 contenido-general-tu-opinion-importa">
         <div class="container">
           <div class="row">
@@ -32,6 +32,7 @@
           </div>
           <div class="row ">
             <div class="col-12 valoracion-opinion-cliente mb-3">
+            {{ form_widget(form.calificacion, { 'attr': {'class': 'rating', 'style': 'display: none;' } }) }}
               <div class="rating">
                 <input type="radio" name="rating" id="star1" value="1" />
                 <label for="star1">★</label>
@@ -45,11 +46,10 @@
                 <label for="star5">★</label>
               </div>
             </div>
-            <span id="selectedRating">Calificación:</span>
           </div>
           <div class="row d-flex justify-content-center">
             <div class="col-12 contenido-valoracion-cliente mb-3">
-              <textarea class="rounded-4 p-2" style="width: 100%;" name="" id="" cols="30" rows="8" placeholder="Dejanos tu opinión"></textarea>
+              {{ form_widget(form.opinion, {'attr': {'class': 'rounded-4 p-2', 'style': 'width: 100%;', 'cols': '30', 'rows': '8' }}) }}
             </div>
           </div>
           <div class="row contenido-boton-enviar-valoracion">
@@ -59,16 +59,14 @@
           </div>
         </div>
       </div>
+      {{ form_end(form) }}
     </div>
   </div>
   <script>
     const ratingInputs = document.querySelectorAll('input[name="rating"]')
-    const selectedRating = document.getElementById('selectedRating')
-    
     ratingInputs.forEach((input) => {
       input.addEventListener('change', () => {
         const rating = input.value
-        selectedRating.textContent = `Calificación: ${rating}`
         ratingInputs.forEach((star, index) => {
           if (index < rating) {
             star.nextElementSibling.style.color = '#ffcc00'
@@ -79,6 +77,12 @@
       })
     })
     
+    document.querySelectorAll('[id^="star"]').forEach(input => {
+    input.addEventListener('click', (event) => {
+        const value = event.target.getAttribute('value');
+        document.querySelector('.rating').value = value;
+    });
+});
   </script>
   {{ include('components/footer.html.twig') }}
 {% endblock %}
