@@ -30,7 +30,9 @@
               </figure>
             {% endif %}
             <div class="servicio-card-detalles">
-                <h3>{{ proveedor.idpersona.pnombre }} {{ proveedor.idpersona.papellido }}</h3>
+                <form action="{{ path('app_cliente_comunicate_post', {'id': proveedor.idpersona.id}) }}" method="post">
+                    <button type="submit" class="btn btn-unstyled"><h3>{{ proveedor.idpersona.pnombre }} {{ proveedor.idpersona.papellido }}</h3></button>
+                </form>
                 <h4>&#9733; - / 5</h4> {# Desarrollar funcionalidad#}
                 <h5>Ubicación: {{ (proveedor.idpersona.pdireccion is null) ? '-' : proveedor.idpersona.pdireccion }} </h5> {# API distancias necesario majorar #}
                 <h6>Distrito: {{ (proveedor.idpersona.pdistrito is null) ? '-' : proveedor.idpersona.pdistrito }} </h6> {# Mejorar funcionalidad#}

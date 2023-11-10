@@ -2,20 +2,23 @@
 
 namespace App\Controller\ASAPServices\Entornos;
 
+use App\Entity\Codigo;
 use App\Entity\Persona;
 use App\Entity\Tarjeta;
+use App\Entity\Usuario;
 use App\Form\ClienteType;
+use App\Form\TarjetaType;
 use App\Entity\Calificacion;
 use App\Entity\Conversacion;
 use App\Entity\Participante;
-use App\Entity\Usuario;
+use App\Form\CalificacionType;
 use App\Form\ConversacionType;
-use App\Form\TarjetaType;
-use App\Repository\ConversacionRepository;
+use App\Repository\CodigoRepository;
 use App\Repository\PersonaRepository;
 use App\Repository\UsuarioRepository;
 use App\Repository\ServicioRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ConversacionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -153,13 +156,12 @@ class ClienteController extends AbstractController
     #[Route('/cliente/menu/historial', name: 'app_asap_services_entornos_cliente_menu_hisorial_de_servicios')]
     public function histserv(UsuarioRepository $usuarios): Response
     {
-        # Corregir listado y listar en el template
         $user = $this->getUser();
         $cliente = $usuarios->findOneBy([
             'email' => $user->getUserIdentifier(),
         ]);
         $persona = $cliente->getIdPersona();
-        $personaservs = $persona->getServicios();
+        $personaservs = $persona->getHistservcliente();
         return $this->render('asap_services\entornos\cliente\historial_servicios.html.twig', [
             'personaservs' => $personaservs,
         ]);
@@ -226,38 +228,32 @@ class ClienteController extends AbstractController
     #[Route('/cliente/menu/promociones', name: 'app_asap_services_entornos_cliente_menu_promociones')]
     public function codigo(): Response
     {
-        # No hay template
-        return $this->render('asap_services/entornos/cliente/promocion.html.twig');
+        return $this->render('asap_services/entornos/cliente/promocion_cupones.html.twig');
     }
 
     #[Route('/cliente/menu/promociones/codigo', name: 'app_asap_services_entornos_cliente_menu_promociones_codigo')]
     public function verificarCodigo(Request $request, EntityManagerInterface $entityManager): Response
     {
-        #Error en el entorno de promoción, clase promoción con errores
         $codigo = $request->request->get('codigo');
-        $codigoDescuento = $entityManager->getRepository(Promocion::class)->findOneBy(['codigo' => $codigo]);
+        $codigoDescuento = $entityManager->getRepository(Codigo::class)->findOneBy(['c_codigo' => $codigo]);
 
         if ($codigoDescuento) {
-            // Código de descuento válido
-            // Aquí puedes aplicar la lógica para aplicar el descuento en tu aplicación
-            // Por ejemplo, guardarlo en la sesión para su uso posterior
-            $this->addFlash('success', 'Código de descuento aplicado correctamente.');
+            // Código de descuento válido guardarlo en algun lugar para la compra y el descuento
+            $this->addFlash('success', 'Código aplicado correctamente.');
         } else {
-            $this->addFlash('error', 'Código de descuento no válido.');
+            $this->addFlash('error', 'Código no válido.');
         }
-
         return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_promociones');
     }
 
-    #[Route('/cliente/menu/calificacion', name: 'app_asap_services_entornos_cliente_menu_calificacion')]
+    #[Route('/cliente/menu/calificacion', name: 'app_asap_services_entornos_cliente_menu_calificacion')] //terminado
     public function calificacion(Request $request, UsuarioRepository $usuarios, EntityManagerInterface $entityManager): Response
     {
-        # No hay metodo calificacion de formulario
         $user = $this->getUser();
         $cliente = $usuarios->findOneBy([
             'email' => $user->getUserIdentifier(),
         ]);
-        $persona = $cliente->getIdPersona(); //para saber de quien es la opinion
+        $persona = $cliente->getIdPersona();
         $calificacion = new Calificacion();
         $form = $this->createForm(CalificacionType::class, $calificacion);
         $form->handleRequest($request);
@@ -265,11 +261,10 @@ class ClienteController extends AbstractController
             $calificacion->setPersona($persona);
             $entityManager->persist($calificacion);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_cliente');
+            return $this->redirectToRoute('app_asap_services_entornos_cliente_inicio');
         }
 
-        return $this->render('cliente\calificacion.html.twig', [
+        return $this->render('asap_services\entornos\cliente\tu_opinon_importa.html.twig', [
             'form' => $form,
         ]);
     }
@@ -305,19 +300,19 @@ class ClienteController extends AbstractController
     public function newConversacion($id, PersonaRepository $personas, UsuarioRepository $usuarioRepository, ConversacionRepository $conversacionRepository, EntityManagerInterface $entityManager): Response
     {
         $proveedor = $personas->find($id);
-       
+
         $conversacion = $conversacionRepository->findConversationByParticipants(
             $proveedor->getId(),
             $this->getUser()->getId()
         );
 
         $aux = $usuarioRepository->find($id);
-        
+
         if (count($conversacion)) {
             return $this->redirectToRoute('app_chat_conversacion');
         }
         $conversacion = new Conversacion();
-            // echo $conversacion;
+        // echo $conversacion;
         $participante = new Participante();
         $participante->setUsuarioId($this->getUser());
         $participante->setConversacionId($conversacion);
@@ -334,6 +329,7 @@ class ClienteController extends AbstractController
 
         return $this->redirectToRoute('app_chat_conversacion');
     }
+
     //Vista
     #[Route('/cliente/verservicios/proveedor/comunicate/{id}', name: 'app_cliente_comunicate')]
     public function verComunicate($id, PersonaRepository $personaRepository, ConversacionRepository $conversacionRepository): Response
@@ -343,8 +339,9 @@ class ClienteController extends AbstractController
             'proveedor' => $proveedor
         ]);
     }
+
     //Redireccion a vista pre_contactar_proveedor
-    #[Route('/cliente/verservicios/proveedor/comunicate/post/{id}', name: 'app_cliente_comunicate_post', methods:['POST'])]
+    #[Route('/cliente/verservicios/proveedor/comunicate/post/{id}', name: 'app_cliente_comunicate_post', methods: ['POST'])]
     public function verComunicatePost(Usuario $usuario): Response
     {
         return $this->redirectToRoute('app_cliente_comunicate', [
