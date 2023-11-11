@@ -75,3 +75,7 @@ max-width: auto;
     border-radius: 20px;
     background-color: #4302AE;
 }
+
+.input-mensaje{
+    width: 95%;
+}
