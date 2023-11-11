@@ -13,7 +13,7 @@
     {{ include("components/cabecera.html.twig") }}
     <div class="cliente-servicios-container">
       <h3 class="cliente-servicios-title">¿Que servicios deseas hoy?</h3>
-      <div class="cliente-servicios-container-body" >
+      <div class="overflow-auto" style="max-height: calc(100vh - 150px);">
         {% for servicio in servicios %}
           {#
             <div class="d-flex justify-content-center align-items-center mt-4">
@@ -24,7 +24,7 @@
             </div>
             <form method="post" action="{{ path('app_asap_services_entornos_cliente_ver_servicio', {'id': servicio.id}) }}"></form>
           #}
-          <div class="d-flex justify-content-center align-items-center mt-4">
+          <div class="d-flex justify-content-center align-items-center mt-4 mb-3">
             <a href="{{ path('app_asap_services_entornos_cliente_ver_servicio', {'id': servicio.id}) }}" class="cliente-servicios-item d-flex align-items-center">
               <img src="image/{{ servicio.svimagen }}" style="width: 20%; border-radius: 50%;">
               <span class="cliente-servicios-item-text">{{ servicio.svnombre }}</span>
