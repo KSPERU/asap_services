@@ -22,8 +22,8 @@
                 <img class="img-perfil" src="{{ asset('image/' ~ ((proveedor.pfoto is null) ? 'perfil.png' : proveedor.pfoto)) }}" />
             </div>
             <div class="row d-flex justify-content-center">
-                <div class="col-12 nombre-proveedor text-center">
-                    <h3>{{ proveedor.pnombre ~ proveedor.papellido }}</h3>
+                <div class="col-12 nombre-proveedor text-center mt-2">
+                    <h3 class="fw-bold">{{ proveedor.pnombre ~ " " ~ proveedor.papellido }}</h3>
                 </div>
             </div>
         </div>

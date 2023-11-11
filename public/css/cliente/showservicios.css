@@ -36,6 +36,11 @@ body {
     border-radius: 40px;
     background: #FFF;
     box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.10);
+    text-decoration: none;
+}
+
+.cliente-servicios-item span{
+    margin: auto;
 }
 
 .cliente-servicios-item a{

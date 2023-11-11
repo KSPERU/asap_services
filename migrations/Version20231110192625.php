@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20231109194217 extends AbstractMigration
+final class Version20231110192625 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -42,21 +42,9 @@ final class Version20231109194217 extends AbstractMigration
         $this->addSql('CREATE TABLE participante (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, usuario_id_id INTEGER DEFAULT NULL, conversacion_id_id INTEGER DEFAULT NULL, mensaje_leido DATETIME DEFAULT NULL, CONSTRAINT FK_85BDC5C3629AF449 FOREIGN KEY (usuario_id_id) REFERENCES usuario (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_85BDC5C3AEE027EA FOREIGN KEY (conversacion_id_id) REFERENCES conversacion (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
         $this->addSql('CREATE INDEX IDX_85BDC5C3629AF449 ON participante (usuario_id_id)');
         $this->addSql('CREATE INDEX IDX_85BDC5C3AEE027EA ON participante (conversacion_id_id)');
-        $this->addSql('CREATE TABLE persona (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, usuario_id INTEGER DEFAULT NULL, p_nombre VARCHAR(64) NOT NULL, p_apellido VARCHAR(64) NOT NULL, p_contacto VARCHAR(9) NOT NULL, p_direccion VARCHAR(255) NOT NULL, p_foto CLOB DEFAULT NULL, p_cv CLOB DEFAULT NULL, p_antpen CLOB DEFAULT NULL, p_cert CLOB DEFAULT NULL, p_biografia CLOB DEFAULT NULL, p_experiencia VARCHAR(30) DEFAULT NULL, p_distrito VARCHAR(64) DEFAULT NULL, p_habilidades CLOB DEFAULT NULL, CONSTRAINT FK_51E5B69BDB38439E FOREIGN KEY (usuario_id) REFERENCES usuario (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_51E5B69BDB38439E ON persona (usuario_id)');
-        $this->addSql('CREATE TABLE persona_servicio (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, id_persona_id INTEGER NOT NULL, id_servicio_id INTEGER NOT NULL, costoservicio DOUBLE PRECISION DEFAULT NULL, CONSTRAINT FK_2B55E66B50720D6E FOREIGN KEY (id_persona_id) REFERENCES persona (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_2B55E66B69D86E10 FOREIGN KEY (id_servicio_id) REFERENCES servicio (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
-        $this->addSql('CREATE INDEX IDX_2B55E66B50720D6E ON persona_servicio (id_persona_id)');
-        $this->addSql('CREATE INDEX IDX_2B55E66B69D86E10 ON persona_servicio (id_servicio_id)');
-        $this->addSql('CREATE TABLE reset_password_request (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER NOT NULL, selector VARCHAR(20) NOT NULL, hashed_token VARCHAR(100) NOT NULL, requested_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
-        , expires_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
-        , CONSTRAINT FK_7CE748AA76ED395 FOREIGN KEY (user_id) REFERENCES usuario (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
-        $this->addSql('CREATE INDEX IDX_7CE748AA76ED395 ON reset_password_request (user_id)');
-        $this->addSql('CREATE TABLE servicio (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, sv_nombre VARCHAR(30) NOT NULL, svimagen CLOB DEFAULT NULL)');
         $this->addSql('CREATE TABLE tarjeta (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, persona_id INTEGER DEFAULT NULL, numero_tarjeta VARCHAR(255) NOT NULL, fecha_vencimiento VARCHAR(255) NOT NULL, cvv VARCHAR(255) NOT NULL, CONSTRAINT FK_AE90B786F5F88DB9 FOREIGN KEY (persona_id) REFERENCES persona (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
         $this->addSql('CREATE INDEX IDX_AE90B786F5F88DB9 ON tarjeta (persona_id)');
-        $this->addSql('CREATE TABLE usuario (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles CLOB NOT NULL --(DC2Type:json)
-        , password VARCHAR(255) NOT NULL, is_verified BOOLEAN NOT NULL)');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_2265B05DE7927C74 ON usuario (email)');
+        $this->addSql('ALTER TABLE persona_servicio ADD COLUMN costoservicio DOUBLE PRECISION DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
@@ -71,11 +59,13 @@ final class Version20231109194217 extends AbstractMigration
         $this->addSql('DROP TABLE metcobro_proveedor');
         $this->addSql('DROP TABLE metodocobro');
         $this->addSql('DROP TABLE participante');
-        $this->addSql('DROP TABLE persona');
-        $this->addSql('DROP TABLE persona_servicio');
-        $this->addSql('DROP TABLE reset_password_request');
-        $this->addSql('DROP TABLE servicio');
         $this->addSql('DROP TABLE tarjeta');
-        $this->addSql('DROP TABLE usuario');
+        $this->addSql('CREATE TEMPORARY TABLE __temp__persona_servicio AS SELECT id, id_persona_id, id_servicio_id FROM persona_servicio');
+        $this->addSql('DROP TABLE persona_servicio');
+        $this->addSql('CREATE TABLE persona_servicio (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, id_persona_id INTEGER NOT NULL, id_servicio_id INTEGER NOT NULL, CONSTRAINT FK_2B55E66B50720D6E FOREIGN KEY (id_persona_id) REFERENCES persona (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_2B55E66B69D86E10 FOREIGN KEY (id_servicio_id) REFERENCES servicio (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
+        $this->addSql('INSERT INTO persona_servicio (id, id_persona_id, id_servicio_id) SELECT id, id_persona_id, id_servicio_id FROM __temp__persona_servicio');
+        $this->addSql('DROP TABLE __temp__persona_servicio');
+        $this->addSql('CREATE INDEX IDX_2B55E66B50720D6E ON persona_servicio (id_persona_id)');
+        $this->addSql('CREATE INDEX IDX_2B55E66B69D86E10 ON persona_servicio (id_servicio_id)');
     }
 }
