@@ -9,13 +9,12 @@ body {
 }
 
 .contenido-registro-proveedor {    
-    min-height: 65vh;
-    max-height: 80vh;
+    height: 80vh;
     background-color: #fff !important;
+    overflow-y: auto;
 }
 
 .titulo-ofrece-servicio {
-    margin-top: 10px;
     color: #4302AE;
     margin-bottom: 10px;
     display: flex;
@@ -28,8 +27,8 @@ body {
 .img-perfil {
     display: flex;
     justify-content: center;
-    width: 30%;
-    height: 30%;
+    width: 25%;
+    height: 25%;
 }
 
 .titulo-editar-proveedor {
@@ -48,19 +47,18 @@ body {
     font-weight: 800;
     line-height: normal;
     text-align: left;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .input-container {
     display: flex;
-    align-items: center;    
+    align-items: center; 
+    padding: auto;
 }
 
 .input-group {
-    position: relative;
-    margin-bottom: 3rem;    
+    position: relative;    
     align-items: center;
-    margin-bottom: 10px;
 }
 
 .input-field {
@@ -75,7 +73,7 @@ body {
     color: #000;
     font-weight: 700;
     margin-right: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 2px;
 }
 
 .input-field:focus {
@@ -126,7 +124,7 @@ body {
     font-size: 18px;
     font-style: normal;
     font-weight: 700;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
 }
 
 @media (min-width: 500px) {
