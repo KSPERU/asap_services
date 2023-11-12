@@ -1,23 +1,35 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  <link rel="stylesheet" href="{{ asset('css/proveedor/chatclientes.css') }}" />
+{% endblock %}
+
 {% block body %}
 <h1>Chat</h1>
-<div class="container">
-    <div id="messages" {{ turbo_stream_listen('/chat/conversacion/' ~ conversacion.id) }}>
-        {#
-            The messages will be displayed here.
-            "turbo_stream_listen()" automatically registers a Stimulus controller that subscribes to the "chat" topic as managed by the transport.
-            All connected users will receive the new messages!
-         #}
-         <div style="height: 150px; overflow: auto;">
-            <ul class="list-unstyled" id="chat-box">
-                {{ include('asap_services/general/chat/turbo/_chatList.html.twig') }}
-            </ul>
+<div class="d-flex justify-content-center align-items-center h-100 w-100" data-turbo="false">
+    <div class="container proveedor-chatclientes-container">
+        <div class="d-flex flex-column justify-content-center align-items-center w-100">
+            {{ include('components/cabecera_con_X.html.twig') }}
         </div>
-        <div class="demo-container-inner-secondary p-4">
-            <form id="chat-form" action="{{ path('app_chat_turbo', {id: conversacion.id}) }}" method="POST">
+        <div class="d-flex flex-column chatclientes-container position-relative">
+            <div class="chatclientes-header d-flex align-items-center mb-3">
+                <img src="{{asset("image/ceci.png")}}" width="90px"/>
+                <span class="ms-3">Cecilia Marin</span>
+            </div>
+  
+            <div class="list-unstyled" id="chat-box" {{ turbo_stream_listen('/chat/conversacion/' ~ conversacion.id) }}>
+            {# <div style="height: 150px; overflow: auto;"> #}
+                {# <ul class="list-unstyled" id="chat-box"> #}
+                {{ include('asap_services/general/chat/turbo/_chatList.html.twig') }}
+                {# </ul> #}
+            {# </div> #}
+            </div>
+            <div class="demo-container-inner-secondary p-4">
+                <form id="chat-form" action="{{ path('app_chat_turbo', {id: conversacion.id}) }}" method="POST">
                 {{ include('asap_services/general/chat/turbo/_chatForm.html.twig') }}
-            </form>
+                </form>
+            </div>      
         </div>
     </div>
 </div>
@@ -26,6 +38,7 @@
         <button type="submit">Mandar precio</button>
     </form>
 {% endif %}
+{{ include("components/footer.html.twig") }}
 
     {# <turbo-stream action="update" target="chat-box">
         <template>

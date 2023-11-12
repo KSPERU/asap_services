@@ -1,14 +1,16 @@
 {% for participante in participantes %}
     {% for mensaje in participante.conversacionId.chats %}
-    <li>
-        <strong>
-            {# {{ message.username }}: #}
-            {# {{ participante.conversacionId.ultimoMensajeId.mensaje}} #}
-            {# {{message.mensaje}} #}
-                {{mensaje.usuarioId.email}}:{{mensaje.mensaje}}        
-        </strong>
-        {# {{ message.mensajeLeido }} #}
-    </li>
+        <div class="chatclientes-body overflow-auto" style="max-height: calc(100% - 160px);">
+            <div class="chatclientes-mensaje d-flex align-items-center my-2">
+                <figure>
+                <img src="{{asset("image/ceci.png")}}"/>
+                </figure>
+            <div>{{mensaje.usuarioId.email}}</div>
+                <div class="chatcliente-mensaje-text">
+                    <p>{{mensaje.mensaje}}</p>
+                </div>
+            </div>
+        </div>      
     {% endfor %}
 {% else %}
     <li>Start the conversation!</li>

@@ -1,115 +1,64 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  Saldos Y Pagos
+	Saldos Y Pagos
 {% endblock %}
 
 {% block stylesheets %}
-  {{ encore_entry_link_tags('app') }}
-  <link rel="stylesheet" href="{{ asset('css/cliente/saldos_pagos.css') }}" />
+	{{ encore_entry_link_tags('app') }}
+	<link rel="stylesheet" href="{{ asset('css/cliente/saldos_pagos.css') }}"/>
 {% endblock %}
 
 {% block body %}
-  <div class="container p-3">
-    <div class="container">
-      <div class="row d-flex justify-content-center align-items-center">
-        <div class="col-3 d-flex justify-content-center"></div>
-        <div class="col-6 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
-        <div class="col-3 d-flex justify-content-center contboton-cerrar">
-          <a href="{{ path('app_asap_services_entornos_cliente_inicio') }}">x</a>
-        </div>
-      </div>
+	<div class="container p-3" data-turbo="false">
+		<div class="container">
+			<div class="row d-flex justify-content-center align-items-center">
+				<div class="col-3 d-flex justify-content-center"></div>
+				<div class="col-6 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
+				<div class="col-3 d-flex justify-content-center contboton-cerrar">
+					<a href="{{ path('app_asap_services_entornos_cliente_inicio') }}">x</a>
+				</div>
+			</div>
 
-      <div class="container rounded-5 contenido-saldos-pagos-cliente">
-        <div class="container">
-          <div class="row">
-            <div class="col-12 titulo-saldos-pagos-cliente pt-3 pb-2">Saldos y Pagos</div>
-          </div>
+			<div class="container rounded-5 contenido-saldos-pagos-cliente">
+				<div class="container">
+					<div class="row">
+						<div class="col-12 titulo-saldos-pagos-cliente pt-3 pb-2">Saldos y Pagos</div>
+					</div>
 
-          <div class="container scroll-saldos-pagos-cliente p-2">
-            <div class="container rounded-4 mb-4" style="box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);background-color:#D9D9D9">
-              <div class="row d-flex align-items-center">
-                <div class="col-1 p-0 d-flex justify-content-center">
-                  <label><input type="checkbox" /></label>
-                </div>
-                <div class="col-6">
-                  <span class="col-12 d-inline-flex tamanio-texto-saldos-pagos-cliente color-texto-saldos-pagos-cliente">B008-00686555</span>
-                  <span class="col-12 tamanio-texto-saldos-pagos-cliente">Servicio de Pintura</span>
-                </div>
-                <div class="col-5 tamanio-texto-saldos-pagos-cliente">S/. 600.00</div>
-              </div>
-            </div>
+					<div class="container scroll-saldos-pagos-cliente p-2">
+					<form method="POST">
+						{% for syp in personaservs %}
+							<div class="container rounded-4 mb-4" style="box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);background-color:#D9D9D9">
+								<div class="row d-flex align-items-center">
+									<div class="col-1 p-0 d-flex justify-content-center">
+										<label><input type="checkbox" name="servicio_ids-{{ syp.id }}" value="{{ syp.id }}" /></label>
+									</div>
+									<div class="col-6">
+										<span class="col-12 d-inline-flex tamanio-texto-saldos-pagos-cliente color-texto-saldos-pagos-cliente">B008-00686555</span>
+										<span class="col-12 tamanio-texto-saldos-pagos-cliente">Servicio de
+											{{ syp.idservicio.svnombre }}</span>
+									</div>
+									<div class="col-5 tamanio-texto-saldos-pagos-cliente">S/. {{ syp.hsimporte }}</div>
+								</div>
+							</div>
+						{% else %}
+							<p>No hay servicios en compras</p>
+						{% endfor %}
+						
+						<div class="row contenido-boton-saldos-pagos-cliente mt-2">
+							<div class="col-10">
+                {# <a href="{{ path('app_asap_services_entornos_cliente_menu_detalle_tarjet	a') }}" class="btn col-12 boton-saldos-pagos-cliente">Pagar</a> #}
+							</div>
+						</div>
+					<button type="submit" name="but">Presionarrrr</button>
+				</div><!--finalForm-->
+			<div>PAGA: {{ checkbox }}</div>
+				{{ dump(checkbox) }}
+					</div>
+				</div>
+			</div>
+		</div>
 
-            <!-- SEGUNDO -->
-
-            <div class="container rounded-4 mb-4" style="box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);background-color:#D9D9D9">
-              <div class="row d-flex align-items-center">
-                <div class="col-1 p-0 d-flex justify-content-center">
-                  <label><input type="checkbox" /></label>
-                </div>
-                <div class="col-6">
-                  <span class="col-12 d-inline-flex tamanio-texto-saldos-pagos-cliente color-texto-saldos-pagos-cliente">B008-00686555</span>
-                  <span class="col-12 tamanio-texto-saldos-pagos-cliente">Servicio de Pintura</span>
-                </div>
-                <div class="col-5 tamanio-texto-saldos-pagos-cliente">S/. 600.00</div>
-              </div>
-            </div>
-
-            <!-- TERCERO -->
-
-            <div class="container rounded-4 mb-4" style="box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);background-color:#D9D9D9">
-              <div class="row d-flex align-items-center">
-                <div class="col-1 p-0 d-flex justify-content-center">
-                  <label><input type="checkbox" /></label>
-                </div>
-                <div class="col-6">
-                  <span class="col-12 d-inline-flex tamanio-texto-saldos-pagos-cliente color-texto-saldos-pagos-cliente">B008-00686555</span>
-                  <span class="col-12 tamanio-texto-saldos-pagos-cliente">Servicio de Pintura</span>
-                </div>
-                <div class="col-5 tamanio-texto-saldos-pagos-cliente">S/. 600.00</div>
-              </div>
-            </div>
-
-            <!-- CUARTO -->
-
-            <div class="container rounded-4 mb-4" style="box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);background-color:#D9D9D9">
-              <div class="row d-flex align-items-center">
-                <div class="col-1 p-0 d-flex justify-content-center">
-                  <label><input type="checkbox" /></label>
-                </div>
-                <div class="col-6">
-                  <span class="col-12 d-inline-flex tamanio-texto-saldos-pagos-cliente color-texto-saldos-pagos-cliente">B008-00686555</span>
-                  <span class="col-12 tamanio-texto-saldos-pagos-cliente">Servicio de Pintura</span>
-                </div>
-                <div class="col-5 tamanio-texto-saldos-pagos-cliente">S/. 600.00</div>
-              </div>
-            </div>
-
-            <!-- QUINTO -->
-
-            <div class="container rounded-4 mb-4" style="box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);background-color:#D9D9D9">
-              <div class="row d-flex align-items-center">
-                <div class="col-1 p-0 d-flex justify-content-center">
-                  <label><input type="checkbox" /></label>
-                </div>
-                <div class="col-6">
-                  <span class="col-12 d-inline-flex tamanio-texto-saldos-pagos-cliente color-texto-saldos-pagos-cliente">B008-00686555</span>
-                  <span class="col-12 tamanio-texto-saldos-pagos-cliente">Servicio de Pintura</span>
-                </div>
-                <div class="col-5 tamanio-texto-saldos-pagos-cliente">S/. 600.00</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row contenido-boton-saldos-pagos-cliente mt-2">
-            <div class="col-10">
-              <button type="submit" class="btn col-12 boton-saldos-pagos-cliente">Pagar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  {{ include('components/footer.html.twig') }}
-{% endblock %}
+		{{ include('components/footer.html.twig') }}
+	{% endblock %}

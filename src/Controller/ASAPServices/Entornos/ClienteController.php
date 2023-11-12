@@ -10,6 +10,7 @@ use App\Form\ClienteType;
 use App\Form\TarjetaType;
 use App\Entity\Calificacion;
 use App\Entity\Conversacion;
+use App\Entity\Historialservicios;
 use App\Entity\Participante;
 use App\Form\CalificacionType;
 use App\Form\ConversacionType;
@@ -154,14 +155,18 @@ class ClienteController extends AbstractController
     }
 
     #[Route('/cliente/menu/historial', name: 'app_asap_services_entornos_cliente_menu_hisorial_de_servicios')]
-    public function histserv(UsuarioRepository $usuarios): Response
+    public function histserv(UsuarioRepository $usuarios, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
         $cliente = $usuarios->findOneBy([
             'email' => $user->getUserIdentifier(),
         ]);
-        $persona = $cliente->getIdPersona();
-        $personaservs = $persona->getHistservcliente();
+        $persona = $cliente->getIdPersona()->getId();
+        $historialServicioRepository = $entityManager->getRepository(Historialservicios::class);
+        $personaservs = $historialServicioRepository->findBy([
+            'idcliente' => $persona,
+            'hs_estado' => 0,
+        ]);
         return $this->render('asap_services\entornos\cliente\historial_servicios.html.twig', [
             'personaservs' => $personaservs,
         ]);
@@ -197,10 +202,41 @@ class ClienteController extends AbstractController
     }
 
     #[Route('/cliente/menu/saldos_pagos', name: 'app_asap_services_entornos_cliente_menu_saldos_pagos')]
-    public function saldos_pagos(): Response
+    public function saldos_pagos(Request $request, UsuarioRepository $usuarios, EntityManagerInterface $entityManager): Response
     {
         #Faltan metodo de pago (Integración con tercero)
-        return $this->render('asap_services/entornos/cliente/saldos_pagos.html.twig', []);
+        $user = $this->getUser();
+        $cliente = $usuarios->findOneBy([
+            'email' => $user->getUserIdentifier(),
+        ]);
+        $persona = $cliente->getIdPersona()->getId();
+        $historialServicioRepository = $entityManager->getRepository(Historialservicios::class);
+        $personaservs = $historialServicioRepository->findBy([
+            'idcliente' => $persona,
+            'hs_estadopago' => 0,
+        ]);
+
+        $sumaImp = 0;
+        // echo $personaservs;
+        if($request->isMethod('POST'))
+        {
+            foreach($personaservs as $pr)
+            {
+                $check = $request->request->get('servicio_ids-'. $pr->getId() .'');
+                if($check)
+                {
+                    $sumaImp += $pr->getHsImporte();
+                    // $sumaImp = $pr->getId();
+                }
+                // return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_saldos_pagos',[],Response::HTTP_SEE_OTHER);
+            }
+        }
+        // echo $checkbox;
+        echo $sumaImp;
+        return $this->render('asap_services/entornos/cliente/saldos_pagos.html.twig', [
+            'personaservs' => $personaservs,
+            'checkbox' => $sumaImp,
+        ]);
     }
 
     #[Route('/cliente/menu/detalles_saldos_pagos', name: 'app_asap_services_entornos_cliente_menu_detalles_saldos_pagos')]
