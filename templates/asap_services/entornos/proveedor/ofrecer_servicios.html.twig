@@ -1,129 +1,142 @@
-
 {% extends 'base.html.twig' %}
 {% block title %}
-  Proveedor - Servicios
+	Proveedor - Servicios
 {% endblock %}
 
 {% block body %}
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
-  .container p-3{
-    /*min-height: 90vh;*/
-    background-image: url('./image/Imagen1.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    overflow: hidden;
-  }
-  .contboton-cerrar {
-    display: flex;
-    justify-content: end;
-  }
-  .boton-cerrar {
-    font-size: 25px;
-  }
-  .contenido-ofreceservicios-proveedor {
-    min-height: 65vh;
-    background-color: antiquewhite;
-    background-color: #fff !important;
-  }
-  .contenido-boton-ofreceservicios {
-    display: flex;
-    justify-content: center;
-  }
-  
-  /****/
-  .titulo-ofreceservicios-proveedor {
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    font-family: Nunito;
-    font-size: 16px;
-    font-weight: 800;
-  }
-  .subtitulo-ofreceservicios-proveedor {
-    margin-top: 14px;
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: start;
-    font-family: Nunito;
-    font-size: 16px;
-    font-weight: 800;
-  }
-  .opciones-ofreceservicios-proveedor {
-    display: grid;
-    row-gap: 10px;
-    margin-bottom: 20px;
-  }
-  .checkbox-ofreceservicios-proveedor {
-    margin-right: 10px;
-  }
-  .boton-ofreceservicios-proveedor {
-    border-radius: 40px;
-    filter: drop-shadow(0px 4px 25px rgba(0, 0, 0, 0.25));
-    text-align: center;
-    font-family: Nunito;
-    font-size: 20px;
-    font-weight: 700;
-    background: #4302ae;
-    border: none;
-  }
-  .checkbox-label {
-    display: block;
-  }
-  
-  @media (min-width: 500px) {
-    .container p-3 {
-      display: none;
-    }
-  }
-</style>
-<p class="sin-vista" style="display: none;">Esta pagina no tiene estas vista</p>
-<div class="container p-3">
-  <div class="container">
-    {{ include('components/cabecera.html.twig') }}
-    <div class="container bg-light rounded-5 contenido-ofreceservicios-proveedor">
-      <div class="container">
-        <div class="row">
-          <div class="col-12 titulo-ofreceservicios-proveedor">¡Bienvenido!</div>
-        </div>
-        <div class="row">
-          <div class="col-12 subtitulo-ofreceservicios-proveedor">Que servicio ofreceras hoy?</div>
-        </div>
-      <form method="post" action="{{ path('app_asap_services_entornos_proveedor_servicios', {'id': persona.id}) }}">
-        <div class="row">
-          <div class="col-12 opciones-ofreceservicios-proveedor">
-             
-               {% for servicio in servicios %}
-                  <label class="checkbox-label">
-                    <input type="checkbox" id="cbox{{ servicio.id }}" name="servicios[]" value="{{ servicio.id }}" class="checkbox-ofreceservicios-proveedor" onclick="toggleCheckbox({{ servicio.id }})" />
-                    {{ servicio.svnombre }}
-                  </label>
-              {% endfor %}
-          </div>
-        </div>
-        <div class="row contenido-boton-ofreceservicios">
-          <div class="col-10">
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000 &family=Odor+Mean+Chey&display=swap');
+		.container p-3 {
+			background-image: url('./image/Imagen1.png');
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			overflow: hidden;
+		}
+		.contboton-cerrar {
+			display: flex;
+			justify-content: end;
+		}
+		.boton-cerrar {
+			font-size: 25px;
+		}
+		.contenido-ofreceservicios-proveedor {
+			min-height: 65vh;
+			background-color: antiquewhite;
+			background-color: #fff !important;
+		}
+		.contenido-boton-ofreceservicios {
+			display: flex;
+			justify-content: center;
+		}
 
-            <button type="submit" class="btn btn-primary col-12 boton-ofreceservicios-proveedor">Comencemos</button>
+		/****/
+		.titulo-ofreceservicios-proveedor {
+			margin-top: 10px;
+			display: flex;
+			justify-content: center;
+			font-family: Nunito;
+			font-size: 16px;
+			font-weight: 800;
+		}
+		.subtitulo-ofreceservicios-proveedor {
+			margin-top: 14px;
+			margin-bottom: 8px;
+			display: flex;
+			justify-content: start;
+			font-family: Nunito;
+			font-size: 16px;
+			font-weight: 800;
+		}
+		.opciones-ofreceservicios-proveedor {
+			display: grid;
+			row-gap: 10px;
+			margin-bottom: 20px;
+		}
+		.checkbox-ofreceservicios-proveedor {
+			margin-right: 10px;
+		}
+		.boton-ofreceservicios-proveedor {
+			border-radius: 40px;
+			filter: drop-shadow(0px 4px 25px rgba(0, 0, 0, 0.25));
+			text-align: center;
+			font-family: Nunito;
+			font-size: 20px;
+			font-weight: 700;
+			background: #4302ae;
+			border: none;
+		}
+		.checkbox-label {
+			display: block;
+		}
 
-          </div>
-        </div>
-      </form>
-      </div>
-    </div>
-  </div>
-</div>
+		@media(min-width: 500px) {
+			.container p-3 {
+				display: none;
+			}
+		}
 
-{{ include('components/footer.html.twig') }}
-<script>
-  function toggleCheckbox(checkboxNumber) {
-    var checkboxes = document.getElementsByClassName('checkbox-ofreceservicios-proveedor')
-    for (var i = 0; i < checkboxes.length; i++) {
-      if (i + 1 !== checkboxNumber) {
-        checkboxes[i].checked = false // Desmarca los otros checkboxes
+		.contboton-cerrar {
+			font-size: 50px;
+			font-weight: 700;
+		}
+		.contboton-cerrar a {
+			color: #000;
+			text-decoration: none;
+		}
+	</style>
+	<p class="sin-vista" style="display: none;">Esta pagina no tiene estas vista</p>
+	<div class="container p-3">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-1"></div>
+				<div class="col-8 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
+				<div class="col-1 contboton-cerrar d-flex justify-content-end">
+					<a href="{{ path('app_asap_services_entornos_proveedor_inicio') }}">
+						<svg xmlns="http://www.w3.org/2000/svg" height="0.5em" viewbox="0 0 384 512"><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
+					</a>
+				</div>
+			</div>
+			<div class="container bg-light rounded-5 contenido-ofreceservicios-proveedor">
+				<div class="container">
+					<div class="row">
+						<div class="col-12 titulo-ofreceservicios-proveedor">¡Bienvenido!</div>
+					</div>
+					<div class="row">
+						<div class="col-12 subtitulo-ofreceservicios-proveedor">Que servicio ofreceras hoy?</div>
+					</div>
+					<form method="post" action="{{ path('app_asap_services_entornos_proveedor_servicios', {'id': persona.id}) }}">
+						<div class="row">
+							<div class="col-12 opciones-ofreceservicios-proveedor">
+
+								{% for servicio in servicios %}
+									<label class="checkbox-label">
+										<input type="checkbox" id="cbox{{ servicio.id }}" name="servicios[]" value="{{ servicio.id }}" class="checkbox-ofreceservicios-proveedor" onclick="toggleCheckbox({{ loop.index }})"/>
+										{{ servicio.svnombre }}
+									</label>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row contenido-boton-ofreceservicios">
+							<div class="col-10">
+								<button type="submit" class="btn col-12 boton-ofreceservicios-proveedor">Comencemos</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{{ include('components/footer.html.twig') }}
+	<script>
+		function toggleCheckbox(checkboxNumber) {
+      var checkboxes = document.getElementsByClassName('checkbox-ofreceservicios-proveedor')
+      for (var i = 0; i < checkboxes.length; i++) {
+        if (i + 1 !== checkboxNumber) {
+          checkboxes[i].checked = false // Desmarca los otros checkboxes
+        }
       }
     }
-  }
-</script>
+	</script>
 {% endblock %}

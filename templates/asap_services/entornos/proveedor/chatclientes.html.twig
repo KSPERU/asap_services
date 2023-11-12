@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="{{ asset('css/proveedor/chatclientes.css') }}" />
 {% endblock %}
 
+
+
 {% block body %}
 <div class="d-flex justify-content-center align-items-center h-100 w-100">
   <div class="container proveedor-chatclientes-container">
@@ -21,7 +23,7 @@
                 <span class="ms-3">Cecilia Marin</span>
             </div>
 
-            <div class="chatclientes-body overflow-auto" style="max-height: calc(100% - 160px);">
+            <div class="chatclientes-body overflow-auto" style="max-height: calc(100% - 160px);" id="chatContainer">
                 <div class="chatclientes-mensaje d-flex align-items-center my-2">
                     <figure>
                     <img src="{{asset("image/ceci.png")}}"/>
@@ -142,6 +144,13 @@
         </div>
   </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var chatContainer = document.getElementById("chatContainer");
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+});
+</script>
 
 {{ include("components/footer.html.twig") }}
 {% endblock %}

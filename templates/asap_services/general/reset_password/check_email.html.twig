@@ -1,51 +1,73 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Password Reset Email Sent{% endblock %}
+{% block title %}Correo electrónico de restablecimiento de contraseña enviado
+{% endblock %}
 
 {% block stylesheets %}
-  {{ encore_entry_link_tags('app') }}
-  <link rel="stylesheet" href="{{ asset('css/reset_password/verificacion_correo.css') }}" />
+	{{ encore_entry_link_tags('app') }}
+	<link rel="stylesheet" href="{{ asset('css/reset_password/verificacion_correo.css') }}"/>
 {% endblock %}
 
 {% block body %}
-    
-    <p>
-        If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
-        This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
-    </p>
-    <p>If you don't receive an email please check your spam folder or <a href="{{ path('app_forgot_password_request') }}">try again</a>.</p>
-    <div class="container p-3">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-1"></div>
-        <div class="col-10 d-flex justify-content-center">{{ include('components/logo_mediano.html.twig') }}</div>
-        <div class="col-1"></div>
-      </div>
+	<style>
+		.contboton-cerrar {
+			font-size: 50px;
+			font-weight: 700;
+		}
+		.contboton-cerrar a {
+			color: #000;
+			text-decoration: none;
+		}
+	</style>
+	{# 	<p>
+					If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
+					        This link will expire in
+					{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+				</p>
+				<p>If you don't receive an email please check your spam folder or
+					<a href="{{ path('app_forgot_password_request') }}">try again</a>.</p> #}
+	<div class="container p-3">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-1"></div>
+				<div class="col-8 d-flex justify-content-center">{{ include('components/logo_mediano.html.twig') }}</div>
+				<div class="col-1 contboton-cerrar d-flex justify-content-end">
+					<a href="{{ path('app_asap_services_general_inicio') }}">
+						<svg xmlns="http://www.w3.org/2000/svg" height="0.5em" viewbox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
+					</a>
+				</div>
+			</div>
 
-      <div class="container bg-light rounded-5 contenido-codigo-verificacion">
-        <div class="container">
-          <div class="row d-flex justify-content-center">
-            <div class="col-12">
-              <p class="titulo-codigo-verificacion">Ingresar Codigo de Verificacion</p>
-              <p class="subtexto-codigo-verificacion">Revisa tu correo, se envió un código de verificación</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12 row">
-              <div class="input-group mt-3">
-                <input type="number" class="input-field form-control" id="floatingInput" placeholder=" " />
-                <label class="input-label texto-codigo-verificacion" for="floatingInput">Codigo</label>
-              </div>
-              <span class="reenviar-codigo-verificacion mb-3"><a href="">Enviar de nuevo</a></span>
-            </div>
-          </div>
-          <div class="row contenido-boton-verificacion">
-            <div class="col-10">
-              <button type="button" class="btn col-12 boton-codigo-verificacion">Validar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+			<div class="container bg-light rounded-5 contenido-codigo-verificacion">
+				<div class="container">
+					<div class="row d-flex justify-content-center">
+						<div class="col-12">
+							<p class="titulo-codigo-verificacion">Verifica tu correo tu correo</p>
+							<p class="subtexto-codigo-verificacion">{# Revisa tu correo, se envió un código de verificación #}Si existe una cuenta que coincide con su correo electrónico, se acaba de enviar un correo electrónico que contiene un enlace que puede utilizar para restablecer su contraseña.</p>
+						</div>
+					</div>
+					<div class="row">
+						<div
+							class="col-12 row">
+							{# 							<div class="input-group mt-3">
+																													<input type="number" class="input-field form-control" id="floatingInput" placeholder=" "/>
+																													<label class="input-label texto-codigo-verificacion" for="floatingInput">Codigo</label>
+																												</div> #}
+							<span class="subtexto-codigo-verificacion mb-3">Si no recibe un correo electrónico, revise su carpeta de correo no deseado.
+								<br>
+
+							</span>
+						</div>
+					</div>
+					<div class="row contenido-boton-verificacion">
+						<div class="col-10">
+							<button type="button" class="btn col-12 boton-codigo-verificacion">
+								<a href="{{ path('app_forgot_password_request') }}">Enviar de nuevo</a>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

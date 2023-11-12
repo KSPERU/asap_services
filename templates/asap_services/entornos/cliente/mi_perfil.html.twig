@@ -9,14 +9,6 @@
   <link rel="stylesheet" href="{{ asset('css/cliente/mi_perfil.css') }}" />
 {% endblock %}
 
-{% block javascripts %}
-  {{ encore_entry_script_tags('app') }}
-  <script>
-    const imagen = document.querySelector('#form_p_foto');
-    imagen.click();
-  </script>
-{% endblock %}
-
 {% block body %}
   <div class="container p-3">
     <div class="container">
@@ -45,8 +37,8 @@
               <span class="mi-perfil">Mi perfil</span>
               <span class="editar-foto" id="editarFoto">
                 {{ form_label(form.p_foto, 'Editar mi foto de perfil', {'label_attr':{'class':'link'}}) }}
+                {{ form_widget(form.p_foto, { 'attr': {'style': 'display:none'} }) }}
               </span>
-              {{ form_widget(form.p_foto, { 'attr': {'style': 'display:none'} }) }}
             </div>
           </div>
           <div class="row">

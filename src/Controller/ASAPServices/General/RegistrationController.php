@@ -68,6 +68,7 @@ class RegistrationController extends AbstractController
         ]);
     }
 
+    # Falta el cargador de imagenes
     #[Route('/proveedor/registro', name: 'app_asap_services_general_proveedor_registro')]
     public function registerProv(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
@@ -84,6 +85,44 @@ class RegistrationController extends AbstractController
                 )
             );
             $user->setRoles(["ROLE_PROV"]);
+
+            # Procedimiento de almacenado de archivos
+            $persona = $user->getIdPersona();
+            $archivo_foto = $form['idPersona']['p_foto']->getData();
+            $archivo_cv = $form['idPersona']['p_cv']->getData();
+            $archivo_ap = $form['idPersona']['p_antpen']->getData();
+            $archivo_cc = $form['idPersona']['p_cert']->getData();
+
+            if ($archivo_foto !== null) {
+                $codigo_unico = uniqid() . time();
+                $destino = $this->getParameter('kernel.project_dir') . '/public/img';
+                $archivo_foto->move($destino, $codigo_unico . $archivo_foto->getClientOriginalName());
+                $persona->setPFoto($codigo_unico . $archivo_foto->getClientOriginalName());
+            }
+
+            if ($archivo_cv !== null) {
+                $codigo_unico = uniqid() . time();
+                $destino = $this->getParameter('kernel.project_dir') . '/public/docs';
+                $archivo_cv->move($destino, $codigo_unico . $archivo_foto->getClientOriginalName());
+                $persona->setPCv($codigo_unico . $archivo_foto->getClientOriginalName());
+            }
+
+            if ($archivo_ap !== null) {
+                $codigo_unico = uniqid() . time();
+                $destino = $this->getParameter('kernel.project_dir') . '/public/docs';
+                $archivo_ap->move($destino, $codigo_unico . $archivo_foto->getClientOriginalName());
+                $persona->setPAntpen($codigo_unico . $archivo_foto->getClientOriginalName());
+            }
+
+            if ($archivo_cc !== null) {
+                $codigo_unico = uniqid() . time();
+                $destino = $this->getParameter('kernel.project_dir') . '/public/docs';
+                $archivo_cc->move($destino, $codigo_unico . $archivo_foto->getClientOriginalName());
+                $persona->setPCert($codigo_unico . $archivo_foto->getClientOriginalName());
+            }
+
+            # Validación
+            $user->setIdPersona($persona);
 
             $entityManager->persist($user);
             $entityManager->flush();

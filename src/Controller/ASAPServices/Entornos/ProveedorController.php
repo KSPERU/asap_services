@@ -285,7 +285,7 @@ class ProveedorController extends AbstractController
 
         $btnCobro = $request->request->get('cantidad-cobro');
 
-        foreach($participantes as $participante) {
+        foreach ($participantes as $participante) {
             if ($participante->getUsuarioId()->getId() !== $this->getUser()->getId()) {
                 $otroParticipante = $participante;
             }
@@ -304,8 +304,8 @@ class ProveedorController extends AbstractController
         $servEnt = $servicioRepository->find($servicioProv);
         $cliEnt = $personaRepository->find($idCliente);
         $provEnt = $personaRepository->find($idProveedor);
-        
-        $historial = new Historialservicios();  
+
+        $historial = new Historialservicios();
         $historial->setIdservicio($servEnt);
         $historial->setIdcliente($cliEnt);
         $historial->setIdproveedor($provEnt);

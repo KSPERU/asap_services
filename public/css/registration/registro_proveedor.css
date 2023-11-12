@@ -28,9 +28,17 @@ body {
 .img-perfil {
     display: flex;
     justify-content: center;
-    width: 25%;
-    height: 25%;
+    /* width: 25%;
+    height: 25%; */
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    padding: 0;
 }
+
+
+
 
 .titulo-editar-proveedor {
     color: #000;
@@ -122,11 +130,31 @@ body {
     background: #4302AE;
     border: none;
     color: #FFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     font-family: Nunito;
     font-size: 18px;
     font-style: normal;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 20px;
+}
+.boton-siguiente:hover {
+    color: #fff;
+    background-color: #7A5AAC;
+    border-color: #7A5AAC;
+}
+.boton-siguiente:focus,
+.boton-siguiente.focus {
+    color: #fff;
+    background-color: #7A5AAC;
+    border-color: #7A5AAC;
+    box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);
+}
+.boton-siguiente:not(:disabled):not(.disabled):active,
+.boton-siguiente:not(:disabled):not(.disabled).active,
+.show>.boton-siguiente.dropdown-toggle {
+    color: #fff;
+    background-color: #7A5AAC;
+    border-color: #7A5AAC;
 }
 
 @media (min-width: 500px) {
