@@ -6,11 +6,26 @@
 {% endblock %}
 
 {% block body %}
-<h1>Chat</h1>
-<div class="d-flex justify-content-center align-items-center h-100 w-100" data-turbo="false">
+<style>
+    .contboton-cerrar {
+      font-size: 50px;
+      font-weight: 700;
+    }
+    .contboton-cerrar a {
+      color: #000;
+      text-decoration: none;
+    }
+</style>
+<div class="d-flex justify-content-center align-items-center h-100 w-100">
     <div class="container proveedor-chatclientes-container">
         <div class="d-flex flex-column justify-content-center align-items-center w-100">
-            {{ include('components/cabecera_con_X.html.twig') }}
+            <div class="row d-flex justify-content-center align-items-start w-100 my-1">
+                <div class="col-3 d-flex justify-content-center"></div>
+                <div class="col-6 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
+                <div class="col-3 d-flex justify-content-center align-items-top contboton-cerrar">
+                <a href="{{ path('app_chat_conversacion') }}">x</a>
+                </div>
+            </div>
         </div>
         <div class="d-flex flex-column chatclientes-container position-relative">
             <div class="chatclientes-header d-flex align-items-center mb-3">

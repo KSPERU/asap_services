@@ -45,7 +45,6 @@ class ChatController extends AbstractController
         if (!$usuarioEsParticipante) {
             throw new \Exception("No estas incluido en la conversación");
         }
-        echo $usuarioEsParticipante;
         return $this->render('asap_services/general/chat/index.html.twig', [
             // 'form' => $form,
             // 'messages' => $chatRepository->findBy([], ['fecha_creacion' => 'DESC'], 20),
@@ -72,7 +71,7 @@ class ChatController extends AbstractController
         $conversacion->addChat($chat); 
         $conversacion->setUltimoMensajeId($chat);
         $entityManager->persist($chat);
-        // $entityManager->flush();
+        $entityManager->flush();
         $hub->publish(new Update(
             [
                 sprintf("/chat/conversacion/%s", $conversacion->getId()),
