@@ -1,100 +1,103 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap");
 
 .foto-perfil {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+}
+
+.contenido-mi-perfil {
+  height: 65vh;
+}
+
+.scroll-miperfil {
+  max-height: 45vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .foto-perfil img {
-    width: 75px;
-    height: 80px;
-    flex-shrink: 0;
+  width: 75px;
+  height: 80px;
+  flex-shrink: 0;
 }
 
 .perfil-textos {
-    display: flex;
-    flex-direction: column;
-    color: #000000;
-    margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  color: #000000;
+  margin-left: 15px;
 }
 
 .mi-perfil {
-    color: #4302AE;
-    font-family: Nunito;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 800;
-    line-height: normal;
+  color: #4302ae;
+  font-family: Nunito;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
 }
 
 .editar-foto {
-    color: #000;
-    font-family: Nunito;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+  color: #000;
+  font-family: Nunito;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
 .input-container {
-    display: flex;
-    align-items: center;    
+  display: flex;
+  align-items: center;
 }
 
 .input-group {
-    position: relative;
-    margin-bottom: 3rem;    
-    align-items: center;
-    margin-top: 15px;
+  position: relative;
+  margin-bottom: 3rem;
+  align-items: center;
+  margin-top: 15px;
 }
 
 .input-field {
-    font-size: 1rem;
-    padding: 0;
-    border-top: none;
-    border-right: none;
-    border-left: none;
-    border-bottom: 1px solid #000;
-    width: 300px;
-    font-family: Nunito;
-    color: #000;
-    font-weight: 700;
-    margin-right: 10px;
+  font-size: 1rem;
+  padding: 0;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 1px solid #000;
+  width: 300px;
+  font-family: Nunito;
+  color: #000;
+  font-weight: 700;
+  margin-right: 10px;
 }
 
 .input-field:focus {
-    outline: none;
-    border-color: #000;
+  outline: none;
+  border-color: #000;
 }
 
 .input-label {
-    position: absolute;
-    pointer-events: none;
-    left: 1rem;
-    top: 0rem;
+  position: absolute;
+  pointer-events: none;
+  left: 1rem;
+  top: 0rem;
 }
 
 .contenido-boton-eliminar {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .boton-eliminar {
-    border-radius: 40px;
-    background: #4302AE;
-    border: none;
-    color: #FFF;
-    font-family: Nunito;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
-    margin-bottom: 20px;
-    margin-top: 30px;
-}
-
-@media (min-width: 500px) {
-    body {
-      display: none;
-    }
+  border-radius: 40px;
+  background: #4302ae;
+  border: none;
+  color: #fff;
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  margin-bottom: 20px;
+  margin-top: 30px;
 }

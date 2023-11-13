@@ -12,6 +12,8 @@
     max-height: 65vh;
     background-color: antiquewhite;
     background-color: #fff !important;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .contenido-boton-ofreceservicios {
     display: flex;

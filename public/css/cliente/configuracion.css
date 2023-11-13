@@ -1,12 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
 
 .configuracion-container{
-    height: auto;
+    height: 65vh;
     border-radius: 40px;
     background: #FFF;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     padding: 16px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 20px;
 }
+
+/* .scroll-configuracion-cliente{
+
+} */
+
 
 .configuracion-title{
     color: #2B0567;
@@ -63,7 +71,6 @@
     border-radius: 40px;
     background: #4302AE;
     box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.10);
-    margin-bottom: 30px;
 }
 
 .cerrar-sesion-btn h4{

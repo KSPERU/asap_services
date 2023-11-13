@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap");
+
+.contboton-cerrar {
+  display: flex;
+  justify-content: end;
+}
+.boton-cerrar {
+  font-size: 25px;
+}
+.contenido-acercadeasap-cliente {
+  max-height: 65vh;
+  background-color: antiquewhite;
+  background-color: #fff !important;
+}
+
+/****/
+.titulo-acercadeasap-cliente {
+  margin-top: 10px;
+  color: #4302ae;
+  display: flex;
+  justify-content: center;
+  font-family: Nunito;
+  font-size: 20px;
+  font-weight: 800;
+}
+.texto-acercadeasap-cliente {
+  margin-top: 14px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: start;
+  font-family: Nunito;
+  font-size: 16px;
+  font-weight: 700;
+}
+.subtexto-acercadeasap-cliente {
+  margin-top: 0px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+  font-family: Nunito;
+  font-size: 11px;
+  font-weight: 700;
+}

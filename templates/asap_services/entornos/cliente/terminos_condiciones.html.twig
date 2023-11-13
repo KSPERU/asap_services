@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+  Terminos y Condiciones
+{% endblock %}
+
+{% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+
+  <link rel="stylesheet" href="{{ asset('css/cliente/terminos_condiciones.css') }}" />
+  <link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+{% endblock %}
+
+{% block javascripts %}
+  {{ encore_entry_script_tags('app') }}
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block body %}
+  <style>
+    .contboton-cerrar {
+      font-size: 50px;
+      font-weight: 700;
+    }
+    .contboton-cerrar a {
+      color: #000;
+      text-decoration: none;
+    }
+  </style>
+  <img class="imagepc" src="{{ asset('/image/Img_PC.png') }}" />
+  <div class="imagen">
+    <div class="container p-3">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-1"></div>
+          <div class="col-8 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
+          <div class="col-1 contboton-cerrar d-flex justify-content-end">
+            <a href="{{ path('app_asap_services_entornos_proveedor_inicio') }}">
+              <svg xmlns="http://www.w3.org/2000/svg" height="0.5em" viewbox="0 0 384 512">
+                <path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="container bg-light rounded-5 contenido-terminoscondiciones-cliente" style="overflow-y: auto; height: 65vh;">
+          <div class="container" style="margin-bottom: 20px;">
+            <div class="row d-flex mt-3 mb-3" style="text-align: center;">
+              <div class="col-12 titulo-terminoscondiciones-cliente">Términos y condiciones</div>
+            </div>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne"><button class="accordion-button collapsed encabezado-teminos-condiciones" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">Términos y condiciones de uso de Asap Service usuario</button></h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body" style="text-align: justify;">
+                    Los usuarios de esta aplicación aceptan expresamente, por el solo hecho de hacer uso de dicho sistema, a someterse y ajustarse a los términos y condiciones declarados en esta sección.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwo"><button class="accordion-button collapsed encabezado-teminos-condiciones" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">Terminos y condiciones de uso Asap Service Usuario Proveedor </button></h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body" style="text-align: justify;">
+                    Los usuarios de esta aplicación aceptan expresamente, por el solo hecho de hacer uso de dicho sistema, a someterse y ajustarse a los términos y condiciones declarados en esta sección.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree"><button class="accordion-button collapsed encabezado-teminos-condiciones" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">Acerca de ASAP Services</button></h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body" style="text-align: justify;">
+                   Somos un aplicativo en ofrecer diversos tipos de asistencia al hogar, tiendas, locales u oficinas.Con una amplia disponibilidad para los ciudadanos de Lima Metropolitana.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{ include('components/footer.html.twig') }}
+{% endblock %}

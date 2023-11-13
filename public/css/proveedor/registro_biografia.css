@@ -25,7 +25,10 @@
   max-height: 65vh;
   background-color: antiquewhite;
   background-color: #fff !important;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
+
 
 .titulo-biografia-proveedor {
   margin-top: 50px;
@@ -57,6 +60,7 @@
   color: white;
   background: #4302ae;
   border: none;
+  margin-bottom: 20px;
 }
 .boton-biografia-proveedor:hover {
   color: #fff;
@@ -82,9 +86,3 @@
 
 
 
-
-@media (min-width: 500px) {
-  body {
-    display: none;
-  }
-}
