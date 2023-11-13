@@ -6,6 +6,7 @@
 {% block stylesheets %}
   {{ encore_entry_link_tags('app') }}
   <link rel="stylesheet" href="{{ asset('css/proveedor/index.css') }}" />
+   	<link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
 {% endblock %}
 
 {# {% block stylesheets %}
@@ -15,7 +16,8 @@
 {% endblock %} #}
 
 {% block body %}
-
+<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
+	<div class="imagen">
 {# /proveedor segun Figma #}
 <div class="d-flex justify-content-center align-items-center h-100 w-100">
   <div class="container inicio-container">
@@ -105,4 +107,6 @@
     }
   }
 </script>  #}
+
+</div>
 {% endblock %}

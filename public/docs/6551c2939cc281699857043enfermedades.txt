@@ -1,0 +1,52 @@
+:-dynamic tiene/1.
+
+lista([]) :- enfermedad(E), write(E).
+lista([H|T]) :- assert(tiene(H)), lista(T).
+
+test(X) :- limpiar, lista(X).
+
+enfermedad('Gripe') :-
+    tiene(fiebre),
+    tiene(tos),
+    tiene(congestion_nasal),
+    tiene(dolor_de_garganta),
+    tiene(fatiga),
+    tiene(dolores_musculares).
+
+enfermedad('Resfriado_comun') :-
+    tiene(congestion_nasal),
+    tiene(estornudos),
+    tiene(goteo_nasal),
+    tiene(dolor_de_garganta),
+    tiene(tos_leve),
+    tiene(fatiga_leve).
+
+enfermedad('COVID-19') :-
+    tiene(fiebre),
+    tiene(tos_seca),
+    tiene(dificultad_para_respirar),
+    tiene(fatiga),
+    tiene(dolor_de_garganta),
+    tiene(dolores_musculares),
+    tiene(perdida_del_sentido_del_olfato_o_del_gusto).
+
+enfermedad('Bronquitis') :-
+    tiene(tos_persistente),
+    tiene(produccion_de_esputo),
+    tiene(dificultad_para_respirar),
+    tiene(fatiga),
+    tiene(opresion_en_el_pecho).
+
+enfermedad('Neumonia') :-
+    tiene(tos_persistente),
+    tiene(dificultad_para_respirar),
+    tiene(fiebre),
+    tiene(escalofrios),
+    tiene(fatiga),
+    tiene(dolor_en_el_pecho),
+    tiene(produccion_de_esputo_con_sangre).
+
+enfermedad(_):- fail.
+
+limpiar :- retract(tiene(_)), fail.
+limpiar.

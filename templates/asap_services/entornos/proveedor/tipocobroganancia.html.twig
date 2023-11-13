@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Numero de cuenta
+{% endblock %}
+
+{% block body %}
+    <h2>Cobrar ganancias</h2>
+    <p>Elije como quieres cobrar</p>
+    <form id="metodoForm" method="post">
+    <input type="radio" name="metodo_cobro" value="efectivo">Yape - Plin
+    <input type="radio" name="metodo_cobro" value="banco">Transferencia bancaria
+    <a href="{{ path('app_asap_services_entornos_proveedor_menu_metodo', {'redi': 'ganancia', 'id': proveedor.id}) }}">Añadir método de cobro</a>
+    <button type="button" onclick="validarFormulario()">Siguiente</button>
+</form>
+
+<script>
+    function validarFormulario() {
+        var radios = document.getElementsByName('metodo_cobro');
+        var seleccionado = false;
+
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                seleccionado = true;
+                break;
+            }
+        }
+
+        if (seleccionado) {
+            // Al menos un radio button está seleccionado, enviar el formulario
+            document.getElementById('metodoForm').submit();
+        } else {
+            // Ningún radio button está seleccionado, mostrar un mensaje de error
+            alert('Por favor, selecciona un método de cobro antes de continuar.');
+        }
+    }
+</script>
+    
+{% endblock %}

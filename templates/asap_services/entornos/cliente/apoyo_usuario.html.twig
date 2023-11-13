@@ -7,10 +7,14 @@
 {% block stylesheets %}
   {{ encore_entry_link_tags('app') }}
   <link rel="stylesheet" href="{{ asset('css/cliente/apoyo_usuario.css') }}" />
+  	<link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 {% endblock %}
 
 {% block body %}
+<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
+	<div class="imagen">
   {# Empieza vista #}
   <div class="container p-3">
     <div class="container">
@@ -78,6 +82,7 @@
 
           {# fin chat #}
         </div>
+      </div>
       </div>
     </div>
   </div>

@@ -5,10 +5,12 @@
 {% block stylesheets %}
   {{ encore_entry_link_tags('app') }}
   <link rel="stylesheet" href="{{ asset('css/proveedor/ganancias_3.css') }}" />
+   	<link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
  {% endblock %}
 
 {% block body %}
-
+<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
+	<div class="imagen">
 <div class="container">
   <div class="row d-flex justify-content-center align-items-center">
     <div class="col-3 d-flex justify-content-center">
@@ -24,7 +26,7 @@
   <div class="container-morado"> 
     <div class="ganancias-texto">
       <div class="saldo">Saldo</div>
-      <div class="ganancia">S/. 1500</div>
+      <div class="ganancia">S/. {{saldo}}</div>
     </div>
   </div>
     
@@ -35,18 +37,20 @@
           <span class="recibo">Tu recibo: </span>
         </div>
         <div class="textos-1 ">
-          <span class="precio">S/1500</span>
+          <span class="precio">S/{{tarifa}}</span>
         </div>
       </div>
-
+      <form method="post">
       <div class="row contenido-boton-confirmar">
         <div class="col-10">
           <button type="submit" class="btn col-12 boton-confirmar">Confirmar</button>
         </div>
       </div>
+      </form>
 
     </div>
   </div>
+</div>
 </div>
 
   {{ include("components/footer.html.twig") }}

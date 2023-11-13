@@ -41,6 +41,9 @@ class Historialservicios
     #[ORM\Column(length: 255)]
     private ?string $hs_direccion = null;
 
+    #[ORM\Column]
+    private ?bool $hs_estadocobro = null;
+
     public function __construct()
     {
         $this->hs_fecha = new \DateTimeImmutable();
@@ -143,6 +146,18 @@ class Historialservicios
     public function setHsDireccion(string $hs_direccion): static
     {
         $this->hs_direccion = $hs_direccion;
+
+        return $this;
+    }
+
+    public function isHsEstadocobro(): ?bool
+    {
+        return $this->hs_estadocobro;
+    }
+
+    public function setHsEstadocobro(bool $hs_estadocobro): static
+    {
+        $this->hs_estadocobro = $hs_estadocobro;
 
         return $this;
     }

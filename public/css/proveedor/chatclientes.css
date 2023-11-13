@@ -4,15 +4,6 @@
     font-family: Nunito;
 }
 
-body {
-    /*min-height: 90vh;*/
-    background-image: url('/image/Imagen1.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    overflow: hidden;
-
-}
 
 .proveedor-chatclientes-container{
     height: 100vh;

@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Metodocobro;
 use App\Entity\Servicio;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -27,6 +28,19 @@ class AppFixtures extends Fixture
             $servicio->setSvimagen($data[1]);
             $manager->persist($servicio);
         }
+
+        $servicioBanco = [
+            ['BCP'],
+            ['BBVA'],
+            ['Interbank']
+        ];
+
+        foreach ($servicioBanco as $banco) {
+            $banco = new Metodocobro();
+            $banco->setMcDescripcion($banco[0]);
+            $manager->persist($banco);
+        }
+
         $manager->flush();
     }
 }

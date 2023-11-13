@@ -6,9 +6,13 @@
 {% block stylesheets %}
   {{ encore_entry_link_tags('app') }}
   <link rel="stylesheet" href="{{ asset('css/registration/terminos.css') }}" />
+  	<link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
+
 {% endblock %}
 
 {% block body %}
+<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
+	<div class="imagen">
 <div class="container mt-3">
     <div class="terminos-container">
         <div class="text-end me-2 mb-1">
@@ -38,5 +42,7 @@
         </div>
 
     </div>
+    </div>
     <p class="footer-text-asap mt-2">Asap Services</p>
+    
 {% endblock %}

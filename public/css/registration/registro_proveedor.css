@@ -1,13 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
 
-body {
-    background-image: url('/image/Imagen1.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    overflow: hidden;
-}
-
 .contenido-registro-proveedor {    
     height: 65vh;
     background-color: #fff !important;
@@ -155,10 +147,4 @@ body {
     color: #fff;
     background-color: #7A5AAC;
     border-color: #7A5AAC;
-}
-
-@media (min-width: 500px) {
-    body {
-      display: none;
-    }
 }

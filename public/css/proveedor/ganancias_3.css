@@ -1,13 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
 
-body {
-    /*min-height: 90vh;*/
-    background-image: url('/image/Imagen1.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-
-}
 
 .container-ganancia{
     border-radius: 40px;

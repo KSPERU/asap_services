@@ -1,95 +1,135 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  Registro de cliente
+	Registro de cliente
 {% endblock %}
 
 {% block stylesheets %}
-  {{ encore_entry_link_tags('app') }}
-  <link rel="stylesheet" href="{{ asset('css/registration/registro_cliente.css') }}" />
+	{{ encore_entry_link_tags('app') }}
+	<link rel="stylesheet" href="{{ asset('css/registration/registro_cliente.css') }}"/>
+	<link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
+	<link rel="stylesheet" href="{{ asset('css/registration/terminos.css') }}"/>
 {% endblock %}
 
 {% block body %}
-  {# Empieza vista #}
-  <div class="container p-3">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-1"></div>
-        <div class="col-10 d-flex justify-content-center">{{ include('components/logo_mediano.html.twig') }}</div>
-        <div class="col-1"></div>
-      </div>
-      <div class="container bg-light rounded-5 contenido-biografia-proveedor">
-        <div class="container">
-          <div class="container" style="padding-top: 10px;">
-            <div class="row d-flex justify-content-center conten-inicio-registro">
-              <div class="col-6 opcion-registrar-usuario">
-                <a href="{{ path('app_asap_services_general_login', {'entorno': 'cliente'}) }}">Iniciar sesion</a>
-              </div>
-              <div class="col-6 opcion-registrar-usuario boton-opcionn-registrar-usuario">
-                <a href="{{ path('app_asap_services_general_cliente_registro') }}">Registrate</a>
-              </div>
-            </div>
-          </div>
-          {{ form_start(registrationForm) }}
-            <div class="row d-flex justify-content-center">
-              <div class="col-12 titulo-registrar-usuario text-center" style="margin-top: 4px;margin-bottom: 0px;">Bienvenido a Asap Services</div>
-            </div>
-            <div class="row">
-              <div class="col-12" >
-                {% for flash_error in app.flashes('verify_email_error') %}
-                    <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-                {% endfor %}
-                {{ form_errors(registrationForm) }}
-              </div>
-            </div>
-            <div class="row d-flex justify-content:center">
-              <div class="col-12 row">
-                <div class="input-group mb-3">
-                  {{ form_widget(registrationForm.idPersona.p_nombre, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
-                  {{ form_label(registrationForm.idPersona.p_nombre, 'Nombres', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
-                </div>
-                <div class="input-group mb-3">
-                  {{ form_widget(registrationForm.idPersona.p_apellido, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
-                  {{ form_label(registrationForm.idPersona.p_apellido, 'Apellidos', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
-                </div>
-                <div class="input-group mb-3">
-                  {{ form_widget(registrationForm.idPersona.p_contacto, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
-                  {{ form_label(registrationForm.idPersona.p_contacto, 'Numero de Celular', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
-                </div>
-                <div class="input-group mb-3">
-                  {{ form_widget(registrationForm.idPersona.p_direccion, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
-                  {{ form_label(registrationForm.idPersona.p_direccion, 'Dirección', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
-                </div>
-                <div class="input-group mb-3">
-                  {{ form_widget(registrationForm.email, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
-                  {{ form_label(registrationForm.email, 'Correo Electrónico', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
-                </div>
-                <div class="input-group mb-3">
-                  {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
-                  {{ form_label(registrationForm.plainPassword, 'Contraseña', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12 d-flex justify-content-center p-2">
-                {{ form_widget(registrationForm.agreeTerms, {'label': ' ', 'attr': {'id': 'cbox1', 'class': 'checkbox-terminos-condiciones-cliente'}}) }}
-                <label class="checkbox-label texto-terminos-condificones-cliente">
-                  <a href="{{ path('app_asap_services_general_terminos') }}">Aceptar términos y condiciones</a>
-                </label>
-              </div>
-            </div>
-            <div class="row contenido-boton-registrar">
-              <div class="col-10">
-                <button type="submit" class="btn col-12 boton-registrar-cliente">Registrate</button>
-              </div>
-            </div>
-            {{ form_widget(registrationForm._token) }}
-          {{ form_end(registrationForm, {render_rest: false}) }}
-        </div>
-      </div>
-    </div>
-  </div> 
- 
+	{# Empieza vista #}
+	<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
+	<div class="imagen">
+		<div class="container p-3" data-turbo="false">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-1"></div>
+					<div class="col-10 d-flex justify-content-center">{{ include('components/logo_mediano.html.twig') }}</div>
+					<div class="col-1"></div>
+				</div>
+				<div class="container bg-light rounded-5 contenido-biografia-proveedor">
+					<div class="container">
+						<div class="container" style="padding-top: 10px;">
+							<div class="row d-flex justify-content-center conten-inicio-registro">
+								<div class="col-6 opcion-registrar-usuario">
+									<a href="{{ path('app_asap_services_general_login', {'entorno': 'cliente'}) }}">Iniciar sesion</a>
+								</div>
+								<div class="col-6 opcion-registrar-usuario boton-opcionn-registrar-usuario">
+									<a href="{{ path('app_asap_services_general_cliente_registro') }}">Registrate</a>
+								</div>
+							</div>
+						</div>
+						{{ form_start(registrationForm) }}
+						<div class="row d-flex justify-content-center">
+							<div class="col-12 titulo-registrar-usuario text-center" style="margin-top: 4px;margin-bottom: 0px;">Bienvenido a Asap Services</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-12">
+								{% for flash_error in app.flashes('verify_email_error') %}
+									<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+								{% endfor %}
+								{{ form_errors(registrationForm) }}
+							</div>
+						</div>
+						<div class="row d-flex justify-content-center">
+							<div class="col-12 row">
+								<div class="input-group mb-3">
+									{{ form_widget(registrationForm.idPersona.p_nombre, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
+									{{ form_label(registrationForm.idPersona.p_nombre, 'Nombres', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
+								</div>
+								<div class="input-group mb-3">
+									{{ form_widget(registrationForm.idPersona.p_apellido, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
+									{{ form_label(registrationForm.idPersona.p_apellido, 'Apellidos', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
+								</div>
+								<div class="input-group mb-3">
+									{{ form_widget(registrationForm.idPersona.p_contacto, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
+									{{ form_label(registrationForm.idPersona.p_contacto, 'Numero de Celular', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
+								</div>
+								<div class="input-group mb-3">
+									{{ form_widget(registrationForm.idPersona.p_direccion, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
+									{{ form_label(registrationForm.idPersona.p_direccion, 'Dirección', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
+								</div>
+								<div class="input-group mb-3">
+									{{ form_widget(registrationForm.email, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
+									{{ form_label(registrationForm.email, 'Correo Electrónico', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
+								</div>
+								<div class="input-group mb-3">
+									{{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'input-field form-control', 'id': 'floatingInput', 'placeholder': ' '}}) }}
+									{{ form_label(registrationForm.plainPassword, 'Contraseña', {'label_attr': {'class': 'input-label texto-registro-usuario'}, 'attr': {'for': 'floatingInput'}}) }}
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12 d-flex justify-content-center p-2">
+								{{ form_widget(registrationForm.agreeTerms, {'label': ' ', 'attr': {'id': 'cbox1', 'class': 'checkbox-terminos-condiciones-cliente'}}) }}
+								<label class="checkbox-label texto-terminos-condificones-cliente">
+									<a style="text-decoration:none" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Aceptar términos y condiciones</a>
+								</label>
+							</div>
+						</div>
+						<div class="row contenido-boton-registrar">
+							<div class="col-10">
+								<button type="submit" class="btn col-12 boton-registrar-cliente">Registrate</button>
+							</div>
+						</div>
+						{{ form_widget(registrationForm._token) }}
+						{{ form_end(registrationForm, {render_rest: false}) }}
+					</div>
+				</div>
+			</div>
+		</div>
+		{{ include('components/footer.html.twig') }}
+	</div>
 
-  {{ include('components/footer.html.twig') }}
+	{# Modal #}
+	<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="container mt-3">
+
+					<div class="text-end me-2 mb-1">
+						<a href="#" data-bs-dismiss="modal" aria-label="Close">
+							<svg xmlns="http://www.w3.org/2000/svg" height="1.2em" viewbox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+						</a>
+					</div>
+					<div class="terminos-container-text">
+						<h2 class="terminos-title">Terminos y condiciones</h2>
+						<div class="terminos-text-section">
+							<h6>Bienvenido a Asap Services</h6>
+							<p>Somos un aplicativo en ofrecer diversos tipos de asistencia al hogar, tiendas, locales u oficinas. Con una amplia disponibilidad para los ciudadanos de Lima Metropolitana.</p>
+						</div>
+						<div class="terminos-text-section">
+							<h6>Términos y Condiciones de uso</h6>
+							<p>Los usuarios de esta aplicación aceptan expresamente, por el solo hecho de hacer uso de dicho sistema, a someterse y ajustarse a los términos y condiciones declarados en esta sección.</p>
+						</div>
+						<div class="terminos-text-section">
+							<h6>Propiedad intelectual</h6>
+							<p>El uso de esta aplicación no otorga derecho alguno sobre la misma distinto autorización para su uso permitido. En ningún caso el usuario podrá alterar de alguna forma la aplicación, hacer copia o cualquier uso distintivo de la aplicación, sujetándose a responsabilidades inclusos penales que pudieran aplicar.</p>
+						</div>
+						<h2 class="terminos-version">Versión: V1.0</h2>
+						<div class="d-flex gap-2 justify-content-center py-3">
+							<a href="#" data-bs-dismiss="modal" aria-label="Close" class="terminos-btn-declinar">Declinar</a>
+							<a href="#" data-bs-dismiss="modal" aria-label="Close" class="terminos-btn-aceptar">Aceptar</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

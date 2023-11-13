@@ -79,6 +79,9 @@ class Persona
     #[ORM\OneToMany(mappedBy: 'persona', targetEntity: Tarjeta::class)]
     private Collection $p_tarjeta;
 
+    #[ORM\OneToMany(mappedBy: 'idproveedor', targetEntity: GananciaProveedor::class, orphanRemoval: true)]
+    private Collection $gananciaproveedor;
+
     public function __construct()
     {
         $this->servicios = new ArrayCollection();
@@ -88,6 +91,7 @@ class Persona
         $this->metcobro = new ArrayCollection();
         $this->cuentaniubiz = new ArrayCollection();
         $this->p_tarjeta = new ArrayCollection();
+        $this->gananciaproveedor = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -483,5 +487,36 @@ class Persona
 
         return $this;
     }
+    
+    /**
+     * @return Collection<int, GananciaProveedor>
+     */
+    public function getGananciaproveedor(): Collection
+    {
+        return $this->gananciaproveedor;
+    }
+
+    public function addGananciaproveedor(GananciaProveedor $gananciaproveedor): static
+    {
+        if (!$this->gananciaproveedor->contains($gananciaproveedor)) {
+            $this->gananciaproveedor->add($gananciaproveedor);
+            $gananciaproveedor->setIdproveedor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGananciaproveedor(GananciaProveedor $gananciaproveedor): static
+    {
+        if ($this->gananciaproveedor->removeElement($gananciaproveedor)) {
+            // set the owning side to null (unless already changed)
+            if ($gananciaproveedor->getIdproveedor() === $this) {
+                $gananciaproveedor->setIdproveedor(null);
+            }
+        }
+
+        return $this;
+    }
+    
     
 }

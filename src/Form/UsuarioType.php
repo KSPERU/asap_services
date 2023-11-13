@@ -26,7 +26,7 @@ class UsuarioType extends AbstractType
             ])
             ->add('password', PasswordType::class, [
                 'required' => false,
-                'empty_data' => null, // Allow null for the password
+                'empty_data' => '', // Allow null for the password
                 'attr' => [
                     'type' => 'password',
                 ],

@@ -6,6 +6,7 @@
 {% block stylesheets %}
 	{{ encore_entry_link_tags('app') }}
 	<link rel="stylesheet" href="{{ asset('css/proveedor/ofrecer_servicios.css') }}"/>
+	 	<link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
 
 
 {% endblock %}
@@ -21,6 +22,8 @@
 			text-decoration: none;
 		}
 	</style>
+	<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
+	<div class="imagen">
 	<p class="sin-vista" style="display: none;">Esta pagina no tiene estas vista</p>
 	<div class="container p-3">
 		<div class="container">
@@ -64,7 +67,7 @@
 			</div>
 		</div>
 	</div>
-
+</div>
 	{{ include('components/footer.html.twig') }}
 	<script>
 		function toggleCheckbox(checkboxNumber) {

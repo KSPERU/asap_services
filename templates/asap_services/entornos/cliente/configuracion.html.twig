@@ -7,9 +7,13 @@
 {% block stylesheets %}
   {{ encore_entry_link_tags('app') }}
   <link rel="stylesheet" href="{{ asset('css/cliente/configuracion.css') }}" />
+  	<link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
+
 {% endblock %}
 
 {% block body %}
+<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
+	<div class="imagen">
 <div class="container">
   <div class="row d-flex justify-content-center align-items-center">
     <div class="col-3 d-flex justify-content-center">
@@ -65,6 +69,7 @@
         </a>
       </div>
     </div>
+  </div>
   </div>
 </div>
 {{ include('components/footer.html.twig') }}

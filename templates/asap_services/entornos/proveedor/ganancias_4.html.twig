@@ -5,11 +5,13 @@
 {% block stylesheets %}
   {{ encore_entry_link_tags('app') }}
   <link rel="stylesheet" href="{{ asset('css/proveedor/ganancias_4.css') }}" />
+   	<link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
 {% endblock %}
 
 
 {% block body %}
-
+<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
+	<div class="imagen">
 <div class="container">
     <div class="row d-flex justify-content-center align-items-center">
       <div class="col-3 d-flex justify-content-center">
@@ -23,16 +25,17 @@
     <div>
   
     <div class="ganancias-container">
-      <h3 class="ganancias-descripcion">El monto de S/1425 está en camino </h3>
-  
+      <h3 class="ganancias-descripcion">El monto de S/{{gananciareal}} está en camino </h3>
+    <form method="post">
       <div class="row contenido-boton-listo">
         <div class="col-10">
           <button type="submit" class="btn col-12 boton-listo">Listo</button>
         </div>
       </div>
-
+    </form>
     </div>
   
+  </div>
   </div>
 
   {{ include('components/footer.html.twig') }}

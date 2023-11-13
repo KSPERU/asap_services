@@ -7,42 +7,85 @@
 {% block stylesheets %}
 	{{ encore_entry_link_tags('app') }}
 	<link href="{{ asset('css/proveedor/agregar_metodo_cobro.css') }}" rel="stylesheet"/>
+     	<link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
+         <style>
+            .contboton-cerrar {
+              font-size: 50px;
+              font-weight: 700;
+            }
+            .contboton-cerrar a {
+              color: #000;
+              text-decoration: none;
+            }
+          </style>
 {% endblock %}
 
 {% block body %}
+<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
+	<div class="imagen">
 	<div class="d-flex justify-content-center align-items-center h-100 w-100">
 		<div class="container proveedor-agregar-metodo-cobro-container">
 			<div class="d-flex flex-column justify-content-center align-items-center w-100">
-				{{ include('components/cabecera_con_X.html.twig') }}
-			</div>
+			
+              <div class="row d-flex justify-content-center align-items-start w-100 my-1">
+                <div class="col-3 d-flex justify-content-center"></div>
+                <div class="col-6 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
+                <div class="col-3 d-flex justify-content-center align-items-top contboton-cerrar">
+            <a href="{{path('app_asap_services_entornos_proveedor_inicio')}}"><svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
+        </a>
+                </div>
+              </div>
+        </div>
 			<div class="d-flex flex-column agregar-metodo-cobro-container">
 				<h1 class="text-center agregar-metodo-cobro-title mb-4">Añadir método de cobro</h1>
 
 				<h5 class="text-center">Elige el banco de tu preferencia</h5>
-
+             <form id="miFormulario" method="post"> 
                 <div class="p-3">
-                    <label for="BCP">
-                        <input class="me-2" id="BCP" name="opciones" type="checkbox" value="Opción 1">
-                        BCP
-                    </label><br>
-
-                    <label for="BBVA">
-                        <input class="me-2" id="BBVA" name="opciones" type="checkbox" value="Opción 2">
-                        BBVA
-                    </label><br>
-
-                    <label for="Interbank">
-                        <input class="me-2" id="Interbank" name="opciones" type="checkbox" value="Opción 3">
-                        Interbank
-                    </label>
+                    {% for metodocobro in metodocobros %}
+                        <label for="{{metodocobro.mcdescripcion}}">
+                            <input type="checkbox" id="cbox{{ metodocobro.id }}" name="metodocobros[]" value="{{ metodocobro.id }}" class="me-2 metodo-cobro-checkbox" onclick="toggleCheckbox({{ loop.index }})">
+                            {{ metodocobro.mcdescripcion }}
+                        </label><br> 
+                    {% endfor %}
                 </div>
-
                 <div class="p-3">
-                    <a class="btn-agregar-metodo-cobro" href="/proveedor/agregar_numero_cuenta">Ingresar número de cuenta</a>
+                    <button class="btn-agregar-metodo-cobro" type="button" style="border: none" onclick="validateAndSubmit()">Ingresar número de cuenta</button>
                 </div>
-			</div>
-		</div>
-	</div>
+            </form>
+            </div>
+        </div>
+    </div>
+    </div>
 
-	{{ include("components/footer.html.twig") }}
+{{ include("components/footer.html.twig") }}
+
+<script>
+    function toggleCheckbox(checkboxNumber) {
+        var checkboxes = document.getElementsByClassName('me-2 metodo-cobro-checkbox')
+        for (var i = 0; i < checkboxes.length; i++) {
+        if (i + 1 !== checkboxNumber) {
+            checkboxes[i].checked = false // Desmarca los otros checkboxes
+        }
+        }
+    }
+
+    function validateAndSubmit() {
+        if (validateForm()) {
+            document.getElementById('miFormulario').submit();
+        }
+    }
+
+    function validateForm() {
+        var checkboxes = document.querySelectorAll('.metodo-cobro-checkbox');
+        var isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+        if (!isChecked) {
+            alert('Por favor, selecciona al menos un método de cobro.');
+            return false;
+        }
+
+        return true;
+    }
+</script>
 {% endblock %}

@@ -101,23 +101,71 @@ class ClienteController extends AbstractController
     #[Route('/cliente/ajustes/{id}/editar', name: 'app_asap_services_entornos_cliente_ajustes_editar')]
     public function edit(Request $request, Persona $persona, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
     {
-        $form = $this->createForm(ClienteType::class, $persona);
+        $neto_persona = new Persona();
+        $neto = new Usuario();
+
+        $neto_persona->setPNombre($persona->getPNombre());
+        $neto_persona->setPApellido($persona->getPApellido());
+        $neto_persona->setPContacto($persona->getPContacto());
+        $neto_persona->setPDireccion($persona->getPDireccion());
+        $neto->setEmail($persona->getUsuario()->getEmail());
+        $neto->setPassword($persona->getUsuario()->getPassword());
+        
+        $neto->setIdPersona($neto_persona);
+        
+        
+        $form = $this->createForm(ClienteType::class, $neto_persona);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $archivo = $form['p_foto']->getData();
             if ($archivo !== null) {
+                $codigo_unico = uniqid() . time();
                 $destino = $this->getParameter('kernel.project_dir') . '/public/img';
-                $archivo->move($destino, $archivo->getClientOriginalName());
-                $persona->setPFoto($archivo->getClientOriginalName());
+                $archivo->move($destino, $codigo_unico . $archivo->getClientOriginalName());
+                $persona->setPFoto($codigo_unico . $archivo->getClientOriginalName());
             }
-            $user = $persona->getUsuario();
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('usuario')->get('password')->getData()
-                )
-            );
+
+            if ($neto->getPassword() !== null && $neto->getPassword() !== '') {
+                //echo($neto->getPassword());
+                $persona->getUsuario()->setPassword($userPasswordHasher->hashPassword($persona->getUsuario(), $neto->getPassword()));
+            }
+
+            $persona->setPNombre($neto_persona->getPNombre());
+            $persona->setPApellido($neto_persona->getPApellido());
+            $persona->setPContacto($neto_persona->getPContacto());
+            $persona->setPDireccion($neto_persona->getPDireccion());
+            $persona->getUsuario()->setEmail($neto->getEmail());
+            
+
+            // $user = $persona->getUsuario();
+            // $user->setPassword(
+            //     $userPasswordHasher->hashPassword(
+            //         $user,
+            //         $form->get('usuario')->get('password')->getData()
+            //     )
+            // );
+            // $plainPassword = $form->get('usuario')->get('password')->setData($user->getPassword());  
+            
+            // $neto->setPassword($persona->getUsuario()->getPassword());
+            
+            // $user = $persona->getUsuario();
+            // $user->setPassword($neto->getPassword());
+
+            $entityManager->persist($persona->getUsuario());
+            $entityManager->persist($persona);
             $entityManager->flush();
+            
+            
+            // $archivo_foto = $form['p_foto']->getData();
+            // if ($form !== null) {
+            //     $codigo_unico = uniqid() . time();
+            //     $destino = $this->getParameter('kernel.project_dir') . '/public/img';
+            //     $archivo_foto->move($destino, $codigo_unico . $archivo_foto->getClientOriginalName());
+            //     $persona->setPFoto($codigo_unico . $archivo_foto->getClientOriginalName());
+            // }
+
+            
         }
         return $this->render('asap_services/entornos/cliente/mi_perfil.html.twig', [
             'form' => $form,
@@ -129,9 +177,14 @@ class ClienteController extends AbstractController
     public function delete(Request $request, Persona $persona, PersonaRepository $personaRepository, UsuarioRepository $usuarioRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $persona->getId(), $request->request->get('_token'))) {
+            $user_aux = $persona->getUsuario();
             $personaRepository->remove($persona, true);
-            $usuarioRepository->remove($persona->getUsuario(), true);
+            $usuarioRepository->remove($user_aux, true);
         }
+
+        $session = $request->getSession();
+        $session->invalidate();
+        $this->container->get('security.token_storage')->setToken(null);
 
         return $this->redirectToRoute('app_asap_services_general_logout', [], Response::HTTP_SEE_OTHER);
     }

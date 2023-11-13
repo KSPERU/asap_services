@@ -1,23 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ASAP Services{% endblock %}
+{% block title %}ASAP Services
+{% endblock %}
 
 {% block stylesheets %}
-  {{ encore_entry_link_tags('app') }}
-  <link rel="stylesheet" href="{{ asset('css/inicio/index.css') }}" />
+	{{ encore_entry_link_tags('app') }}
+	<link rel="stylesheet" href="{{ asset('css/inicio/index.css') }}"/>
+	<link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
 {% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-center align-items-center h-100 w-100">
-        <div class="container inicio-container">
-            <div class="d-flex flex-column justify-content-center align-items-center">
-                {{ include('components/logo_mediano.html.twig') }}
-                <h1 class="inicio-title">Asap Servicios</h1>
-            </div>
-            <div class="d-flex flex-column gap-2">
-                <a class="boton-inicio-solicitar-servicio" href="{{ path('app_asap_services_general_login', {'entorno': 'cliente'}) }}">Solicita un servicio</a>
-                <a class="boton-inicio-ofrecer-servicio" href="{{ path('app_asap_services_general_login', {'entorno': 'proveedor'}) }}">Ofrece servicio</a>
-            <div>
-        </div>
-    </div>
+	<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
+	<div class="imagen">
+		<div class="d-flex justify-content-center align-items-center h-100 w-100">
+
+			<div class="container inicio-container">
+				<div class="d-flex flex-column justify-content-center align-items-center">
+					{{ include('components/logo_mediano.html.twig') }}
+					<h1 class="inicio-title">Asap Servicios</h1>
+				</div>
+				<div class="d-flex flex-column gap-2">
+					<a class="boton-inicio-solicitar-servicio" href="{{ path('app_asap_services_general_login', {'entorno': 'cliente'}) }}">Solicita un servicio</a>
+					<a class="boton-inicio-ofrecer-servicio" href="{{ path('app_asap_services_general_login', {'entorno': 'proveedor'}) }}">Ofrece servicio</a>
+					<div></div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

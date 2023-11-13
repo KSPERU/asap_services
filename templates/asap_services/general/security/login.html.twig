@@ -9,83 +9,86 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container p-3">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-1"></div>
-				<div class="col-10 d-flex justify-content-center">{{ include('components/logo_mediano.html.twig') }}</div>
-				<div class="col-1"></div>
-			</div>
-			<div class="container bg-light rounded-5 contenido ">
+	<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
+	<div class="imagen">
+		<div class="container p-3 inicio-container">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-1"></div>
+					<div class="col-10 d-flex justify-content-center">{{ include('components/logo_mediano.html.twig') }}</div>
+					<div class="col-1"></div>
+				</div>
+				<div class="container bg-light rounded-5 contenido ">
 
-				<div class="container">
-					<div class="container" style="padding-top: 10px;">
-						<div class="row d-flex justify-content-center conten-login">
-							<div class="col-6 opcion-login boton-opcion-login">
-								<a href="{{ path('app_asap_services_general_login', {'entorno': entorno}) }}">Iniciar sesion</a>
+					<div class="container">
+						<div class="container" style="padding-top: 10px;">
+							<div class="row d-flex justify-content-center conten-login">
+								<div class="col-6 opcion-login boton-opcion-login">
+									<a href="{{ path('app_asap_services_general_login', {'entorno': entorno}) }}">Iniciar sesion</a>
+								</div>
+								<div class="col-6 opcion-login">
+									{% if entorno == 'cliente' %}
+										<a href="{{ path('app_asap_services_general_cliente_registro') }}">Registrate</a>
+									{% else %}
+										<a href="{{ path('app_asap_services_general_proveedor_registro') }}">Registrate</a>
+									{% endif %}
+								</div>
 							</div>
-							<div class="col-6 opcion-login">
-								{% if entorno == 'cliente' %}
-									<a href="{{ path('app_asap_services_general_cliente_registro') }}">Registrate</a>
-								{% else %}
-									<a href="{{ path('app_asap_services_general_proveedor_registro') }}">Registrate</a>
+						</div>
+						<div class="scroll-login">
+
+							<div class="row d-flex justify-content-center">
+								<div class="col-12 titulo-login text-center">Bienvenido a Asap Services</div>
+							</div>
+							<form method="post">
+								{% if error %}
+									<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 								{% endif %}
-							</div>
-						</div>
-					</div>
-					<div class="scroll-login">
 
-						<div class="row d-flex justify-content-center">
-							<div class="col-12 titulo-login text-center">Bienvenido a Asap Services</div>
-						</div>
-						<form method="post">
-							{% if error %}
-								<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-							{% endif %}
-
-							{% if app.user %}
-								<div class="mb-3">
-									Estás conectado como
-									{{ app.user.userIdentifier }},
-									<a href="{{ path('app_asap_services_general_logout') }}">Cerrar sesión</a>
-								</div>
-							{% endif %}
-							<div class="row contenido-inputs-login-proveedor">
-								<div class="col-12 row row-gap-3">
-									<div class="input-group mb-1">
-										<input type="email" value="{{ last_username }}" name="email" class="input-field  form-control" id="floatingInput" placeholder=" " autocomplete="email" required autofocus/>
-										<label class="input-label texto-login" for="floatingInput">Correo Electrónico</label>
+								{% if app.user %}
+									<div class="mb-3">
+										Estás conectado como
+										{{ app.user.userIdentifier }},
+										<a href="{{ path('app_asap_services_general_logout') }}">Cerrar sesión</a>
 									</div>
-									<div class="input-group mb-1">
-										<input type="password" name="password" class="input-field  form-control" id="floatingInput" placeholder=" " autocomplete="current-password" required/>
-										<label class="input-label texto-login" for="floatingInput">Contraseña</label>
+								{% endif %}
+								<div class="row contenido-inputs-login-proveedor">
+									<div class="col-12 row row-gap-3">
+										<div class="input-group mb-1">
+											<input type="email" value="{{ last_username }}" name="email" class="input-field  form-control" id="floatingInput" placeholder=" " autocomplete="email" required autofocus/>
+											<label class="input-label texto-login" for="floatingInput">Correo Electrónico</label>
+										</div>
+										<div class="input-group mb-1">
+											<input type="password" name="password" class="input-field  form-control" id="floatingInput" placeholder=" " autocomplete="current-password" required/>
+											<label class="input-label texto-login" for="floatingInput">Contraseña</label>
+										</div>
 									</div>
 								</div>
-							</div>
-							<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
-							<div class="row contenido-boton-login mt-3">
+								<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+								<div class="row contenido-boton-login mt-3">
+									<div class="col-10">
+										<button type="submit" class="btn col-12 boton-iniciar-login">Iniciar Sesion</button>
+									</div>
+								</div>
+							</form>
+							<div class="row contenido-recupingre-login mt-3">
 								<div class="col-10">
-									<button type="submit" class="btn col-12 boton-iniciar-login">Iniciar Sesion</button>
+									<p class="texto-recupingre-login">
+										<a href="{{ path('app_forgot_password_request') }}">¿Olvidaste tu contraseña?</a>
+									</p>
+									<p class="texto-recupingre-login">O ingresa con:</p>
 								</div>
 							</div>
-						</form>
-						<div class="row contenido-recupingre-login mt-3">
-							<div class="col-10">
-								<p class="texto-recupingre-login">
-									<a href="{{ path('app_forgot_password_request') }}">¿Olvidaste tu contraseña?</a>
-								</p>
-								<p class="texto-recupingre-login">O ingresa con:</p>
+							<div class="row contenido-opciones-login mt-4">
+								<div class="col-5">
+									<img src="{{ asset('image/facebook.png') }}" width="60px" height="60px" alt="">
+								</div>
+								<div class="col-5">
+									<img src="{{ asset('image/google.png') }}" width="60px" height="60px" alt="">
+								</div>
 							</div>
-						</div>
-						<div class="row contenido-opciones-login mt-4">
-							<div class="col-5">
-								<img src="{{ asset('image/facebook.png') }}" width="60px" height="60px" alt="">
-							</div>
-							<div class="col-5">
-								<img src="{{ asset('image/google.png') }}" width="60px" height="60px" alt="">
-							</div>
-						</div>
 
+						</div>
 					</div>
 				</div>
 			</div>

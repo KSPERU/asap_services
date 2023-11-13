@@ -4,14 +4,6 @@
   font-family: Nunito;
 }
 
-body {
-  background-image: url("/image/Imagen1.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  overflow: hidden;
-}
-
 .proveedor-historial-servicios-container {
   height: 100vh;
   display: flex;

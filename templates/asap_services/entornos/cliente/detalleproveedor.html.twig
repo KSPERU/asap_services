@@ -6,9 +6,13 @@
 {% block stylesheets %}
   {{ encore_entry_link_tags('app') }}
   <link rel="stylesheet" href="{{ asset('css/cliente/detalle_proveedor.css') }}" />
+  	<link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
+
 {% endblock %}
 
 {% block body %}
+<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
+	<div class="imagen">
 <div class="container mt-3">
     <div class="prov-container">
 
@@ -57,6 +61,7 @@
                 <p>{{ (proveedor.phabilidades is null) ? '-' :  proveedor.phabilidades }}</p>
             </div>
         </div>
+    </div>
     </div>
     
     {#  

@@ -7,9 +7,13 @@
 {% block stylesheets %}
   {{ encore_entry_link_tags('app') }}
   <link rel="stylesheet" href="{{ asset('css/cliente/detalle_tarjeta.css') }}" />
+  	<link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
+
 {% endblock %}
 
 {% block body %}
+<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
+	<div class="imagen">
   {# Empieza vista #}
   {{ form_start(form) }}
   <div class="container p-3">
@@ -57,6 +61,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
   {{ form_end(form) }}

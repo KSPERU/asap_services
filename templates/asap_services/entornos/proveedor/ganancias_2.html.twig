@@ -5,10 +5,12 @@
 {% block stylesheets %}
   {{ encore_entry_link_tags('app') }}
   <link rel="stylesheet" href="{{ asset('css/proveedor/ganancias_2.css') }}" />
+   	<link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
  {% endblock %}
 
 {% block body %}
-
+<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
+	<div class="imagen">
 <div class="container">
   <div class="row d-flex justify-content-center align-items-center">
     <div class="col-3 d-flex justify-content-center">
@@ -20,10 +22,14 @@
       <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
     </div>
   <div>
-    
+  
   <div class="container-ganancia">
     <div class="detalles">Detalles</div>
-    <div class="fecha">10 de Julio</div>
+    <div class="fecha">{% if fechamin == fechamax %}
+        {{ fechamin|date('j F Y') }}
+    {% else %}
+        {{ fechamin|date('j F Y') }} - {{ fechamax|date('j F Y') }}
+    {% endif %}</div>
     <div class="estadistica-img">
       <img src="{{ asset('./image/grafico_barra.png') }}" alt="Logo">
     </div>
@@ -35,7 +41,7 @@
         </div>
         <div class="textos-1 ">
           <span class="estadistica">Estadisticas: </span>
-          <span class="servicio">Servicios: 1</span>
+          <span class="servicio">Servicios: {{cantservicios}}</span>
         </div>
       </div>
 
@@ -44,13 +50,11 @@
       <div class="ganancia-info">
         <div class="textos-1">
           <span class="concepto-cobro">Cobro por tarjetas: </span>
-          <span class="concepto-cobro">Cobro en efectivo: </span>
           <span class="concepto-cobro-1">Impuestos: </span>
         </div>
         <div class="textos-1 ">
-          <span class="concepto-cobro"> S/.1200 </span>
-          <span class="concepto-cobro"> S/.225</span>
-          <span class="impuesto">-S/.275</span>
+          <span class="concepto-cobro"> S/.{{gananciatotal}} </span>
+          <span class="impuesto">-S/.{{comision}}</span>
         </div>
       </div>
 
@@ -61,18 +65,20 @@
           <span class="ganancia-total">Ganancias Totales: </span>
         </div>
         <div class="textos-2 ">
-          <span class="ganancia-total"> S/.1500</span>
+          <span class="ganancia-total"> S/.{{gananciareal}}</span>
         </div>
       </div>
-
-      <div class="row contenido-boton-cobrar">
-        <div class="col-10">
-          <button type="submit" class="btn col-12 boton-cobrar">Cobrar ganancias</button>
+      <form method="post">
+        <div class="row contenido-boton-cobrar">
+          <div class="col-10">
+            <button type="submit" class="btn col-12 boton-cobrar">Cobrar ganancias</button>
+          </div>
         </div>
-      </div>
-
+      </form>
     </div>
   </div>
+
+</div>
 </div>
 
   {{ include("components/footer.html.twig") }}
