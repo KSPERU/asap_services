@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_asap_services_entornos_proveedor_ajustes_eliminar', {'id': persona.id}) }}" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este elemento?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ persona.id) }}">
+    <button class="btn">Eliminar</button>
+</form>

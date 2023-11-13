@@ -2,22 +2,25 @@
 
 namespace App\Controller\ASAPServices\Entornos;
 
-use App\Entity\Conversacion;
-use App\Entity\Historialservicios;
-use App\Entity\MetcobroProveedor;
 use App\Entity\Persona;
+use App\Form\PersonaType;
 use App\Form\ProveedorType;
+use App\Entity\Conversacion;
 use App\Entity\PersonaServicio;
-use App\Repository\MetodocobroRepository;
+use App\Entity\MetcobroProveedor;
+use App\Entity\Historialservicios;
 use App\Repository\PersonaRepository;
 use App\Repository\UsuarioRepository;
 use App\Repository\ServicioRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\MetodocobroRepository;
+use App\Repository\PersonaServicioRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
 class ProveedorController extends AbstractController
 {
@@ -42,7 +45,7 @@ class ProveedorController extends AbstractController
     }
 
     #[Route('/proveedor/{id}/biografia', name: 'app_asap_services_entornos_proveedor_biografia')]
-    public function biografia($id, Request $request, Persona $persona, EntityManagerInterface $entityManager): Response
+    public function biografia(Persona $persona, Request $request, $id, EntityManagerInterface $entityManager): Response
     {
 
         if ($request->isMethod('POST')) {
@@ -55,7 +58,7 @@ class ProveedorController extends AbstractController
             }
 
 
-            return $this->redirectToRoute('app_asap_services_entornos_proveedor_servicios', ['id' => $id]);
+            return $this->redirectToRoute('app_asap_services_entornos_proveedor_servicios', ['id' => $persona->getId()]);
         }
 
         return $this->render('asap_services/entornos/proveedor/biografia.html.twig', [
@@ -65,11 +68,13 @@ class ProveedorController extends AbstractController
     }
 
     #[Route('/proveedor/{id}/servicios', name: 'app_asap_services_entornos_proveedor_servicios')]
-    public function servicios($id, Request $request, Persona $persona, ServicioRepository $servicios, EntityManagerInterface $entityManager): Response
+    public function servicios(Persona $persona, $id, Request $request, PersonaServicioRepository $personaServicioRepository, PersonaRepository $personaRepository, ServicioRepository $servicios, EntityManagerInterface $entityManager): Response
     {
 
         if ($request->isMethod('POST')) {
             $serviciosselect = $request->get('servicios', []);
+
+            $perServ = $persona->getServicios();
 
             if ($persona) {
                 foreach ($serviciosselect as $servicioid) {
@@ -80,10 +85,10 @@ class ProveedorController extends AbstractController
                         $personaservicio->setIdPersona($persona);
                         $personaservicio->setIdServicio($servicio);
                         $entityManager->persist($personaservicio);
-                    }
                 }
                 $entityManager->flush();
             }
+
 
             return $this->redirectToRoute('app_asap_services_entornos_proveedor_inicio');
         }
@@ -97,12 +102,95 @@ class ProveedorController extends AbstractController
     }
 
     #[Route('/proveedor/menu/{id}/perfil', name: 'app_asap_services_entornos_proveedor_menu_perfil')]
-    public function perfil(Persona $persona): Response
+    public function perfil(Request $request, Persona $persona, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher, PersonaRepository $personaRepository): Response
     {
-        # Falta adaptar el template
+        $servicio = $persona->getServicios();
+
+        $juanito = new Persona();
+        $juanito->setPNombre($persona->getPNombre());
+        $juanito->setPApellido($persona->getPApellido());
+        $juanito->setPContacto($persona->getPContacto());
+        $juanito->setPDireccion($persona->getPDireccion());
+
+        $form = $this->createForm(ProveedorType::class, $juanito);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $archivo_foto = $form['p_foto']->getData();
+            $archivo_cv = $form['p_cv']->getData();
+            $archivo_ap = $form['p_antpen']->getData();
+            $archivo_cc = $form['p_cert']->getData();
+            if ($archivo_foto !== null) {
+                $codigo_unico = uniqid() . time();
+                $destino = $this->getParameter('kernel.project_dir') . '/public/img';
+                $archivo_foto->move($destino, $codigo_unico . $archivo_foto->getClientOriginalName());
+                $persona->setPFoto($codigo_unico . $archivo_foto->getClientOriginalName());
+            }
+            if ($archivo_cv !== null) {
+                $codigo_unico = uniqid() . time();
+                $destino = $this->getParameter('kernel.project_dir') . '/public/docs';
+                $archivo_cv->move($destino, $codigo_unico . $archivo_cv->getClientOriginalName());
+                $persona->setPCv($codigo_unico . $archivo_cv->getClientOriginalName());
+            }
+
+            if ($archivo_ap !== null) {
+                $codigo_unico = uniqid() . time();
+                $destino = $this->getParameter('kernel.project_dir') . '/public/docs';
+                $archivo_ap->move($destino, $codigo_unico . $archivo_ap->getClientOriginalName());
+                $persona->setPAntpen($codigo_unico . $archivo_ap->getClientOriginalName());
+            }
+
+            if ($archivo_cc !== null) {
+                $codigo_unico = uniqid() . time();
+                $destino = $this->getParameter('kernel.project_dir') . '/public/docs';
+                $archivo_cc->move($destino, $codigo_unico . $archivo_cc->getClientOriginalName());
+                $persona->setPCert($codigo_unico . $archivo_cc->getClientOriginalName());
+            }
+
+            $persona->setPNombre($juanito->getPNombre());
+            $persona->setPApellido($juanito->getPApellido());
+            $persona->setPContacto($juanito->getPContacto());
+            $persona->setPDireccion($juanito->getPDireccion());
+
+            $entityManager->persist($persona);
+            $entityManager->flush();
+        }
         return $this->render('asap_services/entornos/proveedor/mi_perfil.html.twig', [
-            'proveedor' => $persona,
+            'form' => $form,
+            'persona' => $persona,
+            'servicio' => $servicio,
         ]);
+    }
+
+    #[Route('/proveedor/{id}/downloadCV', name: 'download_pdf_cv')]
+    public function downloadPdfCV(Persona $persona): Response
+    {
+        $pdfCV = $this->getParameter('kernel.project_dir') . '/public/docs/' . $persona->getPCv();
+        return $this->file($pdfCV);
+    }
+
+    #[Route('/proveedor/{id}/downloadAP', name: 'download_pdf_ap')]
+    public function downloadPdfAP(Persona $persona): Response
+    {
+        $pdfAP = $this->getParameter('kernel.project_dir') . '/public/docs/' . $persona->getPAntpen();
+        return $this->file($pdfAP);
+    }
+    #[Route('/proveedor/{id}/downloadCE', name: 'download_pdf_ce')]
+    public function downloadCE(Persona $persona): Response
+    {
+        $pdfCE = $this->getParameter('kernel.project_dir') . '/public/docs/' . $persona->getPCert();
+        return $this->file($pdfCE);
+    }
+
+    #[Route('/proveedor/eliminar/{id}', name: 'app_asap_services_entornos_proveedor_ajustes_eliminar')]
+    public function delete(Request $request, Persona $persona, PersonaRepository $personaRepository, UsuarioRepository $usuarioRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $persona->getId(), $request->request->get('_token'))) {
+            //$request->getSession()->invalidate();
+            $personaRepository->remove($persona, true);
+            //$request->getSession()->invalidate();
+        }
+        return $this->redirectToRoute('app_asap_services_ajustes_arranque', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/proveedor/menu/{id}/historial', name: 'app_asap_services_entornos_proveedor_menu_historial')]

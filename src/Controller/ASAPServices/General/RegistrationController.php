@@ -103,22 +103,22 @@ class RegistrationController extends AbstractController
             if ($archivo_cv !== null) {
                 $codigo_unico = uniqid() . time();
                 $destino = $this->getParameter('kernel.project_dir') . '/public/docs';
-                $archivo_cv->move($destino, $codigo_unico . $archivo_foto->getClientOriginalName());
-                $persona->setPCv($codigo_unico . $archivo_foto->getClientOriginalName());
+                $archivo_cv->move($destino, $codigo_unico . $archivo_cv->getClientOriginalName());
+                $persona->setPCv($codigo_unico . $archivo_cv->getClientOriginalName());
             }
 
             if ($archivo_ap !== null) {
                 $codigo_unico = uniqid() . time();
                 $destino = $this->getParameter('kernel.project_dir') . '/public/docs';
-                $archivo_ap->move($destino, $codigo_unico . $archivo_foto->getClientOriginalName());
-                $persona->setPAntpen($codigo_unico . $archivo_foto->getClientOriginalName());
+                $archivo_ap->move($destino, $codigo_unico . $archivo_ap->getClientOriginalName());
+                $persona->setPAntpen($codigo_unico . $archivo_ap->getClientOriginalName());
             }
 
             if ($archivo_cc !== null) {
                 $codigo_unico = uniqid() . time();
                 $destino = $this->getParameter('kernel.project_dir') . '/public/docs';
-                $archivo_cc->move($destino, $codigo_unico . $archivo_foto->getClientOriginalName());
-                $persona->setPCert($codigo_unico . $archivo_foto->getClientOriginalName());
+                $archivo_cc->move($destino, $codigo_unico . $archivo_cc->getClientOriginalName());
+                $persona->setPCert($codigo_unico . $archivo_cc->getClientOriginalName());
             }
 
             # Validación
@@ -146,6 +146,7 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+
     #[Route('/cliente/control/correo', name: 'app_asap_services_general_cliente_control_correo')]
     public function controlCorreoCli(Request $request, TranslatorInterface $translator, UsuarioRepository $usuarioRepository): Response
     {

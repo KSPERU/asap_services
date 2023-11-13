@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap");
 
 body {
-  /*min-height: 90vh;*/
   background-image: url("/image/Imagen1.png");
   background-size: cover;
   background-repeat: no-repeat;
@@ -21,8 +20,14 @@ body {
   text-align: center;
 }
 
+.scroll-login {
+  max-height: 478px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 20px;
+}
+
 .opcion-login a {
-  /*     margin-top: 30px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,7 +39,6 @@ body {
   text-decoration: none;
 }
 .opcion-login {
-  /*     margin-top: 30px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -187,4 +191,13 @@ body {
   body {
     display: none;
   }
+}
+
+@media (max-height: 1000px) {
+  .scroll-login {
+    max-height: 52vh;
+    overflow-y: auto;
+    border-radius: 20px;
+  }
+  
 }

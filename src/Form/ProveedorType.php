@@ -61,6 +61,7 @@ class ProveedorType extends AbstractType
             ])
             
             ->add('p_cv', FileType::class, [
+                'data_class' => null,
                 'required' => false,
                 'constraints' => [
                     new File([
@@ -71,6 +72,7 @@ class ProveedorType extends AbstractType
             ])
             
             ->add('p_antpen', FileType::class, [
+                'data_class' => null,
                 'required' => false,
                 'constraints' => [
                     new File([
@@ -81,6 +83,7 @@ class ProveedorType extends AbstractType
             ])
             
             ->add('p_cert', FileType::class, [
+                'data_class' => null,
                 'required' => false,
                 'constraints' => [
                     new File([
@@ -111,8 +114,6 @@ class ProveedorType extends AbstractType
             ->add('p_habilidades', TextareaType::class, [
                 'required' => false,
             ])
-            ->add('usuario', UsuarioType::class, [
-            ]);
         ;
     }
 

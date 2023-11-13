@@ -1,69 +1,72 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap");
 
 body {
-    background-image: url('/image/Imagen1.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-
+  background-image: url("/image/Imagen1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
-.preguntas-frecuentes-container{
-    height: auto;
-    border-radius: 40px;
-    background: #FFF;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    padding: 24px;
+.preguntas-frecuentes-container {
+  height: 65vh;
+  border-radius: 40px;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 24px;
 }
 
-.preguntas-frecuentes-title{
-    color: #4302AE;
-    text-align: center;
-    font-family: Nunito;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 800;
-    line-height: normal;
+.preguntas-frecuentes-title {
+  color: #4302ae;
+  text-align: center;
+  font-family: Nunito;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
 }
 
 .acordeon {
-    width: 100%;
+  width: 100%;
+  height: 49vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 20px;
 }
 
 .pregunta {
-    display: flex;
-    align-items: center;
-    color: #000;
-    font-family: Nunito;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;    
-    margin-top: 30px;
-    color: #333;
-    border-bottom: 1px solid #333;
+  display: flex;
+  align-items: center;
+  color: #000;
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-top: 30px;
+  color: #333;
+  border-bottom: 1px solid #333;
 }
 
 .texto-pregunta {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .icono-toggle {
-    font-size: 25px;
-    margin-left: 10px;
+  font-size: 25px;
+  margin-left: 10px;
 }
 
 .respuesta {
-    display: none;
-    color: #000;
-    font-family: Nunito;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    margin-bottom: 8px;
+  display: none;
+  color: #000;
+  font-family: Nunito;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 8px;
 }
 
 .respuesta.active {
-    display: block;
+  display: block;
 }

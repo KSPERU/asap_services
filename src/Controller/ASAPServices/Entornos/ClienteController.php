@@ -101,7 +101,6 @@ class ClienteController extends AbstractController
     #[Route('/cliente/ajustes/{id}/editar', name: 'app_asap_services_entornos_cliente_ajustes_editar')]
     public function edit(Request $request, Persona $persona, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
     {
-        # El template no tiene un metodo para guardar y se requiere de un metodo para eliminar
         $form = $this->createForm(ClienteType::class, $persona);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -126,11 +125,33 @@ class ClienteController extends AbstractController
         ]);
     }
 
-    #[Route('/cliente/ajustes/favoritos', name: 'app_asap_services_entornos_cliente_ajustes_favoritos')]
-    public function favoritos(): Response
+    #[Route('/cliente/eliminar/{id}', name: 'app_asap_services_entornos_cliente_ajustes_eliminar')]
+    public function delete(Request $request, Persona $persona, PersonaRepository $personaRepository, UsuarioRepository $usuarioRepository): Response
     {
-        # No se encontro la vista favoritos
-        return $this->redirectToRoute('app_asap_services_entornos_cliente_inicio');
+        if ($this->isCsrfTokenValid('delete' . $persona->getId(), $request->request->get('_token'))) {
+            $personaRepository->remove($persona, true);
+            $usuarioRepository->remove($persona->getUsuario(), true);
+        }
+
+        return $this->redirectToRoute('app_asap_services_general_logout', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/cliente/ajustes/favoritos', name: 'app_asap_services_entornos_cliente_ajustes_favoritos')]
+    public function favoritos(PersonaRepository $personaRepository, UsuarioRepository $usuarioRepository, ServicioRepository $servicios): Response
+    {
+        $persona_aux = $this->getUser();
+        $usuario = $usuarioRepository->findOneBy([
+            'email' => $persona_aux->getUserIdentifier(),
+        ]);
+        $persona = $personaRepository->findOneBy([
+            'usuario' => $usuario,
+        ]);
+        return $this->render('asap_services/entornos/cliente/showserviciosfav.html.twig', [
+            'servicios' => $servicios->findOneBy([
+                ''
+            ]),
+            'persona' => $persona
+        ]);
     }
 
     #[Route('/cliente/ajustes/privacidad', name: 'app_asap_services_entornos_cliente_ajustes_privacidad')]
@@ -218,13 +239,10 @@ class ClienteController extends AbstractController
 
         $sumaImp = 0;
         // echo $personaservs;
-        if($request->isMethod('POST'))
-        {
-            foreach($personaservs as $pr)
-            {
-                $check = $request->request->get('servicio_ids-'. $pr->getId() .'');
-                if($check)
-                {
+        if ($request->isMethod('POST')) {
+            foreach ($personaservs as $pr) {
+                $check = $request->request->get('servicio_ids-' . $pr->getId() . '');
+                if ($check) {
                     $sumaImp += $pr->getHsImporte();
                     // $sumaImp = $pr->getId();
                 }

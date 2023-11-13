@@ -15,9 +15,10 @@ body {
 }
 
 .foto-perfil img {
-    width: 75px;
-    height: 80px;
-    flex-shrink: 0;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .perfil-textos {
@@ -52,9 +53,10 @@ body {
 
 .input-group {
     position: relative;
-    margin-bottom: 3rem;    
+    /* margin-bottom: 3rem;     */
     align-items: center;
     margin-top: 15px;
+    flex-wrap: nowrap;
 }
 
 .input-field {
@@ -64,7 +66,7 @@ body {
     border-right: none;
     border-left: none;
     border-bottom: 1px solid #000;
-    width: 300px;
+    width: 100%;
     font-family: Nunito;
     color: #000;
     font-weight: 700;
@@ -83,12 +85,13 @@ body {
     top: 0rem;
 }
 
-.contenido-boton-eliminar {
+.contenido-boton-mi-perfil {
+
     display: flex;
     justify-content: center;
 }
 
-.boton-eliminar {
+.boton-mi-perfil {
     border-radius: 40px;
     background: #4302AE;
     border: none;
@@ -97,12 +100,23 @@ body {
     font-size: 18px;
     font-style: normal;
     font-weight: 700;
-    margin-bottom: 20px;
-    margin-top: 30px;
+    /* margin-bottom: 20px; */
+    margin-top: 16px;
 }
+
 
 @media (min-width: 500px) {
     body {
       display: none;
     }
 }
+
+@media (max-height: 1000px) {
+    .scroll-proveedor {
+      max-height: 60vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      border-radius: 20px;
+    }
+    
+  }
