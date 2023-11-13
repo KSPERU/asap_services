@@ -27,8 +27,10 @@
       </a>
     </div>
   <div>
-  <div class="configuracion-container">
+  <div class="configuracion-container" >
+  
     <h3 class="configuracion-title">Configuración</h3>
+{#     <div class="scroll-configuracion-cliente"> #}
     <div class="d-flex justify-content-center align-items-center my-3 ">
       <div class="configuracion-btn">
           <h4 class="configuracion-text"><a href="{{ path('app_asap_services_entornos_cliente_ajustes_editar', {'id': persona.id}) }}">Mi perfil</a></h4>
@@ -70,7 +72,8 @@
       </div>
     </div>
   </div>
-  </div>
+{#   </div> #}
+</div>
 </div>
 {{ include('components/footer.html.twig') }}
 

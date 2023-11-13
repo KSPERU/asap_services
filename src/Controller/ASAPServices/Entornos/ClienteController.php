@@ -223,15 +223,13 @@ class ClienteController extends AbstractController
     #[Route('/cliente/ajustes/terminos', name: 'app_asap_services_entornos_cliente_ajustes_terminos')]
     public function terminos(): Response
     {
-        # No se encontro la vista Terminos
-        return $this->redirectToRoute('app_asap_services_entornos_cliente_inicio');
+        return $this->render('asap_services/entornos/cliente/terminos_condiciones.html.twig'); 
     }
 
     #[Route('/cliente/ajustes/acerca_de', name: 'app_asap_services_entornos_cliente_ajustes_acerca_de')]
     public function acercade(): Response
     {
-        # No se encontro la vista Acerca de
-        return $this->redirectToRoute('app_asap_services_entornos_cliente_inicio');
+        return $this->render('asap_services/entornos/cliente/acercade_asap.html.twig');
     }
 
     #[Route('/cliente/menu/historial', name: 'app_asap_services_entornos_cliente_menu_hisorial_de_servicios')]

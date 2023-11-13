@@ -39,7 +39,7 @@
 				</a>
 				</div>
 				<div>
-					<div class="container bg-light rounded-5 contenido-mi-perfil">
+					<div class="container bg-light rounded-5 contenido-mi-perfil p-3">
 						{{ form_start(form) }}
 						<div class="perfil">
 							<div class="foto-perfil">
@@ -56,6 +56,8 @@
 									</span>
 								</div>
 							</div>
+							<div class="scroll-miperfil">
+							
 							<div class="row justify-content-center">
 								<div class="col-12 row row-gap-3">
 									<div class="input-group mb-1">
@@ -116,6 +118,7 @@
 									{{ include('asap_services/entornos/proveedor/_delete_form.html.twig') }}
 									{# <a href="{{ path('app_asap_services_entornos_cliente_ajustes_eliminar', {'id': persona.id}) }}" class="btn col-12 boton-eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar tu cuenta?')">Eliminar mi cuenta</a> #}
 								</div>
+							</div>
 							</div>
 						</div>
 					</div>

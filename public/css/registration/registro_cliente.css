@@ -1,168 +1,169 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap");
 
 .contenido-biografia-proveedor {
-    min-height: 63vh;
-    max-height: 63vh;
-    background-color: #fff !important;
+  min-height: 63vh;
+  max-height: 63vh;
+  background-color: #fff !important;
 }
 
 .opcion-registrar-usuario a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-family: Nunito;
-    font-size: 18px;
-    font-weight: 700;
-    color: #FFF;
-    text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: Nunito;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+}
+
+.scroll-contenido-register-cliente {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 50vh;
 }
 
 .opcion-registrar-usuario {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-family: Nunito;
-    font-size: 18px;
-    font-weight: 700;
-    color: #FFF;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: Nunito;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
 }
 
 .titulo-registrar-usuario {
-    margin-top: 16px;
-    margin-bottom: 16px;
-    display: flex;
-    justify-content: center;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-family: Nunito;
-    font-size: 24px;
-    font-weight: 800;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: Nunito;
+  font-size: 24px;
+  font-weight: 800;
 }
 
-
 .conten-inicio-registro {
-    border-radius: 40px;
-    background: #7A5AAC;
-    text-align: center;
-
+  border-radius: 40px;
+  background: #7a5aac;
+  text-align: center;
 }
 
 .boton-opcionn-registrar-usuario {
-    border-radius: 40px;
-    background: #4302AE;
-    padding: 16px;
+  border-radius: 40px;
+  background: #4302ae;
+  padding: 16px;
 }
-
 
 /*******************/
 .form-control:focus {
-    outline: none;
-    box-shadow: none;
-  }
-  
+  outline: none;
+  box-shadow: none;
+}
+
 .input-group {
-    position: relative;
-    margin-bottom: 1rem;
+  position: relative;
+  margin-bottom: 1rem;
 }
 
 .input-field {
-    font-size: 1rem;
-    padding: 0;
-    border-top: none;
-    border-right: none;
-    border-left: none;
-    border-bottom: 1px solid #4302AE;
-    border-radius: 5px;
-    width: 100%;
+  font-size: 1rem;
+  padding: 0;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 1px solid #4302ae;
+  border-radius: 5px;
+  width: 100%;
 }
 
 .input-field:focus {
-    outline: none;
-    border-color: #4302AE;
-    padding-left: 10px;
+  outline: none;
+  border-color: #4302ae;
+  padding-left: 10px;
 }
 
 .input-label {
-    position: absolute;
-    pointer-events: none;
-    left: 1rem;
-    top: 0rem;
-    transition: 0.2s ease all;
+  position: absolute;
+  pointer-events: none;
+  left: 1rem;
+  top: 0rem;
+  transition: 0.2s ease all;
 }
 
-.input-field:focus+.input-label,
-.input-field:not(:placeholder-shown)+.input-label {
-    top: -1rem;
-    left: 10px;
-    font-size: 0.8rem;
-    color: #4302AE;
+.input-field:focus + .input-label,
+.input-field:not(:placeholder-shown) + .input-label {
+  top: -1rem;
+  left: 10px;
+  font-size: 0.8rem;
+  color: #4302ae;
 }
 
 .texto-registro-usuario {
-    font-family: Nunito;
-    color: #4302AE;
-    font-weight: 700;
+  font-family: Nunito;
+  color: #4302ae;
+  font-weight: 700;
 }
 
 /******************/
 .checkbox-terminos-condiciones-cliente {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
-
 .texto-terminos-condificones-cliente {
-    text-align: center;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-family: Nunito;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
+  text-align: center;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: Nunito;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
 }
 
 .texto-terminos-condificones-cliente a {
-    text-align: center;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-family: Nunito;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    color: black;
+  text-align: center;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: Nunito;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  color: black;
 }
 
 .contenido-boton-registrar {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .boton-registrar-cliente {
-    border-radius: 40px;
-    background: #4302AE;
-    border: none;
-    color: #FFF;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-family: Nunito;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
+  border-radius: 40px;
+  background: #4302ae;
+  border: none;
+  color: #fff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
 }
 .boton-registrar-cliente:hover {
-    color: #fff;
-    background-color: #7A5AAC;
-    border-color: #7A5AAC;
+  color: #fff;
+  background-color: #7a5aac;
+  border-color: #7a5aac;
 }
 .boton-registrar-cliente:focus,
 .boton-registrar-cliente.focus {
-    color: #fff;
-    background-color: #7A5AAC;
-    border-color: #7A5AAC;
-    box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);
+  color: #fff;
+  background-color: #7a5aac;
+  border-color: #7a5aac;
+  box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);
 }
 .boton-registrar-cliente:not(:disabled):not(.disabled):active,
 .boton-registrar-cliente:not(:disabled):not(.disabled).active,
-.show>.boton-registrar-cliente.dropdown-toggle {
-    color: #fff;
-    background-color: #7A5AAC;
-    border-color: #7A5AAC;
+.show > .boton-registrar-cliente.dropdown-toggle {
+  color: #fff;
+  background-color: #7a5aac;
+  border-color: #7a5aac;
 }
