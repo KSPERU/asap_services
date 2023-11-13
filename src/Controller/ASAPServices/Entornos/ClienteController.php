@@ -216,8 +216,8 @@ class ClienteController extends AbstractController
     #[Route('/cliente/ajustes/privacidad', name: 'app_asap_services_entornos_cliente_ajustes_privacidad')]
     public function privacidad(): Response
     {
-        # No se encontro la vista privacidad
-        return $this->redirectToRoute('app_asap_services_entornos_cliente_inicio');
+        # No se encontro la vista privacidad [RESUELTO POR FRONTEND]
+        return $this->render('asap_services/entornos/cliente/privacidad.html.twig');
     }
 
     #[Route('/cliente/ajustes/terminos', name: 'app_asap_services_entornos_cliente_ajustes_terminos')]
