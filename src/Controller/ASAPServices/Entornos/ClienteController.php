@@ -179,7 +179,7 @@ class ClienteController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $persona->getId(), $request->request->get('_token'))) {
             $user_aux = $persona->getUsuario();
             $personaRepository->remove($persona, true);
-            $usuarioRepository->remove($user_aux, true);
+            $usuarioRepository->remove($persona->getUsuario(), true);
         }
 
         $session = $request->getSession();
@@ -190,19 +190,25 @@ class ClienteController extends AbstractController
     }
 
     #[Route('/cliente/ajustes/favoritos', name: 'app_asap_services_entornos_cliente_ajustes_favoritos')]
-    public function favoritos(PersonaRepository $personaRepository, UsuarioRepository $usuarioRepository, ServicioRepository $servicios): Response
+    public function favoritos(EntityManagerInterface $entityManager, UsuarioRepository $usuarios, ServicioRepository $servicioRepository): Response
     {
-        $persona_aux = $this->getUser();
-        $usuario = $usuarioRepository->findOneBy([
-            'email' => $persona_aux->getUserIdentifier(),
+        $user = $this->getUser();
+        $cliente = $usuarios->findOneBy([
+            'email' => $user->getUserIdentifier(),
         ]);
-        $persona = $personaRepository->findOneBy([
-            'usuario' => $usuario,
+        $persona = $cliente->getIdPersona()->getId();
+        $historialServicioRepository = $entityManager->getRepository(Historialservicios::class);
+        $personaservs = $historialServicioRepository->findBy([
+            'idcliente' => $persona,
+            'hs_estado' => 1, //estado uno es que es favorito y si pago 
         ]);
-        return $this->render('asap_services/entornos/cliente/showserviciosfav.html.twig', [
-            'servicios' => $servicios->findOneBy([
-                ''
-            ]),
+        $servicios = [];
+        foreach ($personaservs as $historialServicio) {
+            $servicio = $historialServicio->getIdServicio();
+            $servicios[] = $servicio;
+        }
+        return $this->render('asap_services/entornos/cliente/showserviciosfav.html.twig', [//copie la misma plantilla de show servicios
+            'servicios' => $servicios,
             'persona' => $persona
         ]);
     }
