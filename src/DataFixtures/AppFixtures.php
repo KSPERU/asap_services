@@ -36,11 +36,11 @@ class AppFixtures extends Fixture
         ];
 
         foreach ($servicioBanco as $banco) {
-            $banco = new Metodocobro();
-            $banco->setMcDescripcion($banco[0]);
-            $manager->persist($banco);
+            $mc = new Metodocobro();
+            $mc->setMcDescripcion($banco[0]);
+            $manager->persist($mc);
         }
-
+        
         $manager->flush();
     }
 }

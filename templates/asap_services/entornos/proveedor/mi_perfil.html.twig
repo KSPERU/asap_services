@@ -68,15 +68,15 @@ document.getElementById('listadoac').innerHTML = inputAC;
 					</div>
 					<div class="container bg-light rounded-5 contenido-mi-perfil" style="height:65vh">
 
-						<div class="scroll-proveedor">
+						<div class="scroll-proveedor p-3">
 
 							{{ form_start(form) }}
 							<div class="perfil">
 								<div class="foto-perfil">
 									{% if persona.pfoto %}
-										<img src="{{ asset('img/' ~ persona.pfoto) }}" id="imgPreview">
+										<img src="{{ asset('img/' ~ persona.pfoto) }}" id="imgPreview" style="border-radius: 50%;">
 									{% else %}
-										<img src="{{ asset('./image/perfil.png') }}" id="imgPreview">
+										<img src="{{ asset('./image/perfil.png') }}" id="imgPreview" style="border-radius: 50%;">
 									{% endif %}
 									<div class="perfil-textos">
 										<span class="mi-perfil">Mi perfil</span>
