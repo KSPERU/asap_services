@@ -2,6 +2,7 @@
 
 namespace App\Controller\ASAPServices\General;
 
+use App\Entity\Codigo;
 use App\Entity\Persona;
 use App\Entity\Usuario;
 use App\Security\EmailVerifier;
@@ -44,8 +45,23 @@ class RegistrationController extends AbstractController
                 )
             );
             $user->setRoles(["ROLE_CLI"]);
-
             $entityManager->persist($user);
+            $persona = $user->getIdPersona();
+            $entityManager->persist($persona);
+            $entityManager->flush();
+
+            $id = $persona->getId();
+            $p_nombre = $persona->getPNombre();
+            $p_apellido = $persona->getPApellido();
+            $letra_nombre = substr($p_nombre, 0, 1);
+            $letra_apellido = substr($p_apellido, 0, 1);
+            $id_formateado = sprintf("%02d", $id);
+            $resultado = $letra_nombre . $letra_apellido . $id_formateado;
+
+            $codigo = new Codigo;
+            $codigo->setPersona($persona);
+            $codigo->setCCodigo($resultado);
+            $entityManager->persist($codigo);
             $entityManager->flush();
 
             // generate a signed url and email it to the user

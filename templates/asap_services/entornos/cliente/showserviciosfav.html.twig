@@ -15,7 +15,7 @@
   <div class="container" data-turbo="false">
     {{ include("components/cabecera.html.twig") }}
     <div class="cliente-servicios-container">
-      <h3 class="cliente-servicios-title">¿Que servicios deseas hoy?</h3>
+      <h3 class="cliente-servicios-title">Hola {{persona.pnombre}} {{persona.papellido}}  Estos son tu top de servicios solicitados</h3>
       <div class="overflow-auto" style="max-height: calc(100vh - 150px);">
         {% for servicio in servicios %}
           {#
@@ -33,10 +33,12 @@
               <span class="cliente-servicios-item-text">{{ servicio.svnombre }}</span>
             </a>
           </div>
+          {% else %}
+        <div>No tienes servicios favoritos</di>
         {% endfor %}
       </div>
     </div>
-    <p class="footer-text-asap mt-2">Asap Services</p>
+    {{ include('components/footer.html.twig') }}
   </div>
   </div>
 {% endblock %}

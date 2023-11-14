@@ -113,6 +113,9 @@ line-height: normal;
 margin: 5px;
 text-align:center;
 }
+figure{
+    margin: 0px !important;
+}
 
 .servicio-card-detalles span{
     float: inline-end;

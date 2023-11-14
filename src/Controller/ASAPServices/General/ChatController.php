@@ -71,7 +71,7 @@ class ChatController extends AbstractController
         $conversacion->addChat($chat); 
         $conversacion->setUltimoMensajeId($chat);
         $entityManager->persist($chat);
-        // $entityManager->flush();
+        $entityManager->flush();
         $hub->publish(new Update(
             [
                 sprintf("/chat/conversacion/%s", $conversacion->getId()),

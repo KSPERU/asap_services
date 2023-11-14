@@ -20,6 +20,7 @@ use App\Repository\UsuarioRepository;
 use App\Repository\ServicioRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ConversacionRepository;
+use App\Repository\HistorialserviciosRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -66,9 +67,12 @@ class ClienteController extends AbstractController
     }
 
     #[Route('/cliente/verservicios/proveedor/{id}', name: 'app_asap_services_entornos_cliente_ver_servicio_ver_detalle_proveedor')]
-    public function verprovdet($id, PersonaRepository $personas, ConversacionRepository $conversacionRepository): Response
+    public function verprovdet($id, ServicioRepository $servicio, PersonaRepository $personas, ConversacionRepository $conversacionRepository): Response
     {
         $proveedor = $personas->find($id);
+        foreach ($proveedor->getServicios() as $sv) {
+            $servId = $sv->getIdServicio()->getId();
+        }
         // $conversacion = $conversacionRepository->findConversationByParticipants(
         //     $proveedor->getId(),
         //     $this->getUser()->getId()
@@ -78,6 +82,7 @@ class ClienteController extends AbstractController
         // }
         return $this->render('asap_services/entornos/cliente/detalleproveedor.html.twig', [
             'proveedor' => $proveedor,
+            'servicioId' => $servId
             // 'form' => $form,
         ]);
     }
@@ -196,7 +201,8 @@ class ClienteController extends AbstractController
         $cliente = $usuarios->findOneBy([
             'email' => $user->getUserIdentifier(),
         ]);
-        $persona = $cliente->getIdPersona()->getId();
+        $persona = $cliente->getIdPersona();
+        $personaid = $cliente->getIdPersona()->getId();
         $historialServicioRepository = $entityManager->getRepository(Historialservicios::class);
         $personaservs = $historialServicioRepository->findBy([
             'idcliente' => $persona,
@@ -211,6 +217,19 @@ class ClienteController extends AbstractController
             'servicios' => $servicios,
             'persona' => $persona
         ]);
+    }
+
+    #[Route('/cliente/ajustes/favoritos/estado/{id}', name: 'app_asap_services_entornos_cliente_ajustes_favoritos_estado')]
+    public function toggleFavorito(Historialservicios $historialServicio, EntityManagerInterface $entityManager): Response
+    {
+        // Cambiar el valor de hs_estado
+        $historialServicio->setHsEstado('1');
+
+        // Guardar en la base de datos
+        $entityManager->flush();
+
+        // Redirigir o devolver la respuesta adecuada (depende de tu lógica)
+        return $this->redirectToRoute('app_asap_services_entornos_cliente_inicio'); // Cambia 'nombre_de_tu_ruta' por tu ruta real
     }
 
     #[Route('/cliente/ajustes/privacidad', name: 'app_asap_services_entornos_cliente_ajustes_privacidad')]
@@ -306,8 +325,6 @@ class ClienteController extends AbstractController
                 // return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_saldos_pagos',[],Response::HTTP_SEE_OTHER);
             }
         }
-        // echo $checkbox;
-        echo $sumaImp;
         return $this->render('asap_services/entornos/cliente/saldos_pagos.html.twig', [
             'personaservs' => $personaservs,
             'checkbox' => $sumaImp,
@@ -443,11 +460,16 @@ class ClienteController extends AbstractController
 
     //Vista
     #[Route('/cliente/verservicios/proveedor/comunicate/{id}', name: 'app_cliente_comunicate')]
-    public function verComunicate($id, PersonaRepository $personaRepository, ConversacionRepository $conversacionRepository): Response
+    public function verComunicate($id, ServicioRepository $servicioRepository,PersonaRepository $personaRepository, ConversacionRepository $conversacionRepository): Response
     {
         $proveedor = $personaRepository->find($id);
+
+        foreach ($proveedor->getServicios() as $ps) {
+            $servicioId = $ps->getIdServicio()->getId();
+        }
         return $this->render('asap_services/entornos/cliente/pre_contactar_proveedor.html.twig', [
-            'proveedor' => $proveedor
+            'proveedor' => $proveedor,
+            'servicioId' => $servicioId
         ]);
     }
 
@@ -494,6 +516,15 @@ class ClienteController extends AbstractController
         return $this->render('asap_services/entornos/cliente/index.html.twig', [
             'controller_name' => 'ClienteController',
             'aux_session' => $this->getUser(),
+        ]);
+    }
+
+    #[Route('/cliente/detalle/servicio/{id}', name: 'app_cliente_servicio_detalle')]
+    public function servicioDetalle($id, HistorialserviciosRepository $historialServicioRepository): Response
+    {
+        $histoServ = $historialServicioRepository->find($id);
+        return $this->render('asap_services/entornos/cliente/detalle_servicios.html.twig', [
+            'histoServ' => $histoServ
         ]);
     }
 

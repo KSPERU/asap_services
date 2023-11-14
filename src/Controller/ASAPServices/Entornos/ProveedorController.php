@@ -12,6 +12,7 @@ use App\Entity\PersonaServicio;
 use App\Entity\GananciaProveedor;
 use App\Entity\MetcobroProveedor;
 use App\Entity\Historialservicios;
+use App\Repository\HistorialserviciosRepository;
 use App\servicios\ProveedorServicio;
 use App\Repository\PersonaRepository;
 use App\Repository\UsuarioRepository;
@@ -19,6 +20,7 @@ use App\Repository\ServicioRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\MetodocobroRepository;
 use App\Repository\PersonaServicioRepository;
+use App\servicios\GenerarCSV;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,7 +33,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class ProveedorController extends AbstractController
 {
     #[Route('/proveedor', name: 'app_asap_services_entornos_proveedor_inicio')]
-    public function index(UsuarioRepository $usuarios): Response
+    public function index(Request $request, HistorialserviciosRepository $historialservicios,UsuarioRepository $usuarios, GenerarCSV $csv): Response
     {
         $user = $this->getUser();
         $proveedor = $usuarios->findOneBy([
@@ -41,6 +43,14 @@ class ProveedorController extends AbstractController
         $id = $persona->getId();
         if ($persona->getPBiografia() === null) {
             return $this->redirectToRoute('app_asap_services_entornos_proveedor_biografia', ['id' => $id]);
+        }
+
+        if ($request->query->get('export') === 'csv') {
+            $historialserv = $historialservicios->findBy([
+                'idproveedor' => $id,
+            ]);
+            $response = $csv->generateHistorialServiciosCsv($historialserv);
+            return $response;
         }
 
         return $this->render('asap_services/entornos/proveedor/inicio_proveedor.html.twig', [
@@ -556,6 +566,7 @@ class ProveedorController extends AbstractController
         $historial->setHsEstadopago(false);
         $historial->setHsImporte($btnCobro);
         $historial->setHsDireccion($direccionCliente);
+        $historial->setHsEstadocobro(false);
         $entityManager->persist($historial);
         $entityManager->flush();
 

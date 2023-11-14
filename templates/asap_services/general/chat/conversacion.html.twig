@@ -27,10 +27,12 @@
             <div class="col-3 d-flex justify-content-center align-items-top contboton-cerrar">
             {% if is_granted('ROLE_PROV') %}
               {% set vista = path('app_asap_services_entornos_proveedor_inicio') %}
+              {% set title = 'conversa con tu cliente' %}
             {% elseif is_granted('ROLE_CLI') %}
               {% set vista = path('app_asap_services_entornos_cliente_inicio') %}
+              {% set title = 'conversa con tu proveedor' %}
             {% else %}
-              {% set variable_name = expression %}
+              <div>Hay un error</div>
             {% endif %}
               {# <a href={{vista}}>x</a> #}
               <a href={{vista}}>
@@ -40,7 +42,7 @@
           </div>
         </div>
         <div class="d-flex flex-column conversa-cliente-container">
-            <h1 class="text-center conversa-cliente-title mb-4">Conversa con tu cliente</h1>
+            <h1 class="text-center conversa-cliente-title mb-4">{{title}}</h1>
             {% for cn in conversacion %}
             <a href="{{ path('app_chat', {'id': cn.conversationId}) }}" style="text-decoration:none">
             <div class="conversa-cliente-card d-flex">
@@ -49,11 +51,11 @@
                 </div> #}
                 {% if cn.p_foto %}
                   <div class="">
-                    <img src="{{ asset('image/' ~ cn.p_foto) }}" width="90px">
+                    <img src="{{ asset('img/' ~ cn.p_foto) }}" width="50" height="50" style="border-radius:50%">
                   </div>
                 {% else %}
                   <div class="">
-                    <img src="{{ asset('image/ceci.png') }}" width="90px">
+                    <img src="{{ asset('image/ceci.png') }}" width="50" height="50" style="border-radius:50%">
                   </div>
                 {% endif %}
                 <div class="d-flex ms-2 justify-content-center align-items-center w-100">
@@ -68,6 +70,8 @@
                 </div>
             </div>
           </a>
+          {% else %}
+            <li>No hay conversaciones</li>
             <br>
           {% endfor %}
         </div>

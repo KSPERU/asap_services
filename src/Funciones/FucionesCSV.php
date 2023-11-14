@@ -11,6 +11,7 @@ class FuncionesCSV
         $response = new StreamedResponse(function () use ($programas) {
             // $temporada->getTemFechaTermino() ? $temporada->getTemFechaTermino()->format('Y-m-d') : '',
             $handle = fopen('php://output', 'w+');
+            fprintf($handle, chr(0xEF).chr(0xBB).chr(0xBF));
             fputcsv($handle, [
                 'Programa:ID',
                 'Programa:Nombre',

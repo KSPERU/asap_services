@@ -42,7 +42,7 @@
                 </div>
                 <span class="direccion-historial-servicios-cliente">Dirección: {{ reg.HsDireccion }}</span>
                 <div>
-                  <span class="verdetalle-historial-servicios-cliente"><a href="">Ver detalle</a></span>
+                  <span class="verdetalle-historial-servicios-cliente"><a href="{{path('app_cliente_servicio_detalle', {'id': reg.id})}}">Ver detalle</a></span>
                 </div>
               </div>
             {% else %}

@@ -3,14 +3,14 @@
         <div class="chatclientes-body overflow-auto" style="max-height: calc(100% - 160px);">
             <div class="chatclientes-mensaje d-flex align-items-center my-2">
                 <figure>
-                    {# {% if participante.usuarioId. %}
-						<img src="{{ asset('img/' ~ participante.pfoto) }}" id="imgPreview">
+                    {% if mensaje.usuarioId.idPersona.pFoto %}
+						<img src="{{ asset('img/' ~ mensaje.usuarioId.idPersona.pFoto) }}">
 					{% else %}
-						<img src="{{ asset('./image/perfil.png') }}" id="imgPreview">
-					{% endif %} #}
+						<img src="{{ asset('./image/perfil.png') }}">
+					{% endif %}
                 {# <img src="{{asset("image/"~person)}}"/> #}
                 </figure>
-            {# <div>{{mensaje.usuarioId.email}}</div> #}
+            {# <div>{{mensaje.usuarioId.idPersona.pNombre}}</div> #}
                 <div class="chatcliente-mensaje-text">
                     <p>{{mensaje.mensaje}}</p>
                 </div>
@@ -20,5 +20,3 @@
 {% else %}
     <li>Start the conversation!</li>
 {% endfor %}
-
-								<div class="per

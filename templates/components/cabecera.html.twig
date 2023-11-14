@@ -132,15 +132,15 @@
     <h4><a href="{{ path('app_asap_services_entornos_cliente_menu_invitar') }}">Invitar amigos</a></h4>
     <h4><a href="{{ path('app_asap_services_entornos_cliente_menu_promociones') }}">Promociones y cupones</a></h4>
     <h4><a href="{{ path('app_asap_services_entornos_cliente_menu_calificacion') }}">Tú opinión importa</a></h4>
-    <h4><a href="{{ path('app_asap_services_entornos_cliente_menu_ayuda') }}">Ayuda</a></h4>
-  </div>
+    {# <h4><a href="{{ path('app_asap_services_entornos_cliente_menu_ayuda') }}">Ayuda</a></h4> #}
+    <h4><a href="{{ path('app_chat_conversacion') }}">Conversaciones</a></h4>
+    </div>
 </div>
 
 <script>
-  const btnMenu = document.getElementById("btn-menu");
-  const menuNav = document.getElementById("menu-nav");
-
   const openMenu = () => {
+    const menuNav = document.getElementById("menu-nav");
+    const btnMenu = document.getElementById("btn-menu");
     menuNav.classList.toggle("show");
     btnMenu.classList.toggle("active");
   }

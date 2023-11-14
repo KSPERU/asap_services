@@ -98,7 +98,7 @@
 
 @media (max-height: 1000px) {
     .scroll-proveedor {
-      max-height: 60vh;
+      max-height: 47vh;
       overflow-y: auto;
       overflow-x: hidden;
       border-radius: 20px;

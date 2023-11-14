@@ -3,6 +3,7 @@
 {% block stylesheets %}
   {{ encore_entry_link_tags('app') }}
   <link rel="stylesheet" href="{{ asset('css/proveedor/chatclientes.css') }}" />
+  <link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
 {% endblock %}
 
 {% block body %}
@@ -16,6 +17,7 @@
       text-decoration: none;
     }
 </style>
+<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
 <div class="d-flex justify-content-center align-items-center h-100 w-100">
     <div class="container proveedor-chatclientes-container">
         <div class="d-flex flex-column justify-content-center align-items-center w-100">
@@ -32,22 +34,24 @@
         </div>
         <div class="d-flex flex-column chatclientes-container position-relative">
             <div class="chatclientes-header d-flex align-items-center mb-3">
-                <img src="{{asset("image/ceci.png")}}" width="90px"/>
-                <span class="ms-3">Cecilia Marin</span>
+            {% for participante in participantes %}
+                <img src="{{asset("img/"~ participante.usuarioId.idPersona.pFoto)}}" width="90px"/>
+                <span class="ms-3">{{participante.usuarioId.idPersona.pNombre}} {{participante.usuarioId.idPersona.pApellido}}</span>
+            {% endfor %}
             </div>
-  
+
             <div {{ turbo_stream_listen('/chat/conversacion/' ~ conversacion.id) }}>
-            <div style="height: 350px; overflow: auto;">
-                <ul class="list-unstyled" id="chat-box">
-                {{ include('asap_services/general/chat/turbo/_chatList.html.twig') }}
-                </ul>
-            </div>
-            </div>
-            <div class="demo-container-inner-secondary p-4">
-                <form id="chat-form" action="{{ path('app_chat_turbo', {id: conversacion.id}) }}" method="POST">
-                {{ include('asap_services/general/chat/turbo/_chatForm.html.twig') }}
-                </form>
-            </div>      
+                <div style="height: 350px; overflow: auto;">
+                    <ul class="list-unstyled" id="chat-box">
+                    {{ include('asap_services/general/chat/turbo/_chatList.html.twig') }}
+                    </ul>
+                </div>
+                <div class="demo-container-inner-secondary p-4">
+                    <form id="chat-form" action="{{ path('app_chat_turbo', {id: conversacion.id}) }}" method="POST">
+                        {{ include('asap_services/general/chat/turbo/_chatForm.html.twig') }}
+                    </form>
+                </div>    
+            </div>  
         </div>
     </div>
 </div>

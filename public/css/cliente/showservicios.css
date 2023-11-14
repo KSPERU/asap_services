@@ -2,7 +2,7 @@
 
 
 .cliente-servicios-container {
-  height: auto;
+  height: 65vh;
   border-radius: 40px;
   background: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -59,4 +59,15 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+}
+
+
+@media (max-height: 1000px) {
+  .scroll-cliente {
+    max-height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 20px;
+  }
+  
 }

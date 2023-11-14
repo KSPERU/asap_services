@@ -57,7 +57,6 @@
 }
 
 .boton-precontactar-proveedor {
-    margin-top: 10vh;
     border-radius: 40px;
     background: #4302AE;
     border: none;
@@ -103,7 +102,50 @@
     height: 154px;
     padding: 16px;
     left: 49px;
-    width: 240px;
-    top: -154px;
+    width: 60vw;
+    top: -145px;
     z-index: 0;
+}
+
+
+@media (min-width: 320.98px) AND (max-width: 375.98px) {
+
+    figure{
+        margin: 0px !important;
+    }
+    .titulo-detalle-precontactar-proveedor-cliente {
+        font-size: 15px;
+
+    }
+    .texto-detalle-precontactar-proveedor-cliente{
+        font-size: 13px;
+    }
+    .contenedor-general {
+        width: 55vw;
+        top: -140px;
+        z-index: 0;
+    }
+}
+
+@media (max-width: 320px) {
+    figure{
+        margin: 0px !important;
+    }
+    figure img{
+        width: 100px;
+        margin-right: 35px;
+    }
+    .titulo-detalle-precontactar-proveedor-cliente {
+        font-size: 14px;
+
+    }
+    .texto-detalle-precontactar-proveedor-cliente{
+        font-size: 13px;
+    }
+    .contenedor-general {
+        left: 18px;
+width: 100%;
+        top: -140px;
+        z-index: 0;
+    }
 }

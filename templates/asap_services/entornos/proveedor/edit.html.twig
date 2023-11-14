@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <img src="{{ asset('img/' ~ persona.PFoto) }}" alt="Foto de {{ persona.PNombre }}">
+    <img src="{{ asset('img/' ~ persona.PFoto) }}" alt="Foto de {{ persona.PNombre }}" style="border-radius: 50%;">
 	{{ component('proveedor_form',{
 	    form: form,
 	    persona:persona
