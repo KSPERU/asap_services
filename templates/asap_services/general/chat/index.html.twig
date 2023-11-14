@@ -35,7 +35,7 @@
         <div class="d-flex flex-column chatclientes-container position-relative">
             <div class="chatclientes-header d-flex align-items-center mb-3">
             {% for participante in participantes %}
-                <img src="{{asset("img/"~ participante.usuarioId.idPersona.pFoto)}}" width="90px"/>
+                <img src="{{asset("img/"~ participante.usuarioId.idPersona.pFoto)}}" width="100" height="100" style="border-radius:50%"/>
                 <span class="ms-3">{{participante.usuarioId.idPersona.pNombre}} {{participante.usuarioId.idPersona.pApellido}}</span>
             {% endfor %}
             </div>
