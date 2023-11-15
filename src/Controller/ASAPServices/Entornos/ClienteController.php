@@ -229,7 +229,7 @@ class ClienteController extends AbstractController
         $entityManager->flush();
 
         // Redirigir o devolver la respuesta adecuada (depende de tu lógica)
-        return $this->redirectToRoute('app_asap_services_entornos_cliente_inicio'); // Cambia 'nombre_de_tu_ruta' por tu ruta real
+        return $this->redirectToRoute('app_asap_services_entornos_cliente_inicio'); 
     }
 
     #[Route('/cliente/ajustes/privacidad', name: 'app_asap_services_entornos_cliente_ajustes_privacidad')]
@@ -324,11 +324,49 @@ class ClienteController extends AbstractController
                 }
                 // return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_saldos_pagos',[],Response::HTTP_SEE_OTHER);
             }
+
+            $saldopagos = $request->get('saldopagos', []);
+
+            foreach($saldopagos as $saldopago){
+                $saldo = $historialServicioRepository->find($saldopago);
+
+                if($saldo){
+                    $saldo->setHsEstado(true);
+                    $saldo->setHsEstadopago(true);
+                }
+            }
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_saldos_pagos_seteo', [
+                'personaservs' => $personaservs,
+            ]);
         }
         return $this->render('asap_services/entornos/cliente/saldos_pagos.html.twig', [
             'personaservs' => $personaservs,
             'checkbox' => $sumaImp,
         ]);
+    }
+
+    #[Route('/cliente/menu/saldos_pagos/cambio', name: 'app_asap_services_entornos_cliente_menu_saldos_pagos_seteo')]
+    public function cambioestado(Request $request, UsuarioRepository $usuarios, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $cliente = $usuarios->findOneBy([
+            'email' => $user->getUserIdentifier(),
+        ]);
+        $persona = $cliente->getIdPersona()->getId();
+        $historialServicioRepository = $entityManager->getRepository(Historialservicios::class);
+        $personaservs = $request->query->get('personaservs');//cambiar por el id que sincronice con las demas 
+        $personaservs = $historialServicioRepository->findBy([
+            'idcliente' => $persona,
+            'hs_estadopago' => 0,
+        ]);
+        
+        // foreach ($personaservs as $pr) {
+        //     $personaservs->sethsestad
+        // }
+        return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_saldos_pagos');
+
     }
 
     #[Route('/cliente/menu/detalles_saldos_pagos', name: 'app_asap_services_entornos_cliente_menu_detalles_saldos_pagos')]
@@ -341,7 +379,6 @@ class ClienteController extends AbstractController
     #[Route('/cliente/menu/invitar', name: 'app_asap_services_entornos_cliente_menu_invitar')]
     public function invitar(UsuarioRepository $usuarios): Response
     {
-        # Falla la opcion de llamar codigo
         $user = $this->getUser();
         $cliente = $usuarios->findOneBy([
             'email' => $user->getUserIdentifier(),

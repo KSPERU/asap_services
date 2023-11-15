@@ -1,59 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Historial de Servicios{% endblock %}
+{% block title %}Historial de Servicios
+{% endblock %}
 
 {% block stylesheets %}
-  {{ encore_entry_link_tags('app') }}
-  <link rel="stylesheet" href="{{ asset('css/cliente/historial_servicios.css') }}" />
-  	<link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
+	{{ encore_entry_link_tags('app') }}
+	<link rel="stylesheet" href="{{ asset('css/cliente/historial_servicios.css') }}"/>
+	<link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
 
 {% endblock %}
 
 {% block body %}
-<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
+	<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
 	<div class="imagen">
-  <div class="container p-3">
-    <div class="container">
-      <div class="row d-flex justify-content-center align-items-center">
-        <div class="col-3 d-flex justify-content-center"></div>
-        <div class="col-6 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
-        <div class="col-3 d-flex justify-content-center contboton-cerrar">
-        <a href="{{ path('app_asap_services_entornos_cliente_inicio') }}">
-          <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewbox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
-        </a>        
-      </div>
-      </div>
+		<div class="container p-3">
+			<div class="container contenido-historial-servicio">
+				<div class="row d-flex justify-content-center align-items-center">
+					<div class="col-3 d-flex justify-content-center"></div>
+					<div class="col-6 d-flex justify-content-center"><img src="{{ asset('image/casita_opt.png') }}" style="width:100%"></div>
+					<div class="col-3 d-flex justify-content-center contboton-cerrar">
+						<a href="{{ path('app_asap_services_entornos_cliente_inicio') }}">
+							<svg xmlns="http://www.w3.org/2000/svg" height="25px" viewbox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
+						</a>
+					</div>
+				</div>
 
-      <div class="container rounded-5 contenido-historial-servicios-cliente">
-        <div class="container">
-          <div class="row">
-            <div class="col-12 titulo-historial-servicios-cliente pt-3 pb-2">Historial de Servicios</div>
-          </div>
-          <div class="row">
-            <div class="col-12 texto-historial-servicios-cliente mb-3">Consulta tu registro de contrataciones</div>
-          </div>
-          <div class="container scroll-historial-servicios-cliente">
-            {% for reg in personaservs %}
-              <div class="row rounded-4 mb-3 border border-2" style="gap: 3px; padding:4px">
-                <span class="fecha-historial-servicios-cliente pb-1">{{ reg.HsFecha|date('l, j F Y h:i A') }}</span>
-                <div class="proveedor-historial-servicios-cliente">
-                  <spam>{{ reg.Idservicio.SvNombre }}</spam>
-                  <p>Proveedor: {{ reg.Idproveedor.PNombre }}</p>
-                </div>
-                <span class="direccion-historial-servicios-cliente">Dirección: {{ reg.HsDireccion }}</span>
-                <div>
-                  <span class="verdetalle-historial-servicios-cliente"><a href="{{path('app_cliente_servicio_detalle', {'id': reg.id})}}">Ver detalle</a></span>
-                </div>
-              </div>
-            {% else %}
-                <p>No hay servicios</p>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-      </div>
-    </div>
-  </div>
+				<div class="container rounded-5 contenido-historial-servicios-cliente ">
+					<div class="container">
+						<div class="row">
+							<div class="col-12 titulo-historial-servicios-cliente pt-3 pb-2">Historial de Servicios</div>
+						</div>
+						<div class="row">
+							<div class="col-12 texto-historial-servicios-cliente mb-3">Consulta tu registro de contrataciones</div>
+						</div>
+						<div class="container scroll-historial-servicios-cliente">
+							{% for reg in personaservs %}
+								<div class="row rounded-4 mb-3 border border-2 "  style="gap: 3px; padding:4px">
+									<span class="fecha-historial-servicios-cliente pb-1">{{ reg.HsFecha|date('l, j F Y h:i A') }}</span>
+									<div class="proveedor-historial-servicios-cliente ">
+										<spam>{{ reg.Idservicio.SvNombre }}</spam>
+										<p>Proveedor:
+											{{ reg.Idproveedor.PNombre }}</p>
+									</div>
+									<span class="direccion-historial-servicios-cliente">Dirección:
+										{{ reg.HsDireccion }}</span>
+									<div>
+										<span class="verdetalle-historial-servicios-cliente">
+											<a href="{{path('app_cliente_servicio_detalle', {'id': reg.id})}}">Ver detalle</a>
+										</span>
+									</div>
+								</div>
+							{% else %}
+								<p>No hay servicios</p>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-  {{ include('components/footer.html.twig') }}
+	{{ include('components/footer.html.twig') }}
 {% endblock %}

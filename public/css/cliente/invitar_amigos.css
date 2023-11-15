@@ -1,88 +1,93 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap");
 
 .contboton-cerrar {
-    font-size: 50px;
-    font-weight: 700;
+  font-size: 50px;
+  font-weight: 700;
+}
+
+.scrool {
+  max-height: 58vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .contboton-cerrar a {
-    color: #000;
-    text-decoration: none;
+  color: #000;
+  text-decoration: none;
 }
 
 .contenido-invitar-amigos-cliente {
-    min-height: 65vh;
-    max-height: 65vh;
-    background-color: #fff !important;
+  min-height: 65vh;
+  max-height: 65vh;
+  background-color: #fff !important;
 }
 
 .titulo-invitar-amigos-cliente {
-    color: #4302AE;
-    text-align: center;
-    font-family: Nunito;
-    font-size: 20px;
-    font-weight: 800;
+  color: #4302ae;
+  text-align: center;
+  font-family: Nunito;
+  font-size: 20px;
+  font-weight: 800;
 }
 
 .texto-invitar-amigos-cliente {
-    color: #000;
-    font-family: Nunito;
-    font-size: 16px;
-    font-weight: 700;
+  color: #000;
+  font-family: Nunito;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .texto-codigo-invitar-amigos-cliente {
-    display: flex;
-    justify-content: center;
-    color: #7A5AAC;
-    font-family: Nunito;
-    font-size: 20px;
-    font-weight: 700;
-    width: auto;
-    border-radius: 20px;
-    border: 1px solid #4302AE;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 20px;
-    padding-right: 20px;
+  display: flex;
+  justify-content: center;
+  color: #7a5aac;
+  font-family: Nunito;
+  font-size: 20px;
+  font-weight: 700;
+  width: auto;
+  border-radius: 20px;
+  border: 1px solid #4302ae;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .contenido-boton-invitar-amigos {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .boton-invitar-amigos {
-    border-radius: 40px;
-    background: #4302AE;
-    border: none;
-    color: #FFF;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-family: Nunito;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
+  border-radius: 40px;
+  background: #4302ae;
+  border: none;
+  color: #fff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
 }
 
 .boton-invitar-amigos:hover {
-    color: #fff;
-    background-color: #7A5AAC;
-    border-color: #7A5AAC;
+  color: #fff;
+  background-color: #7a5aac;
+  border-color: #7a5aac;
 }
 
 .boton-invitar-amigos:focus,
 .boton-invitar-amigos.focus {
-    color: #fff;
-    background-color: #7A5AAC;
-    border-color: #7A5AAC;
-    box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);
+  color: #fff;
+  background-color: #7a5aac;
+  border-color: #7a5aac;
+  box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);
 }
 
 .boton-invitar-amigos:not(:disabled):not(.disabled):active,
 .boton-invitar-amigos:not(:disabled):not(.disabled).active,
-.show>.invitar-amigos.dropdown-toggle {
-    color: #fff;
-    background-color: #7A5AAC;
-    border-color: #7A5AAC;
+.show > .invitar-amigos.dropdown-toggle {
+  color: #fff;
+  background-color: #7a5aac;
+  border-color: #7a5aac;
 }
-

@@ -9,6 +9,10 @@ body {
     overflow: hidden;
 }
 
+.contenido-historial-servicio{
+    height: 65vh;
+}
+
 .contboton-cerrar {
     font-size: 50px;
     font-weight: 700;
@@ -40,8 +44,9 @@ body {
 }
 
 .scroll-historial-servicios-cliente {
-    max-height: 380px; 
-    overflow-y: auto; 
+    max-height: 45vh; 
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .fecha-historial-servicios-cliente {

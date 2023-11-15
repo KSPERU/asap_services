@@ -17,7 +17,7 @@
 			<div class="row d-flex justify-content-center align-items-center">
 				<div class="col-3 d-flex justify-content-center"></div>
 				<div class="col-6 d-flex justify-content-center">
-					{{ include("components/logo_pequenio.html.twig") }}
+					<img src="{{ asset('image/casita_opt.png') }}" style="width:100%">
 				</div>
 				<div class="col-3 d-flex justify-content-center contboton-cerrar" style="margin-top: -55px;">
 					<a href="{{path('app_asap_services_entornos_proveedor_inicio')}}">
@@ -40,8 +40,10 @@
 					<form method="post">
 						<div class="container-ganancia">
 							{% if serviciossincobro|length > 0 %}
+							<div class="fecha">
+								<div style="height: 150px; overflow: auto; overflow-x: hidden;">
 								{% for servicio in serviciossincobro %}
-									<div class="fecha">{{ servicio.hsfecha|date('l, d F, H:i A') |trans({'locale': 'es'}) }}</div>
+									<div class="">{{ servicio.hsfecha|date('d/m/Y H:i') }}</div>
 									<div class="ganancia-info">
 										<div class="icon">
 											<i class="fa-solid fa-plus"></i>
@@ -55,12 +57,13 @@
 											<span class="precio">S/{{ servicio.hsimporte }}</span>
 										</div>
 									</div>
+									<hr>
 								{% endfor %}
-								<div class="row contenido-boton-ver-detalles">
-									<div class="col-10">
-										<button type="submit" class="btn col-12 boton-ver-detalles">Ver detalles</button>
-									</div>
+								<div class="row">
+									<button type="submit" class="btn col-12 boton-ver-detalles">Ver detalles</button>								
 								</div>
+								</div>
+							</div>				
 							{% else %}
 								<div class="container-ganancia">
 									Sin registros

@@ -55,7 +55,7 @@ document.getElementById('listadoac').innerHTML = inputAC;
 			<div class="row d-flex justify-content-center align-items-center">
 				<div class="col-3 d-flex justify-content-center"></div>
 				<div class="col-6 d-flex justify-content-center">
-					{{ include("components/logo_pequenio.html.twig") }}
+					<img src="{{ asset('image/casita_opt.png') }}" style="width:100%">
 				</div>
 				<div class="col-3 d-flex justify-content-end contboton-cerrar" style="margin-top: -55px;">
 					<a href="{{ path('app_asap_services_general_login', {'entorno': 'proveedor'}) }}">

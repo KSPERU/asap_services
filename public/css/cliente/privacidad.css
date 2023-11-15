@@ -30,9 +30,12 @@
     line-height: normal;
 }
 
-.privacidad-contenido {
-
+.scroll-privacidad {
+    max-height: 45vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
+
 
 .privacidad-subtitle{
     color: #000;

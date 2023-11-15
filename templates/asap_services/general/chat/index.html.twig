@@ -1,70 +1,89 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-  {{ encore_entry_link_tags('app') }}
-  <link rel="stylesheet" href="{{ asset('css/proveedor/chatclientes.css') }}" />
-  <link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
+	{{ encore_entry_link_tags('app') }}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-TU-NUEVA-SUMA-DE-VERIFICACION" crossorigin="anonymous"/>
+
+
+	<link rel="stylesheet" href="{{ asset('css/proveedor/chatclientes.css') }}"/>
+	<link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
 {% endblock %}
 
 {% block body %}
-<style>
-    .contboton-cerrar {
-      font-size: 50px;
-      font-weight: 700;
-    }
-    .contboton-cerrar a {
-      color: #000;
-      text-decoration: none;
-    }
-</style>
-<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
-<div class="d-flex justify-content-center align-items-center h-100 w-100">
-    <div class="container proveedor-chatclientes-container">
-        <div class="d-flex flex-column justify-content-center align-items-center w-100">
-            <div class="row d-flex justify-content-center align-items-start w-100 my-1">
-                <div class="col-3 d-flex justify-content-center"></div>
-                <div class="col-6 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
-                <div class="col-3 d-flex justify-content-center align-items-top contboton-cerrar">
-                {# <a href="{{ path('app_chat_conversacion') }}">x</a> #}
-                <a href="{{ path('app_chat_conversacion') }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewbox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
-                </a>  
-                </div>
-            </div>
-        </div>
-        <div class="d-flex flex-column chatclientes-container position-relative">
-            <div class="chatclientes-header d-flex align-items-center mb-3">
-            {% for participante in participantes %}
-                <img src="{{asset("img/"~ participante.usuarioId.idPersona.pFoto)}}" width="100" height="100" style="border-radius:50%"/>
-                <span class="ms-3">{{participante.usuarioId.idPersona.pNombre}} {{participante.usuarioId.idPersona.pApellido}}</span>
-            {% endfor %}
-            </div>
+	<style>
+		.contboton-cerrar {
+			font-size: 50px;
+			font-weight: 700;
+		}
+		.contboton-cerrar a {
+			color: #000;
+			text-decoration: none;
+		}
+	</style>
+	<i class="fas fa-star"></i>
 
-            <div {{ turbo_stream_listen('/chat/conversacion/' ~ conversacion.id) }}>
-                <div style="height: 350px; overflow: auto;">
-                    <ul class="list-unstyled" id="chat-box">
-                    {{ include('asap_services/general/chat/turbo/_chatList.html.twig') }}
-                    </ul>
-                </div>
-                <div class="demo-container-inner-secondary p-4">
-                    <form id="chat-form" action="{{ path('app_chat_turbo', {id: conversacion.id}) }}" method="POST">
-                        {{ include('asap_services/general/chat/turbo/_chatForm.html.twig') }}
-                    </form>
-                </div>    
-            </div>  
-        </div>
-    </div>
-</div>
-{% if is_granted('ROLE_PROV') %}
-    <form action="{{ path('app_cantidad_post', {id: conversacion.id})}}" method="POST">
-        <button type="submit">Mandar precio</button>
-    </form>
-{% endif %}
-{{ include("components/footer.html.twig") }}
+	<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
+	<div class="imagen">
+		<div class="d-flex justify-content-center align-items-center h-100 w-100">
+			<div class="container proveedor-chatclientes-container">
+				<div class="d-flex flex-column justify-content-center align-items-center w-100">
+					<div class="row d-flex justify-content-center align-items-start w-100 my-1">
+						<div class="col-3 d-flex justify-content-center"></div>
+						<div class="col-6 d-flex justify-content-center"><img src="{{ asset('image/casita_opt.png') }}" style="width:100%">
+						</div>
+						<div
+							class="col-3 d-flex justify-content-center align-items-top contboton-cerrar">
+							{# <a href="{{ path('app_chat_conversacion') }}">x</a> #}
+							<a href="{{ path('app_chat_conversacion') }}">
+								<svg xmlns="http://www.w3.org/2000/svg" height="25px" viewbox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="d-flex flex-column chatclientes-container position-relative">
+					<div class="chatclientes-header d-flex align-items-center mb-3">
+						{% for participante in participantes %}
+							{% if participante.usuarioId.idPersona.pFoto %}
+								<div class="">
+									<img src="{{asset("img/"~ participante.usuarioId.idPersona.pFoto)}}" width="100" height="100" style="border-radius:50%"/>
+								</div>
+							{% else %}
+								<div class="">
+									<img src="{{ asset('image/perfil.png') }}" width="100" height="100" style="border-radius:50%"/>
+								</div>
+							{% endif %}
+							<span class="ms-3">{{participante.usuarioId.idPersona.pNombre}}
+								{{participante.usuarioId.idPersona.pApellido}}</span>
+						{% endfor %}
+					</div>
 
-    {# <turbo-stream action="update" target="chat-box">
-        <template>
-            {{ include('chat/message.stream.html.html.twig') }}
-        </template>
-    </turbo-stream> #}
+					<div {{ turbo_stream_listen('/chat/conversacion/' ~ conversacion.id) }}>
+						<div style="height: 250px; overflow: auto; overflow-x: hidden;">
+							<ul class="list-unstyled" id="chat-box">
+								{{ include('asap_services/general/chat/turbo/_chatList.html.twig') }}
+							</ul>
+						</div>
+						<div class="demo-container-inner-secondary p-4">
+							<form id="chat-form" action="{{ path('app_chat_turbo', {id: conversacion.id}) }}" method="POST">
+								{{ include('asap_services/general/chat/turbo/_chatForm.html.twig') }}
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mt-4">
+			{% if is_granted('ROLE_PROV') %}
+				<form action="{{ path('app_cantidad_post', {id: conversacion.id})}}" method="POST">
+					<button class="btn boton-enviar-monto" type="submit">Mandar precio</button>
+				</form>
+			{% endif %}
+		</div>
+		{{ include("components/footer.html.twig") }}
+	</div>
+	{# <turbo-stream action="update" target="chat-box">
+								        <template>
+								            {{ include('chat/message.stream.html.html.twig') }}
+								        </template>
+								    </turbo-stream> #}
 {% endblock %}

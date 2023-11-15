@@ -21,6 +21,22 @@
 {% endblock %}
 
 {% block body %}
+
+{% for flash_message in app.flashes('error') %}
+    <script>
+        var errorMessage = '{{ flash_message|trans }}';
+        alert(errorMessage);
+    </script>
+{% endfor %}
+
+{% for flash_message in app.flashes('redirect') %}
+    <script>
+        var shouldRedirect = {{ flash_message ? 'true' : 'false' }};
+        if (shouldRedirect) {
+            window.location.href = '{{ path("app_asap_services_entornos_proveedor_inicio") }}';
+        }
+    </script>
+{% endfor %}
 <img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
 	<div class="imagen">
 	<div class="d-flex justify-content-center align-items-center h-100 w-100">
@@ -29,7 +45,7 @@
 			
               <div class="row d-flex justify-content-center align-items-start w-100 my-1">
                 <div class="col-3 d-flex justify-content-center"></div>
-                <div class="col-6 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
+                <div class="col-6 d-flex justify-content-center"><img src="{{ asset('image/casita_opt.png') }}" style="width:100%"></div>
                 <div class="col-3 d-flex justify-content-center align-items-top contboton-cerrar">
             <a href="{{path('app_asap_services_entornos_proveedor_inicio')}}"><svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
         </a>
@@ -39,19 +55,36 @@
 			<div class="d-flex flex-column agregar-metodo-cobro-container">
 				<h1 class="text-center agregar-metodo-cobro-title mb-4">Añadir método de cobro</h1>
 
-				<h5 class="text-center">Elige el banco de tu preferencia</h5>
+				<h5 class="text-center mb-5">Elige el banco de tu preferencia</h5>
              <form id="miFormulario" method="post"> 
-                <div class="p-3">
+             <div class="container">
+                <div class="row">
+                {% set imagenesMetodosCobro = [1] %}
+                {% set imagenesMetodosCobro = imagenesMetodosCobro|merge([
+                    "/image/bcp-logo.png", 
+                    "/image/bbva-logo.png",
+                    "/image/interbank_logo.png",
+                ]) %}
                     {% for metodocobro in metodocobros %}
-                        <label for="{{metodocobro.mcdescripcion}}">
-                            <input type="checkbox" id="cbox{{ metodocobro.id }}" name="metodocobros[]" value="{{ metodocobro.id }}" class="me-2 metodo-cobro-checkbox" onclick="toggleCheckbox({{ loop.index }})">
-                            {{ metodocobro.mcdescripcion }}
-                        </label><br> 
+                        
+                            <div class="col-6 col-sm-3">
+                                <input type="checkbox" id="cbox{{ metodocobro.id }}" name="metodocobros[]" value="{{ metodocobro.id }}" class="me-2 metodo-cobro-checkbox" onclick="toggleCheckbox({{ loop.index }})">
+                                {{ metodocobro.mcdescripcion }}
+                            </div>
+                            <div class="col-6 col-sm-3 mb-2">
+                                {% if imagenesMetodosCobro[metodocobro.id] is defined %}
+                                <img class="mb-4" style="align-text:right;" src={{ imagenesMetodosCobro[metodocobro.id] }} width="70" height="20"></img>
+                                {% endif %}
+                            </div>
+                            {# {{ dump(imagenesMetodosCobro[metodocobro.id]) }} #}
+                        
                     {% endfor %}
-                </div>
-                <div class="p-3">
+                    <div class="p-3">
                     <button class="btn-agregar-metodo-cobro" type="button" style="border: none" onclick="validateAndSubmit()">Ingresar número de cuenta</button>
                 </div>
+                </div>
+            </div>
+                
             </form>
             </div>
         </div>

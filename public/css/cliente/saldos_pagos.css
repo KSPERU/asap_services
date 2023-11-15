@@ -39,12 +39,12 @@
 
 
 
-.contenido-boton-saldos-pagos-cliente {
+.contenido-boton-saldospagos {
     display: flex;
     justify-content: center;
 }
 
-.boton-saldos-pagos-cliente {
+.boton-saldospagos-cliente {
     border-radius: 40px;
     background: #4302AE;
     border: none;
@@ -56,23 +56,23 @@
     font-weight: 700;
 }
 
-.boton-saldos-pagos-cliente:hover {
+.boton-saldospagos-cliente:hover {
     color: #fff;
     background-color: #7A5AAC;
     border-color: #7A5AAC;
 }
 
-.boton-saldos-pagos-cliente:focus,
-.boton-isaldos-pagos-cliente.focus {
+.boton-saldospagos-cliente:focus,
+.boton-saldospagos-cliente.focus {
     color: #fff;
     background-color: #7A5AAC;
     border-color: #7A5AAC;
     box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);
 }
 
-.boton-saldos-pagos-cliente:not(:disabled):not(.disabled):active,
-.boton-saldos-pagos-cliente:not(:disabled):not(.disabled).active,
-.show>.saldos-pagos-cliente.dropdown-toggle {
+.boton-saldospagos-cliente:not(:disabled):not(.disabled):active,
+.boton-saldospagos-cliente:not(:disabled):not(.disabled).active,
+.show>.boton-saldospagos-cliente.dropdown-toggle {
     color: #fff;
     background-color: #7A5AAC;
     border-color: #7A5AAC;

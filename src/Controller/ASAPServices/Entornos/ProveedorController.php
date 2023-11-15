@@ -267,6 +267,11 @@ class ProveedorController extends AbstractController
     {
 
         $gananciaData = $request->getSession()->get('gansincobro_data', []);
+        if (empty($gananciaData)) {
+            // Puedes ajustar la URL a la que deseas redirigir
+            $this->addFlash('error', 'Se detectó una recarga forzosa o acceso inadecuado, redirigiendo a la página principal');
+            $this->addFlash('redirect', true);
+        }
         $gananciaTotal = $gananciaData['gantotsincobro'] ?? null;
         $comision = $gananciaData['comision'] ?? null;
         $gananciaReal = $gananciaData['ganrealsincobro'] ?? null;
@@ -292,9 +297,14 @@ class ProveedorController extends AbstractController
     #[Route('/proveedor/{id}/tipocobro', name: 'app_asap_services_entornos_proveedor_tipocobro')]
     public function tipocobro(Persona $persona, Request $request): Response
     {
+        $session = $request->getSession();
+        $gananciaData = $session->get('gansincobro_data', []);
+        if (empty($gananciaData)) {
+            $this->addFlash('error', 'Se detectó una recarga forzosa o acceso inadecuado, redirigiendo a la página principal');
+            $this->addFlash('redirect', true);
+        }
         if ($request->isMethod('POST')) {
             $metodocobro = $request->request->get('metodo_cobro');
-            $session = $request->getSession();
             if ($metodocobro == "banco") {
                 $metcobro = $persona->getMetcobro();
 
@@ -325,6 +335,12 @@ class ProveedorController extends AbstractController
     {
 
         $gananciaData = $request->getSession()->get('gansincobro_data', []);
+        $metodo =   $request->getSession()->get('ganancia_metodo');
+
+        if (empty($gananciaData)|| empty($metodo)) {
+            $this->addFlash('error', 'Se detectó una recarga forzosa o acceso inadecuado, redirigiendo a la página principal');
+            $this->addFlash('redirect', true);
+        }
         $saldo = $gananciaData['gananciatotal'] ?? null;
         $tarifa = $gananciaData['gantotsincobro'] ?? null;
         if ($request->isMethod('POST')) {
@@ -342,8 +358,12 @@ class ProveedorController extends AbstractController
     {
 
         $gananciaData = $request->getSession()->get('gansincobro_data', []);
+        $metodocobro = $request->getSession()->get('ganancia_metodo');
+        if (empty($gananciaData)|| empty($metodocobro)) {
+            $this->addFlash('error', 'Se detectó una recarga forzosa o acceso inadecuado, redirigiendo a la página principal');
+            $this->addFlash('redirect', true);
+        }
         $gananciareal = $gananciaData['ganrealsincobro'] ?? null;
-        $metodocobro = $request->getSession()->get('ganancia_metodo') ?? null;
         if ($request->isMethod('POST')) {
             $gansincobrar = $persona->getHistservproveedor();
             $proveedorservice = new ProveedorServicio;
@@ -362,6 +382,7 @@ class ProveedorController extends AbstractController
             $ganancia->setGpMetodocobro($metodocobro);
             $entitymanager->persist($ganancia);
             $entitymanager->flush();
+            $request->getSession()->clear();
             return $this->redirectToRoute('app_asap_services_entornos_proveedor_inicio');
         }
         return $this->render('asap_services/entornos/proveedor/ganancias_4.html.twig', [
@@ -392,8 +413,16 @@ class ProveedorController extends AbstractController
     {
         if ($redi == "ganancia") {
             $session = $request->getSession();
+            $gananciaData = $session->get('gansincobro_data', []);
+            if (empty($gananciaData)) {
+                $this->addFlash('error', 'Se detectó una recarga forzosa o acceso inadecuado, redirigiendo a la página principal');
+                $this->addFlash('redirect', true);
+            }
+            $session->set('ganancia_metodo', 'Tranferencia bancaria');
             $session->set('vueltavganancia', 1);
+            
         }
+        
         if ($request->isMethod('POST')) {
             $metodocobroselect = $request->get('metodocobros', []);
 

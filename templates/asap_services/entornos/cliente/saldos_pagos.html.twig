@@ -7,63 +7,86 @@
 {% block stylesheets %}
 	{{ encore_entry_link_tags('app') }}
 	<link rel="stylesheet" href="{{ asset('css/cliente/saldos_pagos.css') }}"/>
-		<link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
+	<link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
 
 {% endblock %}
 
 {% block body %}
-<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
+	<style>
+		.contboton-cerrar {
+			font-size: 50px;
+			font-weight: 700;
+			height: 93px;
+		}
+		.contboton-cerrar a {
+			color: #000;
+			text-decoration: none;
+		}
+	</style>
+	<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
 	<div class="imagen">
-	<div class="container p-3" data-turbo="false">
-		<div class="container">
-			<div class="row d-flex justify-content-center align-items-center">
-				<div class="col-3 d-flex justify-content-center"></div>
-				<div class="col-6 d-flex justify-content-center">{{ include('components/logo_pequenio.html.twig') }}</div>
-				<div class="col-3 d-flex justify-content-center contboton-cerrar">
-					<a href="{{ path('app_asap_services_entornos_cliente_inicio') }}">
+		<div class="container p-3" data-turbo="false">
+			<div class="container">
+				<div class="row d-flex justify-content-center align-items-center">
+					<div class="col-3 d-flex justify-content-center"></div>
+					<div class="col-6 d-flex justify-content-center"><img src="{{ asset('image/casita_opt.png') }}" style="width:100%"></div>
+					<div class="col-3 d-flex justify-content-center contboton-cerrar">
+						<a href="{{ path('app_asap_services_entornos_cliente_inicio') }}">
 					<svg xmlns="http://www.w3.org/2000/svg" height="25px" viewbox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
-				</a>
-				</div>
-			</div>
-
-			<div class="container rounded-5 contenido-saldos-pagos-cliente">
-				<div class="container">
-					<div class="row">
-						<div class="col-12 titulo-saldos-pagos-cliente pt-3 pb-2">Saldos y Pagos</div>
+						</a>
 					</div>
+				</div>
 
-					<div class="container scroll-saldos-pagos-cliente p-2">
-					<form method="POST">
-						{% for syp in personaservs %}
-							<div class="container rounded-4 mb-4" style="box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);background-color:#D9D9D9">
-								<div class="row d-flex align-items-center">
-									<div class="col-1 p-0 d-flex justify-content-center">
-										<label><input type="checkbox" name="servicio_ids-{{ syp.id }}" value="{{ syp.id }}" /></label>
+				<div class="container rounded-5 contenido-saldos-pagos-cliente">
+					<div class="container">
+						<div class="row">
+							<div class="col-12 titulo-saldos-pagos-cliente pt-3 pb-2">Saldos y Pagos</div>
+						</div>
+
+						<div class="container scroll-saldos-pagos-cliente p-2">
+							<form method="POST">
+								{% for syp in personaservs %}
+									<div class="container rounded-4 mb-4" style="box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);background-color:#D9D9D9">
+										<div class="row d-flex align-items-center">
+											<div class="col-1 p-0 d-flex justify-content-center">
+												<label><input type="checkbox" name="saldopagos[]" value="{{ syp.id }}"/></label>
+											</div>
+											<div class="col-6">
+												<span class="col-12 d-inline-flex tamanio-texto-saldos-pagos-cliente color-texto-saldos-pagos-cliente">B008-00686555</span>
+												<span class="col-12 tamanio-texto-saldos-pagos-cliente">Servicio de
+													{{ syp.idservicio.svnombre }}</span>
+											</div>
+											<div class="col-5 tamanio-texto-saldos-pagos-cliente">S/.
+												{{ syp.hsimporte }}</div>
+										</div>
 									</div>
-									<div class="col-6">
-										<span class="col-12 d-inline-flex tamanio-texto-saldos-pagos-cliente color-texto-saldos-pagos-cliente">B008-00686555</span>
-										<span class="col-12 tamanio-texto-saldos-pagos-cliente">Servicio de
-											{{ syp.idservicio.svnombre }}</span>
+								{% else %}
+									<p>No hay servicios en compras</p>
+								{% endfor %}
+
+								<div class="row contenido-boton-saldos-pagos-cliente mt-2">
+									<div
+										class="col-10">{# <a href="{{ path('app_asap_services_entornos_cliente_menu_detalle_tarjet	a') }}" class="btn col-12 boton-saldos-pagos-cliente">Pagar</a> #}
 									</div>
-									<div class="col-5 tamanio-texto-saldos-pagos-cliente">S/. {{ syp.hsimporte }}</div>
+								</div>
+								<div class="contenido-boton-saldospagos">
+									<div class="col-10  row " style="
+																						    display: flex;
+																						    justify-content: center;
+																						">
+										<form action="{{ path('app_asap_services_entornos_cliente_menu_saldos_pagos') }}" method="GET">
+											<button type="submit" name="but" class="btn col-10 boton-saldospagos-cliente">Presionar</button>
+										</form>
+									</div>
 								</div>
 							</div>
-						{% else %}
-							<p>No hay servicios en compras</p>
-						{% endfor %}
-						
-						<div class="row contenido-boton-saldos-pagos-cliente mt-2">
-							<div class="col-10">
-                {# <a href="{{ path('app_asap_services_entornos_cliente_menu_detalle_tarjet	a') }}" class="btn col-12 boton-saldos-pagos-cliente">Pagar</a> #}
-							</div>
+							<!--finalForm-->
+							{# <div>PAGA:
+								{{ checkbox }}</div> #}
 						</div>
-					<button type="submit" name="but">Presionarrrr</button>
-				</div><!--finalForm-->
-			<div>PAGA: {{ checkbox }}</div>
 					</div>
 				</div>
 			</div>
-		</div>
 		</div>
 
 		{{ include('components/footer.html.twig') }}

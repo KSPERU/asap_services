@@ -89,9 +89,3 @@
 .checkbox-label {
     display: block;
 }
-
-@media (min-width: 500px) {
-    body {
-        display: none;
-    }
-}
