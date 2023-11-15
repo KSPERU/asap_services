@@ -10,8 +10,10 @@ use App\Form\ClienteType;
 use App\Form\TarjetaType;
 use App\Entity\Calificacion;
 use App\Entity\Conversacion;
+use App\Entity\Favorito;
 use App\Entity\Historialservicios;
 use App\Entity\Participante;
+use App\Entity\Servicio;
 use App\Form\CalificacionType;
 use App\Form\ConversacionType;
 use App\Repository\CodigoRepository;
@@ -20,6 +22,7 @@ use App\Repository\UsuarioRepository;
 use App\Repository\ServicioRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ConversacionRepository;
+use App\Repository\FavoritoRepository;
 use App\Repository\HistorialserviciosRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -195,23 +198,21 @@ class ClienteController extends AbstractController
     }
 
     #[Route('/cliente/ajustes/favoritos', name: 'app_asap_services_entornos_cliente_ajustes_favoritos')]
-    public function favoritos(EntityManagerInterface $entityManager, UsuarioRepository $usuarios, ServicioRepository $servicioRepository): Response
+    public function favoritos(EntityManagerInterface $entityManager, UsuarioRepository $usuarios, FavoritoRepository $favoritoRepository): Response
     {
         $user = $this->getUser();
         $cliente = $usuarios->findOneBy([
             'email' => $user->getUserIdentifier(),
         ]);
         $persona = $cliente->getIdPersona();
-        $personaid = $cliente->getIdPersona()->getId();
-        $historialServicioRepository = $entityManager->getRepository(Historialservicios::class);
-        $personaservs = $historialServicioRepository->findBy([
-            'idcliente' => $persona,
-            'hs_estado' => 1, //estado uno es que es favorito y si pago 
+        $favoritos = $favoritoRepository->findBy([
+            'persona' => $persona,
+            'favorito' => true, // Filtrar por favoritos
         ]);
+
         $servicios = [];
-        foreach ($personaservs as $historialServicio) {
-            $servicio = $historialServicio->getIdServicio();
-            $servicios[] = $servicio;
+        foreach ($favoritos as $favorito) {
+            $servicios[] = $favorito->getServicio();
         }
         return $this->render('asap_services/entornos/cliente/showserviciosfav.html.twig', [//copie la misma plantilla de show servicios
             'servicios' => $servicios,
@@ -220,12 +221,20 @@ class ClienteController extends AbstractController
     }
 
     #[Route('/cliente/ajustes/favoritos/estado/{id}', name: 'app_asap_services_entornos_cliente_ajustes_favoritos_estado')]
-    public function toggleFavorito(Historialservicios $historialServicio, EntityManagerInterface $entityManager): Response
+    public function toggleFavorito(Servicio $servicio, EntityManagerInterface $entityManager, UsuarioRepository $usuarios): Response
     {
+        $user = $this->getUser();
+        $cliente = $usuarios->findOneBy([
+            'email' => $user->getUserIdentifier(),
+        ]);
+        $persona = $cliente->getIdPersona();
         // Cambiar el valor de hs_estado
-        $historialServicio->setHsEstado('1');
-
+        $favorito = new Favorito;
+        $favorito->setFavorito(true);
+        $favorito->setPersona($persona);
+        $favorito->setServicio($servicio);
         // Guardar en la base de datos
+        $entityManager->persist($favorito);
         $entityManager->flush();
 
         // Redirigir o devolver la respuesta adecuada (depende de tu lógica)

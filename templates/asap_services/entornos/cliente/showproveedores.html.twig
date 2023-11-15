@@ -20,6 +20,7 @@
 
     <div class="cliente-servicios-container">
       <h3 class="servicio_tipo mb-2">{{servicio.svnombre}}</h3>
+      <a href="{{ path('app_asap_services_entornos_cliente_ajustes_favoritos_estado', {'id': servicio.id}) }}">★</a>
 
       <div class="servicios-tipos-container d-flex flex-column align-items-center overflow-auto" style="max-height: calc(100% - 50px);">
         {% for proveedor in proveedores %}
@@ -37,7 +38,6 @@
                 <form action="{{ path('app_cliente_comunicate_post', {'id': proveedor.idpersona.id}) }}" method="post">
                     <button type="submit" class="btn btn-unstyled w-100"><h3>{{ proveedor.idpersona.pnombre }} {{ proveedor.idpersona.papellido }}</h3></button>
                 </form>
-                {# <h4><a href="{{ path('app_asap_services_entornos_cliente_ajustes_favoritos_estado', {'id': servicio.id}) }}">★</a></h4> Desarrollar funcionalidad #}
                 <h5>Ubicación: {{ (proveedor.idpersona.pdireccion is null) ? '-' : proveedor.idpersona.pdireccion }} </h5> {# API distancias necesario majorar #}
                 <h6>Distrito: {{ (proveedor.idpersona.pdistrito is null) ? '-' : proveedor.idpersona.pdistrito }} </h6> {# Mejorar funcionalidad#}
                 <span class="btn-ver-detalle-proveedor"><a href="{{ path('app_asap_services_entornos_cliente_ver_servicio_ver_detalle_proveedor', {'id': proveedor.idpersona.id }) }}">Ver detalle</a></span>
