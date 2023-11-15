@@ -52,7 +52,7 @@ class ProveedorType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k',
+                        'maxSize' => '2048k',
                         'maxSizeMessage' => 'La imagen no puede ser mayor de {{ limit }} MB.',
                         'mimeTypes' => ['image/jpeg', 'image/png'],
                         'mimeTypesMessage' => 'Seleccione una imagen válida (JPEG o PNG).',

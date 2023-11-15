@@ -352,7 +352,7 @@ class ProveedorController extends AbstractController
                 $servicio->setHsEstadocobro(true);
                 $entitymanager->flush();
             }
-            $zonaHoraria = new DateTimeZone('America/Lima');  // Reemplaza 'America/Lima' con tu zona horaria
+            $zonaHoraria = new DateTimeZone('America/Lima');  
             $fechaActual = new DateTime('now', $zonaHoraria);
             $ganancia = new GananciaProveedor;
             $ganancia->setGpTotal($gananciareal);
