@@ -28,10 +28,14 @@ class Servicio
     #[ORM\OneToMany(mappedBy: 'idservicio', targetEntity: Historialservicios::class)]
     private Collection $historialservicio;
 
+    #[ORM\OneToMany(mappedBy: 'servicio', targetEntity: Favorito::class)]
+    private Collection $favoritos;
+
     public function __construct()
     {
         $this->personas = new ArrayCollection();
         $this->historialservicio = new ArrayCollection();
+        $this->favoritos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,5 +130,35 @@ class Servicio
     public function __toString()
     {
         return $this->sv_nombre;
+    }
+
+    /**
+     * @return Collection<int, Favorito>
+     */
+    public function getFavoritos(): Collection
+    {
+        return $this->favoritos;
+    }
+
+    public function addFavorito(Favorito $favorito): static
+    {
+        if (!$this->favoritos->contains($favorito)) {
+            $this->favoritos->add($favorito);
+            $favorito->setServicio($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorito(Favorito $favorito): static
+    {
+        if ($this->favoritos->removeElement($favorito)) {
+            // set the owning side to null (unless already changed)
+            if ($favorito->getServicio() === $this) {
+                $favorito->setServicio(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -82,6 +82,9 @@ class Persona
     #[ORM\OneToMany(mappedBy: 'idproveedor', targetEntity: GananciaProveedor::class, orphanRemoval: true)]
     private Collection $gananciaproveedor;
 
+    #[ORM\OneToMany(mappedBy: 'persona', targetEntity: Favorito::class)]
+    private Collection $favoritos;
+
     public function __construct()
     {
         $this->servicios = new ArrayCollection();
@@ -92,6 +95,7 @@ class Persona
         $this->cuentaniubiz = new ArrayCollection();
         $this->p_tarjeta = new ArrayCollection();
         $this->gananciaproveedor = new ArrayCollection();
+        $this->favoritos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -512,6 +516,36 @@ class Persona
             // set the owning side to null (unless already changed)
             if ($gananciaproveedor->getIdproveedor() === $this) {
                 $gananciaproveedor->setIdproveedor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Favorito>
+     */
+    public function getFavoritos(): Collection
+    {
+        return $this->favoritos;
+    }
+
+    public function addFavorito(Favorito $favorito): static
+    {
+        if (!$this->favoritos->contains($favorito)) {
+            $this->favoritos->add($favorito);
+            $favorito->setPersona($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorito(Favorito $favorito): static
+    {
+        if ($this->favoritos->removeElement($favorito)) {
+            // set the owning side to null (unless already changed)
+            if ($favorito->getPersona() === $this) {
+                $favorito->setPersona(null);
             }
         }
 
