@@ -2,7 +2,7 @@
 
 .imagen {
   background-image: url("/image/Imagen1.png");
-
+  height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;

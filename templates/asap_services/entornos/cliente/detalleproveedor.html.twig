@@ -23,7 +23,12 @@
             </a>
             </div>
             <div class="row d-flex justify-content-center">
-                <img class="img-perfil" src="{{ asset('img/' ~ ((proveedor.pfoto is null) ? 'perfil.png' : proveedor.pfoto)) }}" style="border-radius:50%"/>
+            {% if proveedor.pfoto %}
+                <img class="img-perfil" src="{{ asset("img/" ~ proveedor.pfoto) }}" style="border-radius:50%"/>            
+            {% else %}    
+                <img class="img-perfil" src="{{ asset("image/perfil.png") }}" style="border-radius:50%"/>          
+            {% endif %}
+                {# <img class="img-perfil" src="{{ asset('img/' ~ ((proveedor.pfoto is null) ? 'perfil.png' : proveedor.pfoto)) }}" style="border-radius:50%"/> #}
             </div>
             <div class="row d-flex justify-content-center">
                 <div class="col-12 nombre-proveedor text-center mt-2">

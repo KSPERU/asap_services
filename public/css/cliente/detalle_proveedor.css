@@ -4,8 +4,8 @@
 .img-perfil{
     display: flex;
     justify-content: center;
-    width: 30%;
-    height: 30%;
+    width: 40%;
+    height: 40%;
 }
 
 .nombre-proveedor{
