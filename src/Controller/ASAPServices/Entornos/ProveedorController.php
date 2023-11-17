@@ -35,6 +35,7 @@ class ProveedorController extends AbstractController
     #[Route('/proveedor', name: 'app_asap_services_entornos_proveedor_inicio')]
     public function index(Request $request, HistorialserviciosRepository $historialservicios,UsuarioRepository $usuarios, GenerarCSV $csv): Response
     {
+        $request->getSession()->clear();
         $user = $this->getUser();
         $proveedor = $usuarios->findOneBy([
             'email' => $user->getUserIdentifier(),
@@ -336,6 +337,8 @@ class ProveedorController extends AbstractController
 
         $gananciaData = $request->getSession()->get('gansincobro_data', []);
         $metodo =   $request->getSession()->get('ganancia_metodo');
+        $redi =   $request->getSession()->get('vueltavganancia') ?? null;
+        $idmet = $request->getSession()->get('idmet') ?? null;
 
         if (empty($gananciaData)|| empty($metodo)) {
             $this->addFlash('error', 'Se detectó una recarga forzosa o acceso inadecuado, redirigiendo a la página principal');
@@ -346,10 +349,13 @@ class ProveedorController extends AbstractController
         if ($request->isMethod('POST')) {
             return $this->redirectToRoute('app_asap_services_entornos_proveedor_confganancia', ['id' => $persona->getId()]);
         }
+
         return $this->render('asap_services/entornos/proveedor/ganancias_3.html.twig', [
             'proveedor' => $persona,
             'tarifa' => $tarifa,
-            'saldo' => $saldo
+            'saldo' => $saldo,
+            'redi' => $redi,
+            'idmet' => $idmet
         ]);
     }
 
@@ -382,7 +388,6 @@ class ProveedorController extends AbstractController
             $ganancia->setGpMetodocobro($metodocobro);
             $entitymanager->persist($ganancia);
             $entitymanager->flush();
-            $request->getSession()->clear();
             return $this->redirectToRoute('app_asap_services_entornos_proveedor_inicio');
         }
         return $this->render('asap_services/entornos/proveedor/ganancias_4.html.twig', [
@@ -411,6 +416,7 @@ class ProveedorController extends AbstractController
     #[Route('/proveedor/menu/{id}/metcobro/{redi}', name: 'app_asap_services_entornos_proveedor_menu_metodo')]
     public function metcobro(Request $request, $redi, Persona $persona, MetodocobroRepository $metodocobros): Response
     {
+        $redi2 = null;
         if ($redi == "ganancia") {
             $session = $request->getSession();
             $gananciaData = $session->get('gansincobro_data', []);
@@ -418,8 +424,10 @@ class ProveedorController extends AbstractController
                 $this->addFlash('error', 'Se detectó una recarga forzosa o acceso inadecuado, redirigiendo a la página principal');
                 $this->addFlash('redirect', true);
             }
+
             $session->set('ganancia_metodo', 'Tranferencia bancaria');
             $session->set('vueltavganancia', 1);
+            $redi2 = 'tipocobro';
             
         }
         
@@ -434,7 +442,8 @@ class ProveedorController extends AbstractController
 
         return $this->render('asap_services/entornos/proveedor/agregar_metodo_cobro.html.twig', [
             'proveedor' => $persona,
-            'metodocobros' => $metodocobros->findAll()
+            'metodocobros' => $metodocobros->findAll(),
+            'redi' => $redi2
         ]);
     }
 
@@ -458,6 +467,7 @@ class ProveedorController extends AbstractController
                 $entityManager->flush();
 
                 if ($request->getSession()->get('vueltavganancia') == 1) {
+                    $request->getSession()->set("idmet",$idmet);
                     return $this->redirectToRoute('app_asap_services_entornos_proveedor_conftarifa', ['id' => $persona->getId()]);
                 }
 
