@@ -49,7 +49,7 @@ class ClienteController extends AbstractController
     }
 
     #[Route('/cliente/verservicios/{id}', name: 'app_asap_services_entornos_cliente_ver_servicio')]
-    public function verprov($id, ServicioRepository $servicios, UsuarioRepository $usuarioRepository, PersonaRepository $personaRepository): Response
+    public function verprov($id, ServicioRepository $servicios, UsuarioRepository $usuarioRepository, FavoritoRepository $favoritoRepository, PersonaRepository $personaRepository, EntityManagerInterface $entityManager): Response
     {
         # Identifiquemos al usuario
         $persona_aux = $this->getUser();
@@ -59,14 +59,50 @@ class ClienteController extends AbstractController
         $persona = $personaRepository->findOneBy([
             'usuario' => $usuario,
         ]);
-
         $servicio = $servicios->find($id);
+        $favorito = $favoritoRepository->findOneBy([
+            'persona' => $persona,
+            'servicio' => $servicio,
+        ]);
+        if (!$favorito) {
+            $favorito = new Favorito();
+            $favorito->setPersona($persona);
+            $favorito->setServicio($servicio);
+            $favorito->setFavorito(false); // Estado predeterminado (puede ser true/false)
+            $entityManager->persist($favorito);
+            $entityManager->flush();
+        }
         $proveedores = $servicio->getPersonas();
+        $favoritoValue = $favorito ? $favorito->isFavorito() : null;
         return $this->render('asap_services/entornos/cliente/showproveedores.html.twig', [
             'proveedores' => $proveedores,
             'servicio' => $servicio,
             'persona' => $persona,
+            'favorito' => $favoritoValue,
         ]);
+    }
+
+    #[Route('/cliente/ajustes/favoritos/estado/{id}', name: 'app_asap_services_entornos_cliente_ajustes_favoritos_estado')]
+    public function toggleFavorito(Servicio $servicio, EntityManagerInterface $entityManager, UsuarioRepository $usuarios, FavoritoRepository $favoritoRepository): Response
+    {
+        $user = $this->getUser();
+        $cliente = $usuarios->findOneBy([
+            'email' => $user->getUserIdentifier(),
+        ]);
+        $persona = $cliente->getIdPersona();
+    
+        // Buscar el favorito correspondiente para el servicio actual y la persona actual
+        $favorito = $favoritoRepository->findOneBy([
+            'persona' => $persona,
+            'servicio' => $servicio,
+        ]);
+
+        if ($favorito) {
+            $favorito->setFavorito(!$favorito->isFavorito());
+            $entityManager->persist($favorito);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('app_asap_services_entornos_cliente_ver_servicio', ['id' => $servicio->getId()]); 
     }
 
     #[Route('/cliente/verservicios/proveedor/{id}', name: 'app_asap_services_entornos_cliente_ver_servicio_ver_detalle_proveedor')]
@@ -218,27 +254,6 @@ class ClienteController extends AbstractController
             'servicios' => $servicios,
             'persona' => $persona
         ]);
-    }
-
-    #[Route('/cliente/ajustes/favoritos/estado/{id}', name: 'app_asap_services_entornos_cliente_ajustes_favoritos_estado')]
-    public function toggleFavorito(Servicio $servicio, EntityManagerInterface $entityManager, UsuarioRepository $usuarios): Response
-    {
-        $user = $this->getUser();
-        $cliente = $usuarios->findOneBy([
-            'email' => $user->getUserIdentifier(),
-        ]);
-        $persona = $cliente->getIdPersona();
-        // Cambiar el valor de hs_estado
-        $favorito = new Favorito;
-        $favorito->setFavorito(true);
-        $favorito->setPersona($persona);
-        $favorito->setServicio($servicio);
-        // Guardar en la base de datos
-        $entityManager->persist($favorito);
-        $entityManager->flush();
-
-        // Redirigir o devolver la respuesta adecuada (depende de tu lógica)
-        return $this->redirectToRoute('app_asap_services_entornos_cliente_ver_servicio'); 
     }
 
     #[Route('/cliente/ajustes/privacidad', name: 'app_asap_services_entornos_cliente_ajustes_privacidad')]
