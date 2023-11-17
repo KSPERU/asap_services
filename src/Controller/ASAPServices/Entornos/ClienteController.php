@@ -238,7 +238,7 @@ class ClienteController extends AbstractController
         $entityManager->flush();
 
         // Redirigir o devolver la respuesta adecuada (depende de tu lógica)
-        return $this->redirectToRoute('app_asap_services_entornos_cliente_inicio'); 
+        return $this->redirectToRoute('app_asap_services_entornos_cliente_ver_servicio'); 
     }
 
     #[Route('/cliente/ajustes/privacidad', name: 'app_asap_services_entornos_cliente_ajustes_privacidad')]
