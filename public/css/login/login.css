@@ -139,6 +139,10 @@
   font-weight: 700;
 }
 
+.boton-iniciar-login:disabled{
+  background-color: #795aacea !important;
+}
+
 .boton-iniciar-login:hover {
   color: #fff;
   background-color: #7a5aac;
