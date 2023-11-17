@@ -81,10 +81,14 @@
 								</div>
 								<div class="row contenido-opciones-login mt-4">
 									<div class="col-5">
-										<img src="{{ asset('image/facebook.png') }}" width="60px" height="60px" alt="">
+                                      <a href="{{ path('connect_facebook_start', {'entorno': entorno}) }}">
+  										<img src="{{ asset('image/facebook.png') }}" width="60px" height="60px" alt="">
+                                      </a>
 									</div>
 									<div class="col-5">
-										<img src="{{ asset('image/google.png') }}" width="60px" height="60px" alt="">
+                                      <a href="{{ path('connect_google_start', {'entorno': entorno}) }}">
+  										<img src="{{ asset('image/google.png') }}" width="60px" height="60px" alt="">
+                                      </a>
 									</div>
 								</div>
 

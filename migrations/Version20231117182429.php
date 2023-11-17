@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20231114212042 extends AbstractMigration
+final class Version20231117182429 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -31,6 +31,9 @@ final class Version20231114212042 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_474049CF96988784 ON conversacion (ultimo_mensaje_id_id)');
         $this->addSql('CREATE TABLE cuenta_niubiz (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, cd_idproveedor_id INTEGER NOT NULL, cn_codigocomercio VARCHAR(30) NOT NULL, cn_usuario VARCHAR(50) NOT NULL, cn_password VARCHAR(255) NOT NULL, moneda VARCHAR(20) DEFAULT NULL, liquidacion VARCHAR(20) DEFAULT NULL, CONSTRAINT FK_3F1BDFD782D54025 FOREIGN KEY (cd_idproveedor_id) REFERENCES persona (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
         $this->addSql('CREATE INDEX IDX_3F1BDFD782D54025 ON cuenta_niubiz (cd_idproveedor_id)');
+        $this->addSql('CREATE TABLE favorito (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, persona_id INTEGER DEFAULT NULL, servicio_id INTEGER DEFAULT NULL, favorito BOOLEAN DEFAULT NULL, CONSTRAINT FK_881067C7F5F88DB9 FOREIGN KEY (persona_id) REFERENCES persona (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_881067C771CAA3E7 FOREIGN KEY (servicio_id) REFERENCES servicio (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
+        $this->addSql('CREATE INDEX IDX_881067C7F5F88DB9 ON favorito (persona_id)');
+        $this->addSql('CREATE INDEX IDX_881067C771CAA3E7 ON favorito (servicio_id)');
         $this->addSql('CREATE TABLE ganancia_proveedor (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, idproveedor_id INTEGER NOT NULL, gp_total DOUBLE PRECISION NOT NULL, gp_fechaoperacion DATETIME NOT NULL, gp_estadotransferencia BOOLEAN NOT NULL, gp_metodocobro VARCHAR(30) DEFAULT NULL, CONSTRAINT FK_1FB3A6EE8D9F227A FOREIGN KEY (idproveedor_id) REFERENCES persona (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
         $this->addSql('CREATE INDEX IDX_1FB3A6EE8D9F227A ON ganancia_proveedor (idproveedor_id)');
         $this->addSql('CREATE TABLE historialservicios (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, idservicio_id INTEGER NOT NULL, idcliente_id INTEGER NOT NULL, idproveedor_id INTEGER NOT NULL, hs_fecha DATETIME NOT NULL, hs_estado BOOLEAN NOT NULL, hs_estadopago BOOLEAN DEFAULT NULL, hs_importe DOUBLE PRECISION DEFAULT NULL, hs_direccion VARCHAR(255) NOT NULL, hs_estadocobro BOOLEAN NOT NULL, CONSTRAINT FK_36B05FE8B70BD348 FOREIGN KEY (idservicio_id) REFERENCES servicio (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_36B05FE813DA536B FOREIGN KEY (idcliente_id) REFERENCES persona (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_36B05FE88D9F227A FOREIGN KEY (idproveedor_id) REFERENCES persona (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
@@ -57,7 +60,7 @@ final class Version20231114212042 extends AbstractMigration
         $this->addSql('CREATE TABLE tarjeta (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, persona_id INTEGER DEFAULT NULL, numero_tarjeta VARCHAR(255) NOT NULL, fecha_vencimiento VARCHAR(255) NOT NULL, cvv VARCHAR(255) NOT NULL, CONSTRAINT FK_AE90B786F5F88DB9 FOREIGN KEY (persona_id) REFERENCES persona (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
         $this->addSql('CREATE INDEX IDX_AE90B786F5F88DB9 ON tarjeta (persona_id)');
         $this->addSql('CREATE TABLE usuario (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles CLOB NOT NULL --(DC2Type:json)
-        , password VARCHAR(255) NOT NULL, is_verified BOOLEAN NOT NULL)');
+        , password VARCHAR(255) NOT NULL, is_verified BOOLEAN NOT NULL, google_id VARCHAR(255) DEFAULT NULL, facebook_id VARCHAR(255) DEFAULT NULL)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_2265B05DE7927C74 ON usuario (email)');
     }
 
@@ -69,6 +72,7 @@ final class Version20231114212042 extends AbstractMigration
         $this->addSql('DROP TABLE codigo');
         $this->addSql('DROP TABLE conversacion');
         $this->addSql('DROP TABLE cuenta_niubiz');
+        $this->addSql('DROP TABLE favorito');
         $this->addSql('DROP TABLE ganancia_proveedor');
         $this->addSql('DROP TABLE historialservicios');
         $this->addSql('DROP TABLE metcobro_proveedor');

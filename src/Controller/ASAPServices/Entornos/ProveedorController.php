@@ -33,9 +33,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class ProveedorController extends AbstractController
 {
     #[Route('/proveedor', name: 'app_asap_services_entornos_proveedor_inicio')]
-    public function index(Request $request, HistorialserviciosRepository $historialservicios,UsuarioRepository $usuarios, GenerarCSV $csv): Response
+    public function index(Request $request, HistorialserviciosRepository $historialservicios, UsuarioRepository $usuarios, GenerarCSV $csv): Response
     {
-        $request->getSession()->clear();
+        //$request->getSession()->clear();
         $user = $this->getUser();
         $proveedor = $usuarios->findOneBy([
             'email' => $user->getUserIdentifier(),
@@ -340,7 +340,7 @@ class ProveedorController extends AbstractController
         $redi =   $request->getSession()->get('vueltavganancia') ?? null;
         $idmet = $request->getSession()->get('idmet') ?? null;
 
-        if (empty($gananciaData)|| empty($metodo)) {
+        if (empty($gananciaData) || empty($metodo)) {
             $this->addFlash('error', 'Se detectó una recarga forzosa o acceso inadecuado, redirigiendo a la página principal');
             $this->addFlash('redirect', true);
         }
@@ -365,7 +365,7 @@ class ProveedorController extends AbstractController
 
         $gananciaData = $request->getSession()->get('gansincobro_data', []);
         $metodocobro = $request->getSession()->get('ganancia_metodo');
-        if (empty($gananciaData)|| empty($metodocobro)) {
+        if (empty($gananciaData) || empty($metodocobro)) {
             $this->addFlash('error', 'Se detectó una recarga forzosa o acceso inadecuado, redirigiendo a la página principal');
             $this->addFlash('redirect', true);
         }
@@ -378,7 +378,7 @@ class ProveedorController extends AbstractController
                 $servicio->setHsEstadocobro(true);
                 $entitymanager->flush();
             }
-            $zonaHoraria = new DateTimeZone('America/Lima');  
+            $zonaHoraria = new DateTimeZone('America/Lima');
             $fechaActual = new DateTime('now', $zonaHoraria);
             $ganancia = new GananciaProveedor;
             $ganancia->setGpTotal($gananciareal);
@@ -428,9 +428,8 @@ class ProveedorController extends AbstractController
             $session->set('ganancia_metodo', 'Tranferencia bancaria');
             $session->set('vueltavganancia', 1);
             $redi2 = 'tipocobro';
-            
         }
-        
+
         if ($request->isMethod('POST')) {
             $metodocobroselect = $request->get('metodocobros', []);
 
@@ -467,7 +466,7 @@ class ProveedorController extends AbstractController
                 $entityManager->flush();
 
                 if ($request->getSession()->get('vueltavganancia') == 1) {
-                    $request->getSession()->set("idmet",$idmet);
+                    $request->getSession()->set("idmet", $idmet);
                     return $this->redirectToRoute('app_asap_services_entornos_proveedor_conftarifa', ['id' => $persona->getId()]);
                 }
 

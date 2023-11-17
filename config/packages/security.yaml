@@ -16,7 +16,12 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-            custom_authenticator: App\Security\LoginFormAuthenticator
+            form_login: ~
+            custom_authenticators:
+                - App\Security\LoginFormAuthenticator
+                - App\Security\MyGoogleAuthenticator
+                - App\Security\MyFacebookAuthenticator
+            entry_point: form_login
             logout:
                 path: app_asap_services_general_logout
                 # where to redirect after logout
