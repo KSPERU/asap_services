@@ -4,9 +4,9 @@
             <div class="chatclientes-mensaje d-flex align-items-center my-2">
                 <figure>
                     {% if mensaje.usuarioId.idPersona.pFoto %}
-						<img src="{{ asset('img/' ~ mensaje.usuarioId.idPersona.pFoto) }}" width="50" height="50" style="border-radius:50%">
+						<img src="{{ asset('img/' ~ mensaje.usuarioId.idPersona.pFoto) }}" min-width="50" min-height="50" style="border-radius:50%">
 					{% else %}
-						<img src="{{ asset('./image/perfil.png') }}" width="50" height="50" style="border-radius:50%">
+						<img src="{{ asset('./image/perfil.png') }}" min-width="50" min-height="50" style="border-radius:50%">
 					{% endif %}
                 {# <img src="{{asset("image/"~person)}}"/> #}
                 </figure>
