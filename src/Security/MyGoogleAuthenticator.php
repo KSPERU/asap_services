@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Entity\Codigo;
 use App\Entity\Persona;
 use App\Entity\Usuario;
 use Doctrine\ORM\EntityManagerInterface;
@@ -91,9 +92,23 @@ class MyGoogleAuthenticator extends OAuth2Authenticator implements Authenticatio
                         $googleUser->getId()
                     ));
                     $user->setRoles($roles);
+                    $user->setIsVerified(true);
                 }
-
                 $this->entityManager->persist($user);
+                $this->entityManager->flush();
+                
+                $id = $user->getIdPersona()->getId();
+                $p_nombre = $person->getPNombre();
+                $p_apellido = $person->getPApellido();
+                $letra_nombre = substr($p_nombre, 0, 1);
+                $letra_apellido = substr($p_apellido, 0, 1);
+                $id_formateado = sprintf("%02d", $id);
+                $resultado = $letra_nombre . $letra_apellido . $id_formateado;
+                $codigo = new Codigo;
+                $codigo->setPersona($person);
+                $codigo->setCCodigo($resultado);
+
+                $this->entityManager->persist($codigo);
                 $this->entityManager->flush();
 
                 return $user;
