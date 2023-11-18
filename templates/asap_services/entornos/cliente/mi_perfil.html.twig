@@ -37,6 +37,9 @@ $imgPreview.src = objectURL;
 			color: #000;
 			text-decoration: none;
 		}
+		.boton-eliminar{
+
+		}
 	</style>
 	<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
 	<div class="imagen">
@@ -136,7 +139,8 @@ $imgPreview.src = objectURL;
 									{{ form_end(form, {render_rest: false}) }}
 									<div class="row contenido-boton-eliminar">
 										<div class="col-10">
-											{{ include('asap_services/entornos/proveedor/_delete_form.html.twig') }}
+											{{ include('asap_services/entornos/cliente/_delete_form.html.twig') }}
+											{# {{ include('asap_services/entornos/proveedor/_delete_form.html.twig') }} #}
 											{# <a href="{{ path('app_asap_services_entornos_cliente_ajustes_eliminar', {'id': persona.id}) }}" class="btn col-12 boton-eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar tu cuenta?')">Eliminar mi cuenta</a> #}
 										</div>
 									</div>
