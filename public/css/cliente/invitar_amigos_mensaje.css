@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Odor+Mean+Chey&display=swap');
 
-
 .contenido-invitar-amigo-mensaje-cliente {
-    height: 65vh;
     background-color: #fff !important;
+}
+.imagen-casita-opt{
+    width: 70%;
 }
 
 .barra-separacion{
@@ -35,4 +36,15 @@
     font-weight:700;
     background: none;
     padding: 0;
+}
+
+@media (max-width: 500px) {
+    .contenido-invitar-amigo-mensaje-cliente {
+        height: 65vh; /* Ajusta la altura según el contenido */
+        background-color: #fff !important;
+    }
+    .imagen-casita-opt{
+        width: 100%;
+    }
+    
 }
