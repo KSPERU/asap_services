@@ -12,12 +12,10 @@
 .ganancias-descripcion{
     color: #000;
     font-family: Nunito;
-    font-size: 28px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    display: flex;
-    align-items: center;
 }
 
 .contenido-boton-listo {
