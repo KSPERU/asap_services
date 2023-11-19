@@ -20,7 +20,7 @@
         <div class="col-3 d-flex justify-content-center"></div>
         <div class="col-6 d-flex justify-content-center"></div>
         <div class="col-3 d-flex justify-content-center contboton-enviar-invitacion-amigos">
-          <button>Enviar</button>
+          <button id="compartirBoton">Compartir</button>
         </div>
       </div>
       <div class="row mb-2" style="background-color: #D9D9D9;">
@@ -29,12 +29,31 @@
       </div>
       <div class="row">
         <div class="container contenido-enviar-invitacion-amigos">
-          <textarea name="" id="textarea1" cols="30" rows="5" style="width: 100%;">Usa mi código #### para conseguir un descuento del 30% de descuento en tu siguiente solicitud.</textarea>
+          <textarea name="" id="textarea1" cols="30" rows="5" style="width: 100%;">Usa mi código {{codigo}} para conseguir un descuento del 30% de descuento en tu siguiente solicitud.</textarea>
         </div>
       </div>
     </div>
   </div>
   </div>
 
+<script>
+    document.getElementById('compartirBoton').addEventListener('click', function() {
+        // Obtener el texto del área de texto
+        const texto = document.getElementById('textarea1').value;
+
+        // Compartir el texto utilizando la API de Web Share si está disponible
+        if (navigator.share) {
+            navigator.share({
+                title: 'Compartir',
+                text: texto,
+            })
+            .then(() => console.log('Contenido compartido'))
+            .catch((error) => console.error('Error al compartir', error));
+        } else {
+            // Manejar el caso en el que la API no esté disponible
+            alert('Lo siento, la función de compartir no está disponible en tu navegador.');
+        }
+    });
+</script>
   {{ include('components/footer.html.twig') }}
 {% endblock %}

@@ -6,27 +6,28 @@ use App\Entity\Codigo;
 use App\Entity\Persona;
 use App\Entity\Tarjeta;
 use App\Entity\Usuario;
+use App\Entity\Favorito;
+use App\Entity\Servicio;
+use App\Entity\Promocion;
 use App\Form\ClienteType;
 use App\Form\TarjetaType;
 use App\Entity\Calificacion;
 use App\Entity\Conversacion;
-use App\Entity\Favorito;
-use App\Entity\Historialservicios;
 use App\Entity\Participante;
-use App\Entity\Servicio;
 use App\Form\CalificacionType;
 use App\Form\ConversacionType;
+use App\Entity\Historialservicios;
 use App\Repository\CodigoRepository;
 use App\Repository\PersonaRepository;
 use App\Repository\UsuarioRepository;
+use App\Repository\FavoritoRepository;
 use App\Repository\ServicioRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ConversacionRepository;
-use App\Repository\FavoritoRepository;
-use App\Repository\HistorialserviciosRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\HistorialserviciosRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -330,6 +331,7 @@ class ClienteController extends AbstractController
         $cliente = $usuarios->findOneBy([
             'email' => $user->getUserIdentifier(),
         ]);
+        $pers = $cliente->getIdPersona();
         $persona = $cliente->getIdPersona()->getId();
         $historialServicioRepository = $entityManager->getRepository(Historialservicios::class);
         $personaservs = $historialServicioRepository->findBy([
@@ -343,10 +345,16 @@ class ClienteController extends AbstractController
             foreach ($personaservs as $pr) {
                 $check = $request->request->get('servicio_ids-' . $pr->getId() . '');
                 if ($check) {
+                    $codigoServicio = $pers->getPromocion(); // Suponiendo que hay una relación entre HistorialServicio y Codigo
+                    if ($codigoServicio && !$codigoServicio->isUsado()) {
+                        // Aplica el descuento del 30%
+                        $pr->setHsImporte($pr->getHsImporte() * 0.3);
+                        $codigoServicio->setUsado(true);
+                        $entityManager->persist($codigoServicio);
+                    }
                     $sumaImp += $pr->getHsImporte();
-                    // $sumaImp = $pr->getId();
+                    // return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_saldos_pagos',[],Response::HTTP_SEE_OTHER);
                 }
-                // return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_saldos_pagos',[],Response::HTTP_SEE_OTHER);
             }
 
             $saldopagos = $request->get('saldopagos', []);
@@ -414,6 +422,15 @@ class ClienteController extends AbstractController
         ]);
     }
 
+    #[Route('/cliente/menu/invitar/mensaje', name: 'app_asap_services_entornos_cliente_menu_invitar_mensaje')]
+    public function mensaje(Request $request): Response
+    {
+        $codigo = $request->query->get('codigo');
+        return $this->render('asap_services\entornos\cliente\invitar_amigo_mensaje.html.twig', [
+            'codigo' => $codigo,
+        ]);
+    }
+
     #[Route('/cliente/menu/promociones', name: 'app_asap_services_entornos_cliente_menu_promociones')]
     public function codigo(): Response
     {
@@ -421,16 +438,27 @@ class ClienteController extends AbstractController
     }
 
     #[Route('/cliente/menu/promociones/codigo', name: 'app_asap_services_entornos_cliente_menu_promociones_codigo')]
-    public function verificarCodigo(Request $request, EntityManagerInterface $entityManager): Response
+    public function verificarCodigo(Request $request, EntityManagerInterface $entityManager, UsuarioRepository $usuarios): Response
     {
+        $user = $this->getUser();
+        $cliente = $usuarios->findOneBy([
+            'email' => $user->getUserIdentifier(),
+        ]);
+        $persona = $cliente->getIdPersona()->getId();
         $codigo = $request->request->get('codigo');
         $codigoDescuento = $entityManager->getRepository(Codigo::class)->findOneBy(['c_codigo' => $codigo]);
 
         if ($codigoDescuento) {
-            // Código de descuento válido guardarlo en algun lugar para la compra y el descuento
+            // Código
+            $promocion = new Promocion;
+            $promocion->setPersonacodigo($persona);
+            $promocion->setCodigo($codigoDescuento);
+            $promocion->setUsado(false);
+            $entityManager->persist($promocion);
+            $entityManager->flush();
             $this->addFlash('success', 'Código aplicado correctamente.');
         } else {
-            $this->addFlash('error', 'Código no válido.');
+            $this->addFlash('error', 'Código no válido o ya utilizado.');
         }
         return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_promociones');
     }

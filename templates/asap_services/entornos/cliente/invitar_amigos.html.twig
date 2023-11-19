@@ -38,14 +38,17 @@
             <img class="col-6" src="{{ asset('/image/icono_invitar_amigos.png') }}" alt="" />
           </div>
           <div class="row">
-            <div class="col-12 texto-invitar-amigos-cliente mb-3">Cuando tus amigos se registren y hayan solicitado su primer servicio de asistencia, obtendrás un descuento del 50% en tu siguiente solicitud.</div>
+            <div class="col-12 texto-invitar-amigos-cliente mb-3">Cuando tus amigos se registren y hayan solicitado su primer servicio de asistencia, obtendrás un descuento del 30% en tu siguiente solicitud.</div>
           </div>
           <div class="row d-flex justify-content-center">
             <div class="col-12 texto-codigo-invitar-amigos-cliente mb-3">{{codigo}}</div>
           </div>
           <div class="row contenido-boton-invitar-amigos">
             <div class="col-10">
-              <button type="submit" class="btn col-12 boton-invitar-amigos">Invitar amigos</button>
+              <form method="GET" action="{{ path('app_asap_services_entornos_cliente_menu_invitar_mensaje') }}">
+                <input type="hidden" name="codigo" value="{{ codigo }}">
+                <button type="submit" class="btn col-12 boton-invitar-amigos">Invitar amigos</button>
+              </form>
             </div>
           </div>
         </div>
