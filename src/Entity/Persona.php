@@ -85,6 +85,9 @@ class Persona
     #[ORM\OneToMany(mappedBy: 'persona', targetEntity: Favorito::class)]
     private Collection $favoritos;
 
+    #[ORM\OneToOne(inversedBy: 'personacodigo', cascade: ['persist', 'remove'])]
+    private ?Promocion $promocion = null;
+
     public function __construct()
     {
         $this->servicios = new ArrayCollection();
@@ -548,6 +551,18 @@ class Persona
                 $favorito->setPersona(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPromocion(): ?Promocion
+    {
+        return $this->promocion;
+    }
+
+    public function setPromocion(?Promocion $promocion): static
+    {
+        $this->promocion = $promocion;
 
         return $this;
     }
