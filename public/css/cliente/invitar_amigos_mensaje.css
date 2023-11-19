@@ -2,9 +2,13 @@
 
 
 .contenido-invitar-amigo-mensaje-cliente {
-    min-height: 80vh;
-    max-height: 80vh;
+    height: 65vh;
     background-color: #fff !important;
+}
+
+.barra-separacion{
+    background-color: #D9D9D9;
+    height: 7vh;
 }
 
 .contboton-enviar-invitacion-amigos button{
@@ -20,4 +24,15 @@
 
 .contenido-enviar-invitacion-amigos textarea{
     border: none;
+}
+
+.texto-invitar-amigo-mensaje-cliente{
+    display: flex;
+    text-align: justify;
+    align-items: center;
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight:700;
+    background: none;
+    padding: 0;
 }
