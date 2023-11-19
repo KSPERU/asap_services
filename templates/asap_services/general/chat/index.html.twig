@@ -10,6 +10,48 @@
 {% endblock %}
 
 {% block body %}
+{% if is_granted('ROLE_PROV') %}
+	{% set vista = path('app_asap_services_entornos_proveedor_inicio') %}
+	{% set title = 'Conversa con tu cliente' %}
+
+	{% for flash_message in app.flashes('error') %}
+		<script>
+			var errorMessage = '{{ flash_message|trans }}';
+			alert(errorMessage);
+		</script>
+	{% endfor %}
+
+	{% for flash_message in app.flashes('redirect') %}
+		<script>
+			var shouldRedirect = {{ flash_message ? 'true' : 'false' }};
+			if (shouldRedirect) {
+				window.location.href = '{{ path("app_asap_services_entornos_proveedor_inicio") }}';
+			}
+    	</script>
+	{% endfor %}
+{% endif %}
+
+{% if is_granted('ROLE_CLI') %}
+	{% set vista = path('app_asap_services_entornos_cliente_inicio') %}
+	{% set title = 'Conversa con tu proveedor' %}
+
+	{% for flash_message in app.flashes('error') %}
+		<script>
+			var errorMessage = '{{ flash_message|trans }}';
+			alert(errorMessage);
+		</script>
+	{% endfor %}
+
+	{% for flash_message in app.flashes('redirect') %}
+		<script>
+			var shouldRedirect = {{ flash_message ? 'true' : 'false' }};
+			if (shouldRedirect) {
+				window.location.href = '{{ path("app_asap_services_entornos_cliente_inicio") }}';
+			}
+    	</script>
+	{% endfor %}
+
+{% endif %}
 	<style>
 		.contboton-cerrar {
 			font-size: 50px;

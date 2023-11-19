@@ -14,6 +14,7 @@ use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mercure\HubInterface;
@@ -32,6 +33,12 @@ class ChatController extends AbstractController
         );
         // $conversacion = $conversacionRepository->find($id);
 
+        $fotoUser = $this->getUser()->getIdPersona()->getPFoto();
+        if(empty($fotoUser)){
+            $this->addFlash('error', "Para acceder a las conversaciones necesitas una foto");
+            $this->addFlash('redirect', true);
+        }
+        
         // Verifica si el usuario actual es un participante válido en la conversación
         $participantes = $conversacion->getParticipantes();
         $usuarioEsParticipante = false;
@@ -92,6 +99,12 @@ class ChatController extends AbstractController
     public function conversacion(ConversacionRepository $conversacionRepository, ParticipanteRepository $participanteRepository, Request $request, HubInterface $hub): Response
     {
         $conversaciones = $conversacionRepository->findConversationsByUser($this->getUser()->getId());
+
+        $fotoUser = $this->getUser()->getIdPersona()->getPFoto();
+        if(empty($fotoUser)){
+            $this->addFlash('error', "Para acceder a las conversaciones necesitas una foto");
+            $this->addFlash('redirect', true);
+        }
         return $this->render('asap_services/general/chat/conversacion.html.twig', [
             'conversacion' => $conversaciones,  
         ]);
