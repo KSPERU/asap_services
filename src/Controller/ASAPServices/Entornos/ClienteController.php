@@ -498,6 +498,7 @@ class ClienteController extends AbstractController
         $aux = $usuarioRepository->find($id);
 
         if (count($conversacion)) {
+            //Condicional en la que se tiene que redireccionar al chat de la persona
             return $this->redirectToRoute('app_chat_conversacion');
         }
         $conversacion = new Conversacion();
