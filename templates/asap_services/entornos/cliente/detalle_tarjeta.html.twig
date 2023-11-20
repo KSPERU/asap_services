@@ -39,18 +39,37 @@
             <div class="col-12">
               <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label texto-detalle-tarjeta-cliente">Número de tarjeta</label>
-                {{ form_widget(form.numeroTarjeta, {'attr': {'class': 'form-control input-detalle-tarjeta-cliente', 'placeholder': '#### #### #### ####'}}) }}
+                {% set tarjetaEnmascarada = form.numeroTarjeta.vars.value|default('') %}
+                {% set longitudTarjeta = tarjetaEnmascarada|length %}
+                {% set longitudVisible = 4 %} {# Dígitos a mostrar, puede variar #}
+
+                {% if longitudTarjeta > longitudVisible %}
+                    {% set visiblePart = tarjetaEnmascarada|slice(-longitudVisible) %}
+                    {% set maskedPart = tarjetaEnmascarada|slice(0, longitudTarjeta - longitudVisible)|replace({'0':'*', '1':'*', '2':'*', '3':'*', '4':'*', '5':'*', '6':'*', '7':'*', '8':'*', '9':'*'}) %}
+                    {% set tarjetaEnmascarada = maskedPart ~ visiblePart %}
+                {% endif %}
+                {{ form_widget(form.numeroTarjeta, {'attr': {'class': 'form-control input-detalle-tarjeta-cliente', 'value': tarjetaEnmascarada}}) }}
               </div>
             </div>
             <div class="col-6">
               <div class="form-floating mb-3">
-                {{ form_widget(form.fechaVencimiento, {'attr': {'class': 'form-control input-detalle-priv-tarjeta-cliente', 'placeholder': 'MM/AA'}}) }}
+                {{ form_widget(form.fechaVencimiento, {'attr': {'class': 'form-control input-detalle-priv-tarjeta-cliente'}}) }}
                 <label for="floatingInput" class="texto-detalle-tarjeta-cliente">Caducidad</label>
               </div>
             </div>
             <div class="col-6">
               <div class="form-floating mb-0">
-                {{ form_widget(form.cvv, {'attr': {'class': 'form-control input-detalle-priv-tarjeta-cliente', 'placeholder': '###'}}) }}
+                {% set cvvEnmascarado = form.cvv.vars.value|default('') %}
+                {% set longitudCVV = cvvEnmascarado|length %}
+                {% set longitudVisible = 1 %} {# Dígitos a mostrar, puede variar #}
+
+                {% if longitudCVV > longitudVisible %}
+                    {% set visiblePart = cvvEnmascarado|slice(-longitudVisible) %}
+                    {% set maskedPart = cvvEnmascarado|slice(0, longitudCVV - longitudVisible)|replace({'0':'*', '1':'*', '2':'*', '3':'*', '4':'*', '5':'*', '6':'*', '7':'*', '8':'*', '9':'*'}) %}
+                    {% set cvvEnmascarado = maskedPart ~ visiblePart %}
+                {% endif %}
+
+                {{ form_widget(form.cvv, {'attr': {'class': 'form-control input-detalle-priv-tarjeta-cliente', 'value': cvvEnmascarado}}) }}
                 <label for="floatingInput" class="texto-detalle-tarjeta-cliente">CVV</label>
               </div>
             </div>
@@ -59,7 +78,7 @@
         </div>
         <div class="row contenido-boton-detalle-tarjeta-cliente">
           <div class="col-10">
-            <button type="submit" class="btn col-12 boton-detalle-tarjeta-cliente">Pagar</button>
+              <button type="submit" class="btn col-12 boton-detalle-tarjeta-cliente">Guardar</button>
           </div>
         </div>
       </div>

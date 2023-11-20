@@ -22,7 +22,7 @@ class Tarjeta
     #[ORM\Column(length: 255)]
     private ?string $cvv = null;
 
-    #[ORM\ManyToOne(inversedBy: 'p_tarjeta')]
+    #[ORM\OneToOne(inversedBy: 'tarjeta', cascade: ['persist', 'remove'])]
     private ?Persona $persona = null;
 
     public function getId(): ?int
@@ -77,4 +77,5 @@ class Tarjeta
 
         return $this;
     }
+
 }

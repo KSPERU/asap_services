@@ -309,17 +309,26 @@ class ClienteController extends AbstractController
             'email' => $user->getUserIdentifier(),
         ]);
         $persona = $cliente->getIdPersona();
-        $tarjeta = new Tarjeta();
+        
+        $tarjeta = $persona->getTarjeta(); // Obtener la tarjeta asociada a la persona
+        
+        if (!$tarjeta) {
+            $tarjeta = new Tarjeta(); // Si no tiene tarjeta, crea una nueva
+            $tarjeta->setPersona($persona); // Establecer la asociación con la persona
+        }
+        
         $form = $this->createForm(TarjetaType::class, $tarjeta);
         $form->handleRequest($request);
+        
         if ($form->isSubmitted() && $form->isValid()) {
-            $tarjeta->setPersona($persona);
             $entityManager->persist($tarjeta);
             $entityManager->flush();
-            return $this->redirectToRoute('app_detalles_saldos_pagos');
+            return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_hisorial_de_servicios');
         }
+        
         return $this->render('asap_services/entornos/cliente/detalle_tarjeta.html.twig', [
             'form' => $form,
+            'tarjeta' => $tarjeta,
         ]);
     }
 
@@ -340,21 +349,28 @@ class ClienteController extends AbstractController
         ]);
 
         $sumaImp = 0;
-        // echo $personaservs;
+        $codigoServicio = $pers->getPromocion();
         if ($request->isMethod('POST')) {
+            
+            $tarjeta = $cliente->getIdPersona()->getTarjeta();
+            if (!$tarjeta) {
+                return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_detalle_tarjeta');
+            }
+
             foreach ($personaservs as $pr) {
                 $check = $request->request->get('servicio_ids-' . $pr->getId() . '');
                 if ($check) {
-                    $codigoServicio = $pers->getPromocion(); // Suponiendo que hay una relación entre HistorialServicio y Codigo
-                    if ($codigoServicio && !$codigoServicio->isUsado()) {
-                        // Aplica el descuento del 30%
-                        $pr->setHsImporte($pr->getHsImporte() * 0.3);
-                        $codigoServicio->setUsado(true);
-                        $entityManager->persist($codigoServicio);
-                    }
                     $sumaImp += $pr->getHsImporte();
                     // return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_saldos_pagos',[],Response::HTTP_SEE_OTHER);
                 }
+            }
+
+            
+            if ($codigoServicio && !$codigoServicio->isUsado()) {
+                $sumaImp = $sumaImp * 0.7;
+                $codigoServicio->setUsado(true);
+                $entityManager->persist($codigoServicio);
+                $entityManager->flush();
             }
 
             $saldopagos = $request->get('saldopagos', []);
@@ -369,8 +385,11 @@ class ClienteController extends AbstractController
             }
             $entityManager->flush();
 
+            
+
             return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_saldos_pagos_seteo', [
                 'personaservs' => $personaservs,
+                'sumaimp' => $sumaImp,
             ]);
         }
         return $this->render('asap_services/entornos/cliente/saldos_pagos.html.twig', [
@@ -444,21 +463,36 @@ class ClienteController extends AbstractController
         $cliente = $usuarios->findOneBy([
             'email' => $user->getUserIdentifier(),
         ]);
-        $persona = $cliente->getIdPersona()->getId();
+        $persona = $cliente->getIdPersona();
         $codigo = $request->request->get('codigo');
+    
+        // Verificar si el código pertenece al usuario actual
         $codigoDescuento = $entityManager->getRepository(Codigo::class)->findOneBy(['c_codigo' => $codigo]);
-
-        if ($codigoDescuento) {
-            // Código
-            $promocion = new Promocion;
-            $promocion->setPersonacodigo($persona);
-            $promocion->setCodigo($codigoDescuento);
-            $promocion->setUsado(false);
-            $entityManager->persist($promocion);
-            $entityManager->flush();
-            $this->addFlash('success', 'Código aplicado correctamente.');
+        if ($codigoDescuento instanceof Codigo && $codigoDescuento->getPersona()->getId() !== $persona->getId()) {
+            // Verificar si el usuario ya utilizó un código
+            $usuarioYaUtilizoCodigo = $entityManager->getRepository(Persona::class)->createQueryBuilder('p')
+                ->join('p.promocion', 'pr')
+                ->where('p = :persona')
+                ->andWhere('pr.usado = :usado')
+                ->setParameter('persona', $persona)
+                ->setParameter('usado', true)
+                ->getQuery()
+                ->getOneOrNullResult();
+    
+            if (!$usuarioYaUtilizoCodigo) {
+                // Código válido y no utilizado previamente por este usuario
+                $promocion = new Promocion;
+                $promocion->setPersonacodigo($persona);
+                $promocion->setCodigo($codigoDescuento->getCCodigo());
+                $promocion->setUsado(true); // Marcar el código como usado por este usuario
+                $entityManager->persist($promocion);
+                $entityManager->flush();
+                $this->addFlash('success', 'Código aplicado correctamente.');
+            } else {
+                $this->addFlash('error', 'Ya ha utilizado un código previamente.');
+            }
         } else {
-            $this->addFlash('error', 'Código no válido o ya utilizado.');
+            $this->addFlash('error', 'Código no válido o pertenece al usuario actual.');
         }
         return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_promociones');
     }

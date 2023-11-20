@@ -64,6 +64,7 @@
 									<li>No hay servicios en compras</li>
 								{% endfor %}
 
+								{% if personaservs is defined and personaservs is not empty %}
 								<div class="row contenido-boton-saldos-pagos-cliente mt-2">
 									<div
 										class="col-10">{# <a href="{{ path('app_asap_services_entornos_cliente_menu_detalle_tarjet	a') }}" class="btn col-12 boton-saldos-pagos-cliente">Pagar</a> #}
@@ -79,10 +80,11 @@
 										</form>
 									</div>
 								</div>
+								{% endif %}
 							</div>
 							<!--finalForm-->
 							{# <div>PAGA:
-								{{ checkbox }}</div> #}
+								{{ checkbox }}</div>  #}
 						</div>
 					</div>
 				</div>

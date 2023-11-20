@@ -608,9 +608,10 @@ class ProveedorController extends AbstractController
         $entityManager->persist($historial);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_cantidad', [
-            'id' => $conversacion->getId(),
-        ]);
+        // return $this->redirectToRoute('app_cantidad', [
+        //     'id' => $conversacion->getId(),
+        // ]);
+        return $this->redirectToRoute('app_asap_services_entornos_proveedor_inicio');
     }
 
     #[Route('/post/cantidad/{id}', name: 'app_cantidad_post', methods: ['POST'])]

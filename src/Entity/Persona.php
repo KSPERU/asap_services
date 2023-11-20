@@ -76,9 +76,6 @@ class Persona
     #[ORM\OneToMany(mappedBy: 'persona', targetEntity: Calificacion::class)]
     private Collection $p_calificacion;
 
-    #[ORM\OneToMany(mappedBy: 'persona', targetEntity: Tarjeta::class)]
-    private Collection $p_tarjeta;
-
     #[ORM\OneToMany(mappedBy: 'idproveedor', targetEntity: GananciaProveedor::class, orphanRemoval: true)]
     private Collection $gananciaproveedor;
 
@@ -88,6 +85,9 @@ class Persona
     #[ORM\OneToOne(inversedBy: 'personacodigo', cascade: ['persist', 'remove'])]
     private ?Promocion $promocion = null;
 
+    #[ORM\OneToOne(mappedBy: 'persona', cascade: ['persist', 'remove'])]
+    private ?Tarjeta $tarjeta = null;
+
     public function __construct()
     {
         $this->servicios = new ArrayCollection();
@@ -96,7 +96,6 @@ class Persona
         $this->p_calificacion = new ArrayCollection();
         $this->metcobro = new ArrayCollection();
         $this->cuentaniubiz = new ArrayCollection();
-        $this->p_tarjeta = new ArrayCollection();
         $this->gananciaproveedor = new ArrayCollection();
         $this->favoritos = new ArrayCollection();
     }
@@ -466,36 +465,6 @@ class Persona
     }
 
     /**
-     * @return Collection<int, Tarjeta>
-     */
-    public function getPTarjeta(): Collection
-    {
-        return $this->p_tarjeta;
-    }
-
-    public function addPTarjetum(Tarjeta $pTarjetum): static
-    {
-        if (!$this->p_tarjeta->contains($pTarjetum)) {
-            $this->p_tarjeta->add($pTarjetum);
-            $pTarjetum->setPersona($this);
-        }
-
-        return $this;
-    }
-
-    public function removePTarjetum(Tarjeta $pTarjetum): static
-    {
-        if ($this->p_tarjeta->removeElement($pTarjetum)) {
-            // set the owning side to null (unless already changed)
-            if ($pTarjetum->getPersona() === $this) {
-                $pTarjetum->setPersona(null);
-            }
-        }
-
-        return $this;
-    }
-    
-    /**
      * @return Collection<int, GananciaProveedor>
      */
     public function getGananciaproveedor(): Collection
@@ -563,6 +532,28 @@ class Persona
     public function setPromocion(?Promocion $promocion): static
     {
         $this->promocion = $promocion;
+
+        return $this;
+    }
+
+    public function getTarjeta(): ?Tarjeta
+    {
+        return $this->tarjeta;
+    }
+
+    public function setTarjeta(?Tarjeta $tarjeta): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($tarjeta === null && $this->tarjeta !== null) {
+            $this->tarjeta->setPersona(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($tarjeta !== null && $tarjeta->getPersona() !== $this) {
+            $tarjeta->setPersona($this);
+        }
+
+        $this->tarjeta = $tarjeta;
 
         return $this;
     }
