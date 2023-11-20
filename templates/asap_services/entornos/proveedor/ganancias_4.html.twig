@@ -1,59 +1,69 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ganancias{% endblock %}
+{% block title %}
+  Ganancias
+{% endblock %}
 
 {% block stylesheets %}
   {{ encore_entry_link_tags('app') }}
   <link rel="stylesheet" href="{{ asset('css/proveedor/ganancias_4.css') }}" />
-   	<link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}"/>
+  <link rel="stylesheet" href="{{ asset('css/inicio/vistapc.css') }}" />
 {% endblock %}
 
-
 {% block body %}
-{% for flash_message in app.flashes('error') %}
+  {% for flash_message in app.flashes('error') %}
     <script>
-        var errorMessage = '{{ flash_message|trans }}';
-        alert(errorMessage);
+      var errorMessage = '{{ flash_message|trans }}'
+      alert(errorMessage)
     </script>
-{% endfor %}
+  {% endfor %}
 
-{% for flash_message in app.flashes('redirect') %}
+  {% for flash_message in app.flashes('redirect') %}
     <script>
         var shouldRedirect = {{ flash_message ? 'true' : 'false' }};
         if (shouldRedirect) {
             window.location.href = '{{ path("app_asap_services_entornos_proveedor_inicio") }}';
         }
     </script>
-{% endfor %}
-<img class="imagepc" src="{{ asset('/image/Img_PC.png') }}">
-	<div class="imagen">
-<div class="container p-3">
-    <div class="row d-flex justify-content-center align-items-center">
-      <div class="col-3 d-flex justify-content-center">
-      </div>
-      <div class="col-6 d-flex justify-content-center">
-       <img src="{{ asset('image/casita_opt.png') }}" style="width:100%">
-      </div>
-      <div class="col-3 d-flex justify-content-center contboton-cerrar" style="margin-top: -55px;">
-        <a href="{{ path('app_asap_services_entornos_proveedor_conftarifa', {'id': proveedor.id}) }}">
-          <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
-        </a>
-    <div>
-  
-    <div class="ganancias-container d-grid text-align-center align-content-center">
-      <h3 class="ganancias-descripcion mb-5">El monto de S/{{gananciareal}} está en camino </h3>
-    <form method="post">
-      <div class="row contenido-boton-listo ">
-        <div class="col-10">
-          <button type="submit" class="btn col-12 boton-listo">Listo</button>
+  {% endfor %}
+  <img class="imagepc" src="{{ asset('/image/Img_PC.png') }}" />
+  <div class="imagen">
+    <div class="container p-3">
+      <div class="container contenido-historial-servicio">
+        <div class="row d-flex justify-content-center align-items-center">
+          <div class="col-3 d-flex justify-content-center"></div>
+          <div class="col-6 d-flex justify-content-center">
+            <img src="{{ asset('image/casita_opt.png') }}" style="width:100%" />
+          </div>
+          <div class="col-3 d-flex justify-content-center contboton-cerrar">
+            <a href="{{ path('app_asap_services_entornos_cliente_inicio') }}">
+              <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewbox="0 0 384 512">
+                <!-- ! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                <path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="container rounded-5 ganancias-container d-flex align-items-center">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 texto-historial-servicios-cliente mb-3 p-2 text-center ganancias-descripcion">El monto de S/{{ gananciareal }} está en camino</div>
+            </div>
+            <div class="container scroll-historial-servicios-cliente">
+              <form method="post">
+                <div class="row contenido-boton-listo">
+                  <div class="col-10">
+                    <button type="submit" class="btn col-12 boton-listo">Listo</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
-    </form>
     </div>
-  
-  </div>
   </div>
 
   {{ include('components/footer.html.twig') }}
-
 {% endblock %}
