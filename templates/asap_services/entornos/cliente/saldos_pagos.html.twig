@@ -44,7 +44,7 @@
 						</div>
 
 						<div class="container scroll-saldos-pagos-cliente p-2">
-							<form method="POST">
+							<form action="{{ path('app_asap_services_entornos_cliente_menu_saldos_pagos') }}" method="POST">
 								{% for syp in personaservs %}
 									<div class="container rounded-4 mb-4" style="box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);background-color:#D9D9D9">
 										<div class="row d-flex align-items-center">
@@ -64,7 +64,7 @@
 									<li>No hay servicios en compras</li>
 								{% endfor %}
 
-								{% if personaservs is defined and personaservs is not empty %}
+								{% if personaservs %}
 								<div class="row contenido-boton-saldos-pagos-cliente mt-2">
 									<div
 										class="col-10">{# <a href="{{ path('app_asap_services_entornos_cliente_menu_detalle_tarjet	a') }}" class="btn col-12 boton-saldos-pagos-cliente">Pagar</a> #}
@@ -75,16 +75,13 @@
 																						    display: flex;
 																						    justify-content: center;
 																						">
-										<form action="{{ path('app_asap_services_entornos_cliente_menu_saldos_pagos') }}" method="GET">
 											<button type="submit" name="but" class="btn col-10 boton-saldospagos-cliente">Pagar</button>
-										</form>
+										
 									</div>
 								</div>
 								{% endif %}
 							</div>
-							<!--finalForm-->
-							{# <div>PAGA:
-								{{ checkbox }}</div>  #}
+							</form>
 						</div>
 					</div>
 				</div>

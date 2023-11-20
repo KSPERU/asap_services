@@ -323,7 +323,7 @@ class ClienteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($tarjeta);
             $entityManager->flush();
-            return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_hisorial_de_servicios');
+            return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_saldos_pagos');
         }
         
         return $this->render('asap_services/entornos/cliente/detalle_tarjeta.html.twig', [
@@ -349,7 +349,7 @@ class ClienteController extends AbstractController
         ]);
 
         $sumaImp = 0;
-        $codigoServicio = $pers->getPromocion();
+        
         if ($request->isMethod('POST')) {
             
             $tarjeta = $cliente->getIdPersona()->getTarjeta();
@@ -357,16 +357,21 @@ class ClienteController extends AbstractController
                 return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_detalle_tarjeta');
             }
 
-            foreach ($personaservs as $pr) {
-                $check = $request->request->get('servicio_ids-' . $pr->getId() . '');
-                if ($check) {
-                    $sumaImp += $pr->getHsImporte();
-                    // return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_saldos_pagos',[],Response::HTTP_SEE_OTHER);
+            $selectedServices = $request->get('saldopagos', []);
+            $sumaImp = 0;
+            foreach ($selectedServices as $serviceId) {
+                // Obtener el servicio con el ID seleccionado
+                $service = $entityManager->getRepository(Historialservicios::class)->find($serviceId);
+
+                if ($service) {
+                    // Sumar el importe del servicio seleccionado
+                    $sumaImp += $service->getHsImporte();
                 }
             }
-
             
+            $codigoServicio = $pers->getPromocion();
             if ($codigoServicio && !$codigoServicio->isUsado()) {
+                echo $codigoServicio->isUsado();
                 $sumaImp = $sumaImp * 0.7;
                 $codigoServicio->setUsado(true);
                 $entityManager->persist($codigoServicio);
@@ -385,12 +390,11 @@ class ClienteController extends AbstractController
             }
             $entityManager->flush();
 
-            
-
-            return $this->redirectToRoute('app_asap_services_entornos_cliente_menu_saldos_pagos_seteo', [
-                'personaservs' => $personaservs,
-                'sumaimp' => $sumaImp,
-            ]);
+            // return $this->render('asap_services\entornos\cliente\render.html.twig', [ //aqui estan todos los datos para jalar a la transaccion
+            //     'personaservs' => $personaservs,
+            //     'sumaimp' => $sumaImp,
+            //     'tarjeta' => $pers->getTarjeta(),
+            // ]);
         }
         return $this->render('asap_services/entornos/cliente/saldos_pagos.html.twig', [
             'personaservs' => $personaservs,
@@ -484,7 +488,7 @@ class ClienteController extends AbstractController
                 $promocion = new Promocion;
                 $promocion->setPersonacodigo($persona);
                 $promocion->setCodigo($codigoDescuento->getCCodigo());
-                $promocion->setUsado(true); // Marcar el código como usado por este usuario
+                $promocion->setUsado(false); // Marcar el código como usado por este usuario
                 $entityManager->persist($promocion);
                 $entityManager->flush();
                 $this->addFlash('success', 'Código aplicado correctamente.');
