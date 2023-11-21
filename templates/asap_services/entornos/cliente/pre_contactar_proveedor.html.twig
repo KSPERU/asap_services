@@ -34,15 +34,15 @@
 							<div class="col-12 titulo-precontactar-proveedor-cliente pt-3 pb-2">Comunicate con el proveedor</div>
 						</div>
 
-						<div class="container col-9 card border-0 shadow-lg p-2 mb-4 bg-body-tertiary me-3" style="border-radius: 30px">
+						<div class="container col-11 card border-0 shadow-lg p-2 mb-4 bg-body-tertiary me-0 ms-4" style="border-radius: 30px">
 							<div class="p-2 d-flex justify-content-center">
 								<div class="row" style="width: 100%;">
 									<div class="col-5 p-0 d-flex justify-content-center align-items-center" style="
 																					    z-index: 1;">
 										{% if proveedor.pfoto %}
-											<img class="position-absolute top-50 start-0 translate-middle" src="{{ asset("img/" ~ proveedor.pfoto) }}" width="105px" style="border-radius:50%"/>
+											<img class="position-absolute top-50 start-0 translate-middle" src="{{ asset("img/" ~ proveedor.pfoto) }}" width="95px" height="95" style="border-radius:50%"/>
 										{% else %}	
-											<img class="position-absolute top-50 start-0 translate-middle" src="{{ asset("image/perfil.png") }}" width="105px" style="border-radius:50%"/>										
+											<img class="position-absolute top-50 start-0 translate-middle" src="{{ asset("image/perfil.png") }}" width="95px" height="95" style="border-radius:50%"/>										
 										{% endif %}
 									</div>
 									
